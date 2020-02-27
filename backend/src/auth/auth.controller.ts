@@ -22,9 +22,14 @@ export class AuthController {
     @UseGuards(AuthGuard('google'))
     public async googleCallback(@Req() req, @Res() res) {
         // handles the Google OAuth2 callback
-        const jwt: string = req.user.jwt;
+        // const jwt: string = req.user.jwt;
+        // console.log(res);
 
-        if (jwt) res.redirect('http://localhost:3000/' + jwt);
-        else res.redirect('http://localhost:3000/');
+        // const { code } = res;
+
+        // if (jwt) res.redirect('http://localhost:3000/' + code);
+        // else res.redirect('http://localhost:3000/');
+
+        res.redirect(`http://localhost:3000?token=${req.user.token}`);
     }
 }

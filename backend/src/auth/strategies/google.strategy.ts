@@ -11,7 +11,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
             clientSecret: configService.get<string>('GOOGLE_CLIENT_SECRET'), // <- Replace this with your client secret
             callbackURL: configService.get<string>('GOOGLE_CB_URL'),
             passReqToCallback: true,
-            scope: ['profile'],
+            scope: ['profile', 'email'],
         });
     }
     async validate(
@@ -22,9 +22,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         done: Function,
     ) {
         try {
-            console.log(profile);
-            const jwt: string = 'placeholderJWT';
-            const user = { jwt };
+            // const jwt: string = 'placeholderJWT';
+            const user = {
+                email: profile.emails[0].value,
+                name: profile.displayName,
+                token: accessToken,
+            };
             done(null, user);
         } catch (err) {
             done(err, false);
