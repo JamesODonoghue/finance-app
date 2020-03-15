@@ -1,3 +1,5 @@
+import * as jwtJsDecode from 'jwt-js-decode';
+
 class Auth {
     authenticated: boolean;
     constructor() {
@@ -21,6 +23,10 @@ class Auth {
 
     clearToken() {
         window.localStorage.removeItem('token');
+    }
+
+    decodeToken(token: string) {
+        return jwtJsDecode.jwtDecode(token);
     }
 }
 
