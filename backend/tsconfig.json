@@ -5,11 +5,11 @@
         "removeComments": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "target": "esnext",
+        "target": "es2017",
         "sourceMap": true,
         "outDir": "./build",
-        "baseUrl": "./",
-        "incremental": true
+        "incremental": true,
+        "baseUrl": "src"
     },
     "exclude": ["node_modules", "build"]
 }
