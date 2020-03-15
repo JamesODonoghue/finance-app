@@ -1,9 +1,9 @@
+// import { EventsModule } from './events/events.module';
 import { AuthModule } from './auth/auth.module';
-import { MintModule } from './mint/mint.module';
-import { GoogleModule } from './google/google.module';
 import { Module } from '@nestjs/common';
+import { UsersModule } from './users/users.module';
 
 @Module({
-    imports: [MintModule, GoogleModule, AuthModule],
+    imports: [AuthModule, UsersModule],
 })
 export class AppModule {}
