@@ -20,8 +20,3 @@ body {
     font-family: "Quicksand";
     src: local("Quicksand"), url(./fonts/Quicksand/Quicksand-VariableFont_wght.ttf) format("truetype");
 }
-
-@font-face {
-    font-family: "Vollkhorn";
-    src: local("Vollkhorn"), url(./fonts/Vollkorn/Vollkorn-Regular.ttf) format("truetype");
-}

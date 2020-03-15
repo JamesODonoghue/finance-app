@@ -2,12 +2,9 @@ import React, { useEffect } from 'react';
 import auth from '../helpers/auth';
 import { useHistory } from 'react-router';
 import { parse } from 'query-string';
-import io from 'socket.io-client';
 
 export const Authenticate = () => {
     const history = useHistory();
-    // const socket = io('http://localhost:5000');
-
     let handleLogin = () => {
         window.location.href = `http://localhost:5000/auth/google`;
     };
