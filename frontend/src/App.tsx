@@ -9,10 +9,8 @@ import { Authenticate } from './components/Authenticate';
 export const App = () => {
     return (
         <div className="app">
-            <div className="main-content">
-                <Route exact path="/" component={Authenticate} />
-                <ProtectedRoute path="/home" component={Home} />
-            </div>
+            <Route exact path="/" component={Authenticate} />
+            <ProtectedRoute path="/home" component={Home} />
         </div>
     );
 };

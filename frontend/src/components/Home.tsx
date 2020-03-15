@@ -1,12 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import auth from '../helpers/auth';
+import { TileList } from './TileList';
 
 export const Home = () => {
-    let user = auth.decodeToken(auth.getToken() || '');
+    // let user = auth.decodeToken(auth.getToken() || '');
 
     return (
-        <div>
-            <h1>Welcome {user.payload.displayName}</h1>
+        <div className="home-container">
+            <header className="header-container">
+                <h1>Overview</h1>
+            </header>
+            <section className="body-container">
+                <TileList />
+            </section>
+            <div className="content"></div>
         </div>
     );
 };
