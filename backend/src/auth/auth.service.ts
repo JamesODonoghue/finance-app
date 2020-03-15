@@ -1,3 +1,4 @@
+import { UsersService } from './../users/users.service';
 import { ConfigService } from '@nestjs/config';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { sign } from 'jsonwebtoken';
@@ -10,13 +11,27 @@ export class AuthService {
     private readonly JWT_SECRET_KEY = this.configService.get<string>(
         'JWT_SECRET_KEY',
     );
-    constructor(private configService: ConfigService) {}
+    constructor(
+        private configService: ConfigService,
+        private userService: UsersService,
+    ) {}
 
-    async validateOAuthLogin(
-        thirdPartyId: string,
-        provider: Provider,
-    ): Promise<string> {
+    async validateOAuthLogin({ id, displayName }): Promise<string> {
         try {
+            let user: any = await this.userService.findOneByThirdPartyId(id);
+            console.log(user);
+
+            if (!user) {
+                console.log('creating user');
+                user = this.userService.registerOauthUser({
+                    id,
+                    displayName,
+                });
+                console.log('created user', user);
+            }
+
+            // console.log(user);
+
             // You can add some registration logic here,
             // to register the user using their thirdPartyId (in this case their googleId)
             // let user: IUser = await this.usersService.findOneByThirdPartyId(thirdPartyId, provider);
@@ -25,8 +40,8 @@ export class AuthService {
             // user = await this.usersService.registerOAuthUser(thirdPartyId, provider);
 
             const payload = {
-                thirdPartyId,
-                provider,
+                id,
+                displayName,
             };
 
             const jwt: string = sign(payload, this.JWT_SECRET_KEY, {

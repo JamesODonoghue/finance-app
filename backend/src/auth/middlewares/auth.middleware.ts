@@ -9,8 +9,6 @@ interface MyRequest extends Request {
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
     use(req: MyRequest, res: Response, next: Function) {
-        console.log('Request...');
-
         if (req.query.socketId) {
             console.log(req.query.socketId);
             req.session.socketId = req.query.socketId;

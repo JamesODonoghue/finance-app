@@ -1,3 +1,5 @@
+import { UsersModule } from './../users/users.module';
+import { UsersService } from './../users/users.service';
 import { GoogleStrategy } from './strategies/google.strategy';
 import {
     Module,
@@ -18,9 +20,10 @@ import { AuthMiddleware } from './middlewares/auth.middleware';
             secret: 'supersecretkey',
             signOptions: { expiresIn: '60s' },
         }),
+        UsersModule,
     ],
     controllers: [AuthController],
-    providers: [AuthService, GoogleStrategy],
+    providers: [AuthService, GoogleStrategy, UsersService],
 })
 export class AuthModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
