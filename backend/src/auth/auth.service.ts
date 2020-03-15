@@ -23,7 +23,7 @@ export class AuthService {
 
             if (!user) {
                 console.log('creating user');
-                user = this.userService.registerOauthUser({
+                user = await this.userService.registerOauthUser({
                     id,
                     displayName,
                 });
