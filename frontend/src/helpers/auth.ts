@@ -26,7 +26,13 @@ class Auth {
     }
 
     decodeToken(token: string) {
-        return jwtJsDecode.jwtDecode(token);
+        return jwtJsDecode.jwtDecode(token as string);
+    }
+
+    getUserInfo(token: string) {
+        return {
+            ...this.decodeToken(token).payload,
+        };
     }
 }
 
