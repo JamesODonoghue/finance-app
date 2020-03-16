@@ -7,8 +7,6 @@ export const TileList = () => {
             <Tile></Tile>
             <Tile></Tile>
             <Tile></Tile>
-            <Tile></Tile>
-            <Tile></Tile>
         </div>
     );
 };

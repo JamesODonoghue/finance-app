@@ -1,15 +1,3 @@
-.main-content {
-    height: 100%;
-    width: 1000px;
-    margin: auto;
-}
-
-h1,
-h2,
-h3 {
-    margin: 0;
-}
-
 h1 {
     font-size: 3.5em;
 }
@@ -20,10 +8,12 @@ h2 {
 
 h3 {
     font-size: 1.5rem;
+    font-weight: normal;
 }
 
-header {
-    margin: 3rem 0;
+.app {
+    max-width: 1600px;
+    margin: auto;
 }
 
 .login-btn {
@@ -46,12 +36,38 @@ header {
 .tiles-container {
     display: grid;
     grid-gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-auto-rows: minmax(500px, auto);
 }
 
 .tile-container {
     border-radius: 1em;
-    background: #333e62;
-    min-height: 300px;
+    background: var(--bg-color-secondary);
     padding: 1.5rem;
+}
+
+header {
+    margin: 3rem 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+}
+
+nav {
+    justify-self: center;
+}
+
+.header-user-info {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    justify-self: end;
+}
+
+.user-photo {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    margin-left: 1rem;
+    border: 3px solid var(--txt-color-primary);
 }

@@ -1,12 +1,24 @@
+/* :root {
+    --bg-color-secondary: #333e62;
+    --bg-color-primary: #0e1428;
+    --txt-color-primary: #fff;
+} */
+
+:root {
+    --bg-color-secondary: #fff;
+    --bg-color-primary: #f2f2f2;
+    --txt-color-primary: #333e62;
+}
+
 html {
-    color: #fff;
+    color: var(--txt-color-primary);
     box-sizing: border-box;
     font-family: Quicksand;
 }
 
 body {
     margin: 1.5rem;
-    background: #0e1428;
+    background: var(--bg-color-primary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -18,5 +30,12 @@ body {
 
 @font-face {
     font-family: "Quicksand";
-    src: local("Quicksand"), url(./fonts/Quicksand/Quicksand-VariableFont_wght.ttf) format("truetype");
+    src: local("Quicksand"), url(./fonts/Quicksand_2/Quicksand-VariableFont_wght.ttf) format("truetype");
+    font-weight: 1 999;
+}
+
+@font-face {
+    font-family: "Vollkhorn";
+    src: local("Vollkhorn"), url(./fonts/Vollkorn/Vollkorn-Black.ttf) format("truetype");
+    font-weight: 1 999;
 }

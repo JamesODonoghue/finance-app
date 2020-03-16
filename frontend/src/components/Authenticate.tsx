@@ -19,10 +19,10 @@ export const Authenticate = () => {
         // history.push('/authenticate')
     }, []);
     return (
-        <div className="login-page">
-            <div className="login-header">
+        <div className="container">
+            <header>
                 <h1>Finance</h1>
-            </div>
+            </header>
             <button className="login-btn" onClick={handleLogin}>
                 Sign in with google
             </button>
