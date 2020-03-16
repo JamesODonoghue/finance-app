@@ -22,15 +22,16 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         request: any,
         accessToken: string,
         refreshToken: string,
-        profile,
+        profile: any,
         done: Function,
     ) {
         try {
-            // console.log(profile);
+            console.log(profile);
 
             const jwt: string = await this.authService.validateOAuthLogin({
                 id: profile.id,
                 displayName: profile.displayName,
+                photo: profile.photos[0].value,
             });
             const user = {
                 jwt,

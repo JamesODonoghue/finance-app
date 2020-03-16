@@ -16,7 +16,7 @@ export class AuthService {
         private userService: UsersService,
     ) {}
 
-    async validateOAuthLogin({ id, displayName }): Promise<string> {
+    async validateOAuthLogin({ id, displayName, photo }): Promise<string> {
         try {
             let user: any = await this.userService.findOneByThirdPartyId(id);
             console.log(user);
@@ -42,6 +42,7 @@ export class AuthService {
             const payload = {
                 id,
                 displayName,
+                photo,
             };
 
             const jwt: string = sign(payload, this.JWT_SECRET_KEY, {
