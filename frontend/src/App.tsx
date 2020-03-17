@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
 import { Route } from 'react-router';
-import { Home } from './components/Home';
+import { Home } from './Home/Home';
 
-import { ProtectedRoute } from './components/ProtectedRoute';
-import { Authenticate } from './components/Authenticate';
+import { ProtectedRoute } from './shared/components/ProtectedRoute';
+import { Authenticate } from './Auth/Authenticate';
 
 export const App = () => {
     return (

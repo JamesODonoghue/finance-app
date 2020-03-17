@@ -10,10 +10,11 @@
     --txt-color-primary: #333e62;
 }
 
-html {
+html,
+* {
     color: var(--txt-color-primary);
     box-sizing: border-box;
-    font-family: Quicksand;
+    font-family: Dosis;
 }
 
 body {
@@ -26,11 +27,12 @@ body {
 @font-face {
     font-family: "Dosis";
     src: local("Dosis"), url(./fonts/Dosis/Dosis-VariableFont_wght.ttf) format("truetype");
+    font-weight: 1 999;
 }
 
 @font-face {
     font-family: "Quicksand";
-    src: local("Quicksand"), url(./fonts/Quicksand_2/Quicksand-VariableFont_wght.ttf) format("truetype");
+    src: local("Quicksand"), url(./fonts/Quicksand/Quicksand-VariableFont_wght.ttf) format("truetype");
     font-weight: 1 999;
 }
 
