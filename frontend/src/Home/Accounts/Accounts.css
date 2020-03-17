@@ -1,0 +1,27 @@
+.accounts_body {
+    background: #fff;
+    display: grid;
+    min-height: 300px;
+    border-radius: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 3fr));
+    grid-gap: 1rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.accounts_title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 2rem;
+}
+
+.account {
+    margin: 2rem;
+}
+
+.account_name {
+}
+
+.account_balance {
+    font-size: 4rem;
+}

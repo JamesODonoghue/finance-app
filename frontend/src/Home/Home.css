@@ -1,0 +1,21 @@
+.home-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.home-container header {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    align-items: center;
+}
+
+.home-title {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+.home-container section {
+    max-width: 800px;
+    margin: auto;
+}

@@ -1,0 +1,31 @@
+.activity_body {
+    background: #fff;
+    display: grid;
+    min-height: 300px;
+    border-radius: 1.5rem;
+    grid-gap: 1rem;
+}
+
+.activity_title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 2rem;
+}
+
+.activity_item {
+    display: grid;
+    font-weight: bold;
+    grid-gap: 2rem;
+    margin: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    /* justify-items: center; */
+}
+
+.activity_item_title {
+    font-weight: bold;
+    font-size: 1rem;
+    grid-column: 1/3;
+}
+
+.activity_item_category {
+}

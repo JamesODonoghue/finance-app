@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
-import auth from '../helpers/auth';
+import auth from '../shared/utils/auth';
 import { useHistory } from 'react-router';
 import { parse } from 'query-string';
+import { Button } from '../shared/components/Button/Button';
+import { Input } from '../shared/components/Input/Input';
 
 export const Authenticate = () => {
     const history = useHistory();
@@ -19,13 +21,11 @@ export const Authenticate = () => {
         // history.push('/authenticate')
     }, []);
     return (
-        <div className="container">
-            <header>
-                <h1>Finance</h1>
-            </header>
-            <button className="login-btn" onClick={handleLogin}>
-                Sign in with google
-            </button>
+        <div className="auth-container">
+            <h2>welcome.</h2>
+            <Input placeholder="email" type="email"></Input>
+            <Input placeholder="password" type="password"></Input>
+            <Button onClick={handleLogin}>Sign in with Google</Button>
         </div>
     );
 };
