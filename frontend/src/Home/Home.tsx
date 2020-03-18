@@ -6,9 +6,12 @@ import './Home.css';
 import { Activity } from './Activity/Activity';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Navbar } from '../App/Navbar/Navbar';
+import { Switch, Route, RouterProps, useRouteMatch } from 'react-router';
+import { Dashboard } from './Dashboard/Dashboard';
 
 export const Home = () => {
     let user: any;
+    let match = useRouteMatch();
     if (auth.getToken()) {
         user = auth.getUserInfo(auth.getToken() as string);
     }
@@ -22,10 +25,18 @@ export const Home = () => {
                         displayName={user.displayName}
                     />
                 </header>
-                <section>
-                    <Accounts />
-                    {/* <Activity /> */}
-                </section>
+                <Switch>
+                    <Route path={`${match.path}/dashboard`}>
+                        <Dashboard />
+                    </Route>
+                    <Route path={`${match.path}/accounts`}>
+                        <Accounts />
+                    </Route>
+                    <Route path={`${match.path}/activity`}>
+                        <Activity />
+                    </Route>
+                </Switch>
+                {/* <Activity /> */}
             </div>
             <Navbar />
         </div>
