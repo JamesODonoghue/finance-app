@@ -1,0 +1,23 @@
+nav {
+    position: fixed;
+    background: #fff;
+    top: 0;
+    left: 0;
+    padding: 9rem 1.5rem;
+    height: 100vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+a:hover .svg-inline--fa {
+    color: #01a3ff;
+}
+
+.svg-inline--fa {
+    font-size: 1.5rem;
+    color: var(--txt-color-primary);
+}

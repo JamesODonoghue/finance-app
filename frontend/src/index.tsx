@@ -5,6 +5,16 @@ import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './fonts/Dosis/Dosis-VariableFont_wght.ttf';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
+
+import {
+    faCreditCard,
+    faChartBar,
+    faUserCircle,
+} from '@fortawesome/free-regular-svg-icons';
+
+library.add(faCreditCard, faChartBar, faDollarSign, faUserCircle);
 
 ReactDOM.render(
     <Router>
