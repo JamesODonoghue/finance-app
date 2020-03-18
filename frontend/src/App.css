@@ -11,10 +11,10 @@ h3 {
     font-weight: normal;
 }
 
-.app {
+/* .app {
     max-width: 1600px;
     margin: auto;
-}
+} */
 
 .login-btn {
     width: 100%;
@@ -44,8 +44,4 @@ h3 {
     border-radius: 1em;
     background: var(--bg-color-secondary);
     padding: 1.5rem;
-}
-
-nav {
-    justify-self: center;
 }

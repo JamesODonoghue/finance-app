@@ -6,19 +6,18 @@
 
 :root {
     --bg-color-secondary: #fff;
-    --bg-color-primary: #f2f2f2;
+    --bg-color-primary: #f5f6fa;
     --txt-color-primary: #333e62;
 }
 
-html,
-* {
+html {
     color: var(--txt-color-primary);
     box-sizing: border-box;
-    font-family: Dosis;
+    font-family: Quicksand;
 }
 
 body {
-    margin: 1.5rem;
+    margin: 0;
     background: var(--bg-color-primary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -38,6 +37,12 @@ body {
 
 @font-face {
     font-family: "Vollkhorn";
-    src: local("Vollkhorn"), url(./fonts/Vollkorn/Vollkorn-Black.ttf) format("truetype");
+    src: local("Vollkhorn"), url(./fonts/Vollkorn/Vollkorn-Regular.ttf) format("truetype");
     font-weight: 1 999;
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) {
+    .body {
+        margin: 0;
+    }
 }

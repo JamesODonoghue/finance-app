@@ -1,12 +1,13 @@
 .home-container {
     max-width: 1200px;
     margin: auto;
+    padding: 2rem 6rem 2rem 8rem;
 }
 
 .home-container header {
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     align-items: center;
 }
 
@@ -18,4 +19,10 @@
 .home-container section {
     max-width: 800px;
     margin: auto;
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) {
+    .home-title {
+        font-size: 1.5rem;
+    }
 }

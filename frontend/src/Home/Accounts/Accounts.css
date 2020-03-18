@@ -1,9 +1,9 @@
 .accounts_body {
-    background: #fff;
+    /* background: #fff; */
     display: grid;
     min-height: 300px;
     border-radius: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 3fr));
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 1rem;
     align-items: center;
     justify-items: center;
@@ -16,7 +16,9 @@
 }
 
 .account {
-    margin: 2rem;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1.5rem;
 }
 
 .account_name {

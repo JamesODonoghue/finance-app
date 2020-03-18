@@ -16,9 +16,14 @@
     display: grid;
     font-weight: bold;
     grid-gap: 2rem;
-    margin: 2rem;
+    padding: 2rem;
     grid-template-columns: repeat(4, 1fr);
     /* justify-items: center; */
+}
+
+.activity_item:hover {
+    /* opacity: 0.9; */
+    /* background-color: #f2f2f2; */
 }
 
 .activity_item_title {

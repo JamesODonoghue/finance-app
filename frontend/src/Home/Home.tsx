@@ -4,6 +4,8 @@ import { UserInfo } from '../App/UserInfo/UserInfo';
 import { Accounts } from './Accounts/Accounts';
 import './Home.css';
 import { Activity } from './Activity/Activity';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Navbar } from '../App/Navbar/Navbar';
 
 export const Home = () => {
     let user: any;
@@ -12,15 +14,20 @@ export const Home = () => {
     }
 
     return (
-        <div className="home-container">
-            <header>
-                <div className="home-title">Merius</div>
-                <UserInfo photo={user.photo} displayName={user.displayName} />
-            </header>
-            <section>
-                <Accounts />
-                <Activity />
-            </section>
+        <div>
+            <div className="home-container">
+                <header>
+                    <UserInfo
+                        photo={user.photo}
+                        displayName={user.displayName}
+                    />
+                </header>
+                <section>
+                    <Accounts />
+                    {/* <Activity /> */}
+                </section>
+            </div>
+            <Navbar />
         </div>
     );
 };

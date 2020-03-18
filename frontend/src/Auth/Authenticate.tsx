@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { parse } from 'query-string';
 import { Button } from '../shared/components/Button/Button';
 import { Input } from '../shared/components/Input/Input';
-
+import './Authenticate.css';
 export const Authenticate = () => {
     const history = useHistory();
     let handleLogin = () => {

@@ -5,6 +5,7 @@ import { Home } from './Home/Home';
 
 import { ProtectedRoute } from './shared/components/ProtectedRoute';
 import { Authenticate } from './Auth/Authenticate';
+import { Navbar } from './App/Navbar/Navbar';
 
 export const App = () => {
     return (
