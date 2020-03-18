@@ -1,7 +1,7 @@
 .home-container {
     max-width: 1200px;
     margin: auto;
-    padding: 2rem 6rem 2rem 8rem;
+    padding: 2rem 6rem 2rem 12rem;
 }
 
 .home-container header {
@@ -24,5 +24,9 @@
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) {
     .home-title {
         font-size: 1.5rem;
+    }
+
+    .home-container {
+        padding: 1rem;
     }
 }

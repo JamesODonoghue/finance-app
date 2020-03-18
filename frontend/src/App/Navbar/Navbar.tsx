@@ -16,6 +16,7 @@ const renderLinkItem = (
         </NavLink>
     );
 };
+
 export const Navbar = () => {
     const match = useRouteMatch();
     return (
