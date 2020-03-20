@@ -1,5 +1,5 @@
 .activity_body {
-    background: #fff;
+    background: var(--bg-color-secondary);
     display: grid;
     min-height: 300px;
     border-radius: 1.5rem;
@@ -8,8 +8,7 @@
 
 .activity_title {
     font-size: 2rem;
-    font-weight: 700;
-    margin: 2rem;
+    margin-bottom: 2rem;
 }
 
 .activity_item {

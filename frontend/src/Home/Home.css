@@ -13,7 +13,7 @@
 
 .home-title {
     font-size: 3rem;
-    font-weight: 900;
+    font-weight: 600;
 }
 
 .home-container section {
@@ -27,6 +27,11 @@
     }
 
     .home-container {
-        padding: 1rem;
+        padding: 2rem;
+        overflow: scroll;
+        height: calc(100% - 100px);
+        position: absolute;
+        box-sizing: border-box;
+        width: 100%;
     }
 }

@@ -1,6 +1,6 @@
 nav {
     position: fixed;
-    background: #fff;
+    background: var(--bg-color-secondary);
     top: 0;
     left: 0;
     height: 100%;

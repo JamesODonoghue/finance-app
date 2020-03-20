@@ -1,29 +1,29 @@
 .accounts_body {
     /* background: #fff; */
-    display: grid;
-    min-height: 300px;
+    /* display: grid; */
     border-radius: 1.5rem;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 1rem;
     align-items: center;
     justify-items: center;
+    margin-bottom: 2rem;
 }
 
 .accounts_title {
     font-size: 2rem;
-    font-weight: 700;
-    margin: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
 }
 
 .account {
-    background: #fff;
-    padding: 2rem;
+    background: var(--bg-color-secondary);
     border-radius: 1.5rem;
+    padding: 4rem 2rem;
 }
 
 .account_name {
+    font-weight: normal;
 }
 
 .account_balance {
-    font-size: 4rem;
+    font-size: 2.5rem;
+    font-weight: 600;
 }

@@ -1,19 +1,19 @@
-/* :root {
+:root {
     --bg-color-secondary: #333e62;
     --bg-color-primary: #0e1428;
     --txt-color-primary: #fff;
-} */
+}
 
-:root {
+/* :root {
     --bg-color-secondary: #fff;
     --bg-color-primary: #f5f6fa;
     --txt-color-primary: #333e62;
-}
+} */
 
 html {
     color: var(--txt-color-primary);
     box-sizing: border-box;
-    font-family: Quicksand;
+    font-family: Maven;
 }
 
 body {
@@ -38,6 +38,12 @@ body {
 @font-face {
     font-family: "Vollkhorn";
     src: local("Vollkhorn"), url(./fonts/Vollkorn/Vollkorn-Regular.ttf) format("truetype");
+    font-weight: 1 999;
+}
+
+@font-face {
+    font-family: "Maven";
+    src: local("Maven"), url(./fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf) format("truetype");
     font-weight: 1 999;
 }
 
