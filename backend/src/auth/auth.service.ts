@@ -22,22 +22,11 @@ export class AuthService {
             console.log(user);
 
             if (!user) {
-                console.log('creating user');
                 user = await this.userService.registerOauthUser({
                     id,
                     displayName,
                 });
-                console.log('created user', user);
             }
-
-            // console.log(user);
-
-            // You can add some registration logic here,
-            // to register the user using their thirdPartyId (in this case their googleId)
-            // let user: IUser = await this.usersService.findOneByThirdPartyId(thirdPartyId, provider);
-
-            // if (!user)
-            // user = await this.usersService.registerOAuthUser(thirdPartyId, provider);
 
             const payload = {
                 id,

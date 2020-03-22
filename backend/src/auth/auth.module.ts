@@ -14,16 +14,9 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 
 @Module({
-    imports: [
-        ConfigModule.forRoot(),
-        JwtModule.register({
-            secret: 'supersecretkey',
-            signOptions: { expiresIn: '60s' },
-        }),
-        UsersModule,
-    ],
+    imports: [ConfigModule.forRoot(), UsersModule],
     controllers: [AuthController],
-    providers: [AuthService, GoogleStrategy, UsersService],
+    providers: [AuthService, GoogleStrategy],
 })
 export class AuthModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
