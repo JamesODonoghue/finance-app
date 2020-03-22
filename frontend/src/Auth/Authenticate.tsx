@@ -19,7 +19,7 @@ export const Authenticate = () => {
             history.push('/home');
         }
         // history.push('/authenticate')
-    }, []);
+    }, [history]);
     return (
         <div className="auth-container">
             <h2>welcome.</h2>

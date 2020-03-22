@@ -13,7 +13,7 @@
     border: 3px solid var(--txt-color-primary);
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 812px) {
+@media (max-device-width: 812px) {
     .user-info_name {
         display: none;
     }

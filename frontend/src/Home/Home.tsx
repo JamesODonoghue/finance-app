@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import auth from '../shared/utils/auth';
 import { UserInfo } from '../App/UserInfo/UserInfo';
 import { Accounts } from './Accounts/Accounts';
 import './Home.css';
 import { Activity } from './Activity/Activity';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Navbar } from '../App/Navbar/Navbar';
-import { Switch, Route, RouterProps, useRouteMatch } from 'react-router';
+import { Switch, Route, useRouteMatch } from 'react-router';
 import { Dashboard } from './Dashboard/Dashboard';
 
 export const Home = () => {

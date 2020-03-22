@@ -25,7 +25,7 @@ a:hover .svg-inline--fa {
     color: var(--txt-color-primary);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 812px) {
     nav {
         top: unset;
         bottom: 0;

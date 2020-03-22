@@ -1,14 +1,14 @@
-:root {
+/* :root {
     --bg-color-secondary: #333e62;
     --bg-color-primary: #0e1428;
     --txt-color-primary: #fff;
-}
+} */
 
-/* :root {
+:root {
     --bg-color-secondary: #fff;
     --bg-color-primary: #f5f6fa;
     --txt-color-primary: #333e62;
-} */
+}
 
 html {
     color: var(--txt-color-primary);
@@ -47,7 +47,7 @@ body {
     font-weight: 1 999;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 812px) {
+@media (max-device-width: 812px) {
     .body {
         margin: 0;
     }
