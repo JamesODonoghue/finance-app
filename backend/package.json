@@ -36,6 +36,7 @@
         "passport-google-oauth": "^2.0.0",
         "passport-local": "^1.0.0",
         "pg": "^7.18.2",
+        "plaid": "^4.9.0",
         "puppeteer": "^2.1.1",
         "query-string": "^6.11.1",
         "reflect-metadata": "^0.1.13",

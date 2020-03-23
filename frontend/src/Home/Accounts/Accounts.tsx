@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
-import './Accounts.css';
+import { getToken } from '../../shared/utils/auth';
 
+import './Accounts.css';
 export interface PlaidItem {
     institution: Institution;
     account: Account;
@@ -25,18 +26,22 @@ export interface Institution {
 }
 
 export const Accounts = () => {
-    const [accounts, setAccounts] = useState<Account[]>();
+    // const [accounts, setAccounts] = useState<Account[]>();
+    let accounts: Account[] = [];
     const onSuccess = useCallback(
         async (token: string, metadata: PlaidItem) => {
-            // console.log(token, JSON.stringify(metadata));
-            // send token to server
-            let result = await fetch('/plaid/item', {
+            let result = await fetch('/auth/plaid/public_token', {
                 method: 'post',
-                body: JSON.stringify({ token }),
+                headers: {
+                    'content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user_token: getToken(),
+                    plaid_token: token,
+                }),
             });
-            setAccounts(metadata.accounts);
-
-            console.log(result);
+            let json = await result.json();
+            console.log(json);
         },
         [],
     );
@@ -45,11 +50,11 @@ export const Accounts = () => {
         clientName: 'James Budget App',
         env: 'sandbox',
         product: ['auth', 'transactions'],
-        publicKey: '713e501f6c629c0f0eaa8515c3ffba',
+        publicKey: process.env.REACT_APP_PLAID_PUBLIC_KEY as string,
         onSuccess,
     };
 
-    const { open, ready, error } = usePlaidLink(config);
+    const { open } = usePlaidLink(config);
     return (
         <div className="accounts">
             <div className="accounts_title">Accounts</div>
@@ -65,22 +70,6 @@ export const Accounts = () => {
                           </div>
                       ))
                     : ''}
-                {/* <div className="account">
-                    <div className="account_name">Balance</div>
-                    <div className="account_balance">$3,456.00</div>
-                    <div></div>
-                </div>
-                <div className="account">
-                    <div className="account_name">Balance</div>
-                    <div className="account_balance">$3,456.00</div>
-                    <div></div>
-                </div>
-                <div className="account">
-                    <div className="account_name">Balance</div>
-                    <div className="account_balance">$3,456.00</div>
-                    <div></div>
-                </div> */}
-
                 <button className="account account_new" onClick={() => open()}>
                     <div className="account_name">Add new account</div>
                 </button>

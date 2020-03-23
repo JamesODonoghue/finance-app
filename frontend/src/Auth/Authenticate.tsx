@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import auth from '../shared/utils/auth';
+import { getToken, verifyToken, setToken } from '../shared/utils/auth';
 import { useHistory } from 'react-router';
 import { parse } from 'query-string';
 import { Button } from '../shared/components/Button/Button';
@@ -12,10 +12,12 @@ export const Authenticate = () => {
     };
 
     useEffect(() => {
-        if (auth.getToken()) history.push('/home');
+        let currentToken = getToken();
+        if (currentToken && verifyToken(getToken() as string))
+            history.push('/home');
         let { token } = parse(history.location.search);
         if (token) {
-            auth.setToken(token as string);
+            setToken(token as string);
             history.push('/home');
         }
         // history.push('/authenticate')

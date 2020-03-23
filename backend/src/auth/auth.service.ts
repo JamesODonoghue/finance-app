@@ -1,7 +1,9 @@
+import { UserToken } from './interfaces/token';
+import { PlaidService } from './../plaid/plaid.service';
 import { UsersService } from './../users/users.service';
 import { ConfigService } from '@nestjs/config';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 
 export enum Provider {
     GOOGLE = 'google',
@@ -14,6 +16,7 @@ export class AuthService {
     constructor(
         private configService: ConfigService,
         private userService: UsersService,
+        private plaidService: PlaidService,
     ) {}
 
     async validateOAuthLogin({ id, displayName, photo }): Promise<string> {
@@ -44,5 +47,18 @@ export class AuthService {
                 err.message,
             );
         }
+    }
+
+    async receivePublicToken({ user_token, plaid_token }: UserToken) {
+        const {
+            access_token,
+            item_id,
+        } = await this.plaidService.exchangePublicToken(plaid_token);
+        let jwt = verify(
+            user_token,
+            this.configService.get<string>('JWT_SECRET_KEY'),
+        );
+
+        console.log(access_token, jwt);
     }
 }

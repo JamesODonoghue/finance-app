@@ -1,39 +1,15 @@
-import * as jwtJsDecode from 'jwt-js-decode';
+import { verify } from 'jsonwebtoken';
+const JWT_SECRET = process.env.REACT_APP_JWT_SECRET_KEY as string;
 
-class Auth {
-    authenticated: boolean;
-    constructor() {
-        this.authenticated = false;
+export const getToken = () => window.localStorage.getItem('token');
+export const setToken = (token: string) =>
+    window.localStorage.setItem('token', token);
+
+export const verifyToken = (token: string) => {
+    try {
+        console.log(verify(token, JWT_SECRET));
+        return verify(token, JWT_SECRET);
+    } catch (e) {
+        return null;
     }
-
-    async login(cb: () => any) {
-        this.authenticated = true;
-        // let result = await fetch('http://localhost:5000/auth/google');
-        window.location.href = 'http://localhost:5000/auth/google';
-        cb();
-    }
-
-    setToken(token: string) {
-        window.localStorage.setItem('token', token);
-    }
-
-    getToken() {
-        return window.localStorage.getItem('token');
-    }
-
-    clearToken() {
-        window.localStorage.removeItem('token');
-    }
-
-    decodeToken(token: string) {
-        return jwtJsDecode.jwtDecode(token as string);
-    }
-
-    getUserInfo(token: string) {
-        return {
-            ...this.decodeToken(token).payload,
-        };
-    }
-}
-
-export default new Auth();
+};

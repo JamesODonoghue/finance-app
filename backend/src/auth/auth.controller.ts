@@ -1,3 +1,4 @@
+import { UserToken } from './interfaces/token';
 import {
     Controller,
     Get,
@@ -24,5 +25,21 @@ export class AuthController {
         const jwt: string = req.user.jwt;
         if (jwt) res.redirect('http://localhost:3000/?token=' + jwt);
         else res.redirect('http://localhost:3000/');
+    }
+
+    @Post('plaid/public_token')
+    public async receivePublicToken(
+        @Body() { user_token, plaid_token }: UserToken,
+    ) {
+        console.log(plaid_token);
+
+        try {
+            return this.authService.receivePublicToken({
+                user_token,
+                plaid_token,
+            });
+        } catch (error) {
+            return new Error(error);
+        }
     }
 }

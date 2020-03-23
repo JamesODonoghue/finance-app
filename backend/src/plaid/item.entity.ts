@@ -7,7 +7,4 @@ export class Item {
 
     @Column()
     public_token: string;
-
-    @Column()
-    account_id: string;
 }

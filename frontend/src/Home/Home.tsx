@@ -1,5 +1,5 @@
 import React from 'react';
-import auth from '../shared/utils/auth';
+import { verifyToken, getToken } from '../shared/utils/auth';
 import { UserInfo } from '../App/UserInfo/UserInfo';
 import { Accounts } from './Accounts/Accounts';
 import './Home.css';
@@ -11,8 +11,9 @@ import { Dashboard } from './Dashboard/Dashboard';
 export const Home = () => {
     let user: any;
     let match = useRouteMatch();
-    if (auth.getToken()) {
-        user = auth.getUserInfo(auth.getToken() as string);
+    let token = getToken() || '';
+    if (getToken()) {
+        user = verifyToken(token);
     }
 
     return (
