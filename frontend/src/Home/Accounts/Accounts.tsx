@@ -3,6 +3,7 @@ import { usePlaidLink } from 'react-plaid-link';
 import { getToken } from '../../shared/utils/auth';
 
 import './Accounts.css';
+import { exchangeToken } from '../../shared/services/api';
 export interface PlaidItem {
     institution: Institution;
     account: Account;
@@ -26,29 +27,14 @@ export interface Institution {
 }
 
 export const Accounts = () => {
-    // const [accounts, setAccounts] = useState<Account[]>();
     let accounts: Account[] = [];
-    const onSuccess = useCallback(
-        async (token: string, metadata: PlaidItem) => {
-            let result = await fetch('/auth/plaid/public_token', {
-                method: 'post',
-                headers: {
-                    'content-type': 'application/json',
-                },
-                body: JSON.stringify({
-                    user_token: getToken(),
-                    plaid_token: token,
-                }),
-            });
-            let json = await result.json();
-            console.log(json);
-        },
-        [],
-    );
+    const onSuccess = useCallback(async (publicToken: string) => {
+        exchangeToken({ publicToken, userToken: getToken() as string });
+    }, []);
 
     const config = {
         clientName: 'James Budget App',
-        env: 'sandbox',
+        env: process.env.REACT_APP_PLAID_ENV as string,
         product: ['auth', 'transactions'],
         publicKey: process.env.REACT_APP_PLAID_PUBLIC_KEY as string,
         onSuccess,

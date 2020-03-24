@@ -5,13 +5,9 @@ const headers: HeadersInit = {
 
 export const exchangeToken = async ({
     publicToken,
-    institution,
-    accounts,
     userToken,
 }: {
     publicToken: string;
-    institution: string;
-    accounts: string;
     userToken: string;
 }) => {
     const result = await fetch(`${baseURL}/auth/plaid/public_token`, {

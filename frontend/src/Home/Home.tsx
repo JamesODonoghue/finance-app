@@ -2,11 +2,11 @@ import React from 'react';
 import { verifyToken, getToken } from '../shared/utils/auth';
 import { UserInfo } from '../App/UserInfo/UserInfo';
 import { Accounts } from './Accounts/Accounts';
-import './Home.css';
 import { Activity } from './Activity/Activity';
 import { Navbar } from '../App/Navbar/Navbar';
 import { Switch, Route, useRouteMatch } from 'react-router';
 import { Dashboard } from './Dashboard/Dashboard';
+import './Home.css';
 
 export const Home = () => {
     let user: any;
@@ -36,7 +36,6 @@ export const Home = () => {
                         <Activity />
                     </Route>
                 </Switch>
-                {/* <Activity /> */}
             </div>
             <Navbar />
         </div>
