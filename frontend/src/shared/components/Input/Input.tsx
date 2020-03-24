@@ -1,5 +1,5 @@
 import React from 'react';
-import './Input.css';
+import { StyledInput } from './Styles';
 
 export const Input = ({
     placeholder = 'email',
@@ -8,8 +8,8 @@ export const Input = ({
     children = undefined,
 }) => {
     return (
-        <input placeholder={placeholder} type={type} onChange={onChange}>
+        <StyledInput placeholder={placeholder} type={type} onChange={onChange}>
             {children}
-        </input>
+        </StyledInput>
     );
 };

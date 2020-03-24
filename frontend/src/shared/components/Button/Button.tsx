@@ -1,5 +1,5 @@
 import React from 'react';
-import './Button.css';
+import { StyledButton } from './Styles';
 export const Button = ({
     className = 'btn-primary',
     icon = null,
@@ -15,9 +15,9 @@ export const Button = ({
     };
 
     return (
-        <button onClick={handleClick} className={className} disabled={disabled}>
+        <StyledButton onClick={handleClick} disabled={disabled}>
             {icon}
             {children}
-        </button>
+        </StyledButton>
     );
 };

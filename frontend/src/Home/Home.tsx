@@ -19,12 +19,7 @@ export const Home = () => {
     return (
         <div>
             <div className="home-container">
-                <header>
-                    <UserInfo
-                        photo={user.photo}
-                        displayName={user.displayName}
-                    />
-                </header>
+                <UserInfo photo={user.photo} displayName={user.displayName} />
                 <Switch>
                     <Route path={`${match.path}/dashboard`}>
                         <Dashboard />
