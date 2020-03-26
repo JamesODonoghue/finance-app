@@ -1,9 +1,8 @@
 import React, { useCallback } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
 import { getToken } from '../../shared/utils/auth';
-
-import './Accounts.css';
 import { exchangeToken } from '../../shared/services/api';
+import { AccountList } from '../../shared/components/AccountsList/AccountList';
 export interface PlaidItem {
     institution: Institution;
     account: Account;
@@ -43,23 +42,8 @@ export const Accounts = () => {
     const { open } = usePlaidLink(config);
     return (
         <div className="accounts">
-            <div className="accounts_title">Accounts</div>
-            <div className="accounts_body">
-                {accounts
-                    ? accounts.map(account => (
-                          <div className="account">
-                              <div className="account_name">{account.name}</div>
-                              <div className="account_name">
-                                  {account.subtype}
-                              </div>
-                              <div></div>
-                          </div>
-                      ))
-                    : ''}
-                <button className="account account_new" onClick={() => open()}>
-                    <div className="account_name">Add new account</div>
-                </button>
-            </div>
+            <div className="accounts_title">Your Accounts</div>
+            <AccountList></AccountList>
         </div>
     );
 };

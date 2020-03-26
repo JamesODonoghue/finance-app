@@ -7,7 +7,7 @@ export const color = {
 
     textWhite: '#fff',
     textDarkest: '#333e62',
-    textLight: '',
+    textLight: '#D8D8D8',
     backgroudDarkPrimary: '#0e1428',
     backgroundLightPrimary: '#f5f6fa',
 };
@@ -17,4 +17,6 @@ export const font = {
     medium: 'font-weight: 500',
 };
 
-export const mixin = {};
+export const mixin = {
+    borderRadius: 'border-radius: 1rem',
+};
