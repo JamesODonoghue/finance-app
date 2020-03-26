@@ -2,11 +2,11 @@
 
 ## What
 
-This is a sample project that tracks your finances.
+this is a sample project that tracks your finances
 
 ## Why
 
-to learn to write a fullstack application using
+to learn to write a fullstack application
 
 ## How
 
