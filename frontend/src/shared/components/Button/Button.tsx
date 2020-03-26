@@ -1,11 +1,10 @@
 import React from 'react';
 import { StyledButton } from './Styles';
 export const Button = ({
-    className = 'btn-primary',
     icon = null,
-    iconSize = 18,
     children = '',
     disabled = false,
+    primary = true,
     onClick = () => {},
 }) => {
     const handleClick = () => {
@@ -15,7 +14,11 @@ export const Button = ({
     };
 
     return (
-        <StyledButton onClick={handleClick} disabled={disabled}>
+        <StyledButton
+            onClick={handleClick}
+            disabled={disabled}
+            primary={primary}
+        >
             {icon}
             {children}
         </StyledButton>

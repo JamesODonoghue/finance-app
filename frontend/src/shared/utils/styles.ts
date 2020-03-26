@@ -10,6 +10,10 @@ export const color = {
     textLight: '#D8D8D8',
     backgroudDarkPrimary: '#0e1428',
     backgroundLightPrimary: '#f5f6fa',
+
+    btnSecondary: '#EBEFFF',
+    btnSecondaryHover: '#DFE5FF',
+    textSecondary: '#7A7A7A',
 };
 
 export const font = {

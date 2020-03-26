@@ -1,11 +1,10 @@
 import React from 'react';
 import { verifyToken, getToken } from '../shared/utils/auth';
-import { UserInfo } from '../App/UserInfo/UserInfo';
-import { Accounts } from './Accounts/Accounts';
 import { Activity } from './Activity/Activity';
 import { Navbar } from '../App/Navbar/Navbar';
 import { Switch, Route, useRouteMatch } from 'react-router';
 import { Dashboard } from './Dashboard/Dashboard';
+import { AccountList } from '../shared/components/AccountsList/AccountList';
 import './Home.css';
 
 export const Home = () => {
@@ -25,7 +24,7 @@ export const Home = () => {
                         <Dashboard />
                     </Route>
                     <Route path={`${match.path}/accounts`}>
-                        <Accounts />
+                        <AccountList />
                     </Route>
                     <Route path={`${match.path}/activity`}>
                         <Activity />
