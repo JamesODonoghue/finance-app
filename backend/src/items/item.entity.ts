@@ -7,7 +7,7 @@ export class Item {
     @Column()
     userId: string;
     @Column({ nullable: true })
-    institutionId: string;
+    institutionId?: string;
     @Column({ nullable: true })
-    itemId: string;
+    itemId?: string;
 }

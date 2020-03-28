@@ -8,6 +8,7 @@ import { PlaidModule } from 'plaid/plaid.module';
 @Module({
     imports: [TypeOrmModule.forFeature([Item]), PlaidModule],
     providers: [ItemsService],
+    exports: [ItemsService],
     controllers: [ItemsController],
 })
 export class ItemsModule {}

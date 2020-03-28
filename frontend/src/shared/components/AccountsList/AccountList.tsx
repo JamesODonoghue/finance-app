@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { StyledAccountList } from './Styles';
 import { AccountTile } from '../AccountTile/AccountTile';
 import { Button } from '../Button/Button';
 import { usePlaidLink } from 'react-plaid-link';
-import { exchangeToken } from '../../services/api';
+import { exchangeToken, getItemsByUser } from '../../services/api';
 import { verifyToken, getToken } from '../../utils/auth';
 
 interface IUserToken {
@@ -13,17 +13,22 @@ interface IUserToken {
     iat: number;
     exp: number;
 }
+
 export const AccountList = () => {
     const userToken = getToken();
     const { id: userId } = verifyToken(userToken) as IUserToken;
+    const [items, setItems] = useState([]);
 
     const onSuccess = useCallback(async (publicToken, metadata) => {
-        const { institutionId } = metadata;
-        let result = await exchangeToken({
+        const { institutionId = '' } = metadata;
+        await exchangeToken({
             publicToken,
             institutionId,
             userId,
         });
+        let result = await getItemsByUser(userId);
+        let json = await result.json();
+        setItems(json);
     }, []);
     const config = {
         clientName: 'Your app name',

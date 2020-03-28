@@ -15,4 +15,8 @@ export class ItemsService {
             ...item,
         });
     }
+
+    retrieveItemsByUser(userId: string): Promise<Item[]> {
+        return this.itemRepository.find({ where: { userId: userId } });
+    }
 }
