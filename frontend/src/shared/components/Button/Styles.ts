@@ -1,10 +1,10 @@
 import { color } from './../../utils/styles';
-import styled, { StyledComponent } from 'styled-components';
+import styled from 'styled-components';
 
 interface IButtonProps {
     primary?: boolean;
 }
-export const StyledButton = styled.button<IButtonProps>`
+export const StyledButton = styled('button')<IButtonProps>`
     padding: 1em;
     border: 0;
     background-color: ${props =>

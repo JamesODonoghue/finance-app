@@ -11,7 +11,7 @@ export const ProtectedRoute = ({
         <Route
             {...rest}
             render={props => {
-                if (verifyToken(getToken() as string)) {
+                if (verifyToken(getToken())) {
                     return <Component {...props} />;
                 } else {
                     return (

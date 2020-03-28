@@ -23,9 +23,9 @@ export const StyledAccountTile = styled.div`
     cursor: pointer;
     transition: 200ms;
 
-    &:hover {
+    /* &:hover {
         transform: translateY(-0.6rem);
-    }
+    } */
 `;
 
 export const AccountTileHeader = styled.div``;
