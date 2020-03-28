@@ -49,16 +49,18 @@ export class AuthService {
         }
     }
 
-    async receivePublicToken({ user_token, plaid_token }: UserToken) {
-        const {
-            access_token,
-            item_id,
-        } = await this.plaidService.exchangePublicToken(plaid_token);
-        let jwt = verify(
-            user_token,
-            this.configService.get<string>('JWT_SECRET_KEY'),
-        );
+    // async receivePublicToken({ user_token, plaid_token }: UserToken) {
+    //     const {
+    //         access_token,
+    //         item_id,
+    //     } = await this.plaidService.exchangePublicToken(plaid_token);
+    //     let jwt = verify(
+    //         user_token,
+    //         this.configService.get<string>('JWT_SECRET_KEY'),
+    //     );
 
-        console.log(access_token, jwt);
-    }
+    //     return {
+    //         access_token,
+    //     };
+    // }
 }

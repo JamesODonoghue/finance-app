@@ -27,19 +27,19 @@ export class AuthController {
         else res.redirect('http://localhost:3000/');
     }
 
-    @Post('plaid/public_token')
-    public async receivePublicToken(
-        @Body() { user_token, plaid_token }: UserToken,
-    ) {
-        console.log(plaid_token);
+    // @Post('plaid/public_token')
+    // public async receivePublicToken(
+    //     @Body() { user_token, plaid_token }: UserToken,
+    // ) {
+    //     console.log(plaid_token);
 
-        try {
-            return this.authService.receivePublicToken({
-                user_token,
-                plaid_token,
-            });
-        } catch (error) {
-            return new Error(error);
-        }
-    }
+    //     try {
+    //         return this.authService.receivePublicToken({
+    //             user_token,
+    //             plaid_token,
+    //         });
+    //     } catch (error) {
+    //         return new Error(error);
+    //     }
+    // }
 }
