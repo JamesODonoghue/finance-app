@@ -1,25 +1,28 @@
-const baseURL = '/';
+const baseURL = '';
 const headers: HeadersInit = {
     'content-type': 'application/json',
 };
 
 export const exchangeToken = async ({
     publicToken,
-    userToken,
+    userId,
+    institutionId,
 }: {
     publicToken: string;
-    userToken: string;
+    userId: string;
+    institutionId: string;
 }) => {
-    const result = await fetch(`${baseURL}/auth/plaid/public_token`, {
-        method: 'post',
-        headers: {
-            'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            user_token: userToken,
-            plaid_token: publicToken,
-        }),
+    const body = JSON.stringify({
+        publicToken,
+        userId,
+        institutionId,
     });
+    const result = await fetch(`${baseURL}/items/`, {
+        method: 'post',
+        headers,
+        body,
+    });
+
     const json = await result.json();
     return json;
 };
