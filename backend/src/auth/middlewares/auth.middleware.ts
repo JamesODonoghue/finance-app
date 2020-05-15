@@ -10,7 +10,6 @@ interface MyRequest extends Request {
 export class AuthMiddleware implements NestMiddleware {
     use(req: MyRequest, res: Response, next: Function) {
         if (req.query.socketId) {
-            console.log(req.query.socketId);
             req.session.socketId = req.query.socketId;
         }
         next();

@@ -22,8 +22,6 @@ export class AuthService {
     async validateOAuthLogin({ id, displayName, photo }): Promise<string> {
         try {
             let user: any = await this.userService.findOneByThirdPartyId(id);
-            console.log(user);
-
             if (!user) {
                 user = await this.userService.registerOauthUser({
                     id,

@@ -1,13 +1,4 @@
-import { UserToken } from './interfaces/token';
-import {
-    Controller,
-    Get,
-    Post,
-    Body,
-    UseGuards,
-    Req,
-    Res,
-} from '@nestjs/common';
+import { Controller, Get, UseGuards, Req, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -23,16 +14,14 @@ export class AuthController {
     @UseGuards(AuthGuard('google'))
     public async googleCallback(@Req() req, @Res() res) {
         const jwt: string = req.user.jwt;
-        if (jwt) res.redirect('http://localhost:3000/?token=' + jwt);
-        else res.redirect('http://localhost:3000/');
+        if (jwt) res.redirect('http://localhost:3001/?token=' + jwt);
+        else res.redirect('http://localhost:3001/');
     }
 
     // @Post('plaid/public_token')
     // public async receivePublicToken(
     //     @Body() { user_token, plaid_token }: UserToken,
     // ) {
-    //     console.log(plaid_token);
-
     //     try {
     //         return this.authService.receivePublicToken({
     //             user_token,
