@@ -12,10 +12,19 @@ import {
     faChartBar,
     faUserCircle,
 } from '@fortawesome/free-regular-svg-icons';
+import { AuthProvider } from './context/auth';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 library.add(faCreditCard, faChartBar, faDollarSign, faUserCircle);
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <Router>
+        <AuthProvider>
+            <App />
+        </AuthProvider>
+    </Router>,
+    document.getElementById('root'),
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

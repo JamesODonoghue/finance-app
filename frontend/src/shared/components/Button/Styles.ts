@@ -7,18 +7,20 @@ interface IButtonProps {
 export const StyledButton = styled('button')<IButtonProps>`
     padding: 1em;
     border: 0;
-    background-color: ${props =>
+    background-color: ${(props) =>
         props.primary ? color.blueDark : color.btnSecondary};
-    color: ${props => (props.primary ? color.textWhite : color.textSecondary)};
+    color: ${(props) =>
+        props.primary ? color.textWhite : color.textSecondary};
     cursor: pointer;
     font-family: inherit;
     font-weight: bold;
     font-size: 1rem;
     border-radius: 0.6rem;
-    transition: background-color 150ms;
+    transition: all 150ms;
 
     &:hover {
-        background-color: ${props =>
+        background-color: ${(props) =>
             props.primary ? '' : color.btnSecondaryHover};
+        box-shadow: ${(props) => (props.primary ? '0px 0px 5px #000' : '')};
     }
 `;
