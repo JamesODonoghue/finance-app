@@ -1,37 +1,30 @@
-import React from 'react';
-import { verifyToken, getToken } from '../shared/utils/auth';
+import React, { Fragment } from 'react';
 import { Activity } from './Activity/Activity';
 import { Navbar } from '../App/Navbar/Navbar';
 import { Switch, Route, useRouteMatch } from 'react-router';
 import { Dashboard } from './Dashboard/Dashboard';
-import { AccountList } from '../shared/components/AccountsList/AccountList';
-import './Home.css';
+import { PlaidItemList } from './PlaidItemList/PlaidItemList';
+import { HomeScreen } from './Styles';
 
 export const Home = () => {
-    let user: any;
     let match = useRouteMatch();
-    let token = getToken() || '';
-    if (getToken()) {
-        user = verifyToken(token);
-    }
-
     return (
-        <div>
-            <div className="home-container">
+        <Fragment>
+            <HomeScreen>
                 {/* <UserInfo photo={user.photo} displayName={user.displayName} /> */}
                 <Switch>
-                    <Route path={`${match.path}/dashboard`}>
+                    <Route exact path="/">
                         <Dashboard />
                     </Route>
-                    <Route path={`${match.path}/accounts`}>
-                        <AccountList />
+                    <Route path="/items">
+                        <PlaidItemList />
                     </Route>
-                    <Route path={`${match.path}/activity`}>
+                    <Route path="/activity">
                         <Activity />
                     </Route>
                 </Switch>
-            </div>
+            </HomeScreen>
             <Navbar />
-        </div>
+        </Fragment>
     );
 };

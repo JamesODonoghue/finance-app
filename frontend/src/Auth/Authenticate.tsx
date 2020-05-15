@@ -1,27 +1,10 @@
-import React, { useEffect } from 'react';
-import { getToken, verifyToken, setToken } from '../shared/utils/auth';
-import { useHistory } from 'react-router';
-import { parse } from 'query-string';
+import React from 'react';
 import { Button } from '../shared/components/Button/Button';
 import { Input } from '../shared/components/Input/Input';
 import './Authenticate.css';
+import useAuth from '../context/auth';
 export const Authenticate = () => {
-    const history = useHistory();
-    let handleLogin = () => {
-        window.location.href = `http://localhost:5000/auth/google`;
-    };
-
-    useEffect(() => {
-        let currentToken = getToken();
-        if (currentToken && verifyToken(getToken() as string))
-            history.push('/home');
-        let { token } = parse(history.location.search);
-        if (token) {
-            setToken(token as string);
-            history.push('/home');
-        }
-        // history.push('/authenticate')
-    }, [history]);
+    let { handleLogin } = useAuth();
     return (
         <div className="auth-container">
             <h2>welcome.</h2>
