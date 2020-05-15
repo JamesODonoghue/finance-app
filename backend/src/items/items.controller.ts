@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { PlaidService } from 'plaid/plaid.service';
 import { ItemsService } from './items.service';
 
@@ -29,8 +29,22 @@ export class ItemsController {
             accessToken,
         });
 
-        console.log(newItem);
-
         return newItem;
     }
+
+    @Post('/seed')
+    public async seedFakeItem() {
+        return await this.plaidService.sandboxPublicTokenCreate();
+    }
+
+    @Post('/clear')
+    public async clearItems() {
+        return await this.itemsService.clearItems();
+    }
+
+    // @Get('/:itemId/accounts')
+    // public async getAccounts(@Param() params) {
+    //     const { itemId } = params;
+    //     return this.plaidService;
+    // }
 }

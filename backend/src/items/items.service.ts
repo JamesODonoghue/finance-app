@@ -16,7 +16,15 @@ export class ItemsService {
         });
     }
 
-    retrieveItemsByUser(userId: string): Promise<Item[]> {
+    retrieveItemsByUser(userId: string) {
         return this.itemRepository.find({ where: { userId: userId } });
+    }
+
+    retrieveItemByPlaidId(plaidItemId: string) {
+        return this.itemRepository.findOne({ where: { itemId: plaidItemId } });
+    }
+
+    clearItems() {
+        return this.itemRepository.manager.clear(Item);
     }
 }
