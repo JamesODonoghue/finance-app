@@ -21,6 +21,17 @@ const api = {
 export const getItemsByUser = (userId: string) =>
     api.get(`/users/${userId}/items`);
 
+export const getAccountsByItem = (itemId: string) =>
+    api.get(`/items/${itemId}/accounts`);
+
+export const clearAllAccounts = () => api.post('/accounts/clear');
+
+export const seedFakeItem = () => api.post('/items/seed');
+export const clearItems = () => api.post('/items/clear');
+
+export const getInstitutionById = (id: string) =>
+    api.get(`/plaid/institutions/${id}`);
+
 export const exchangeToken = async ({
     publicToken,
     userId,
