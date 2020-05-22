@@ -7,13 +7,13 @@ export type TransactionProps = {
 
 export const StyledTransactionItem = styled.div`
     display: flex;
-    background: #fff;
+    background: ${({ theme }) => theme.backgroundSecondary};
+    color: ${({ theme }) => theme.color};
     padding: 1rem;
     border-radius: 1rem;
 `;
 
 export const TransactionName = styled.div`
-    color: ${color.textSecondary};
     font-size: 0.9rem;
 `;
 export const TransactionDate = styled.div`

@@ -1,4 +1,4 @@
-import { color, font } from './../shared/utils/styles';
+import { font } from './../shared/utils/styles';
 import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
@@ -8,9 +8,9 @@ export default createGlobalStyle`
     }
 
     body {
-        color: ${props => props.theme.color};
+        color: ${(props) => props.theme.color};
         -webkit-tap-highlight-color: transparent;
-        background: ${color.backgroundLightPrimary};
+        background: ${(props) => props.theme.background};
         ${font.regular}
     }
 

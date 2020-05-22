@@ -9,7 +9,9 @@ export const color = {
     textDarkest: '#333e62',
     textLight: '#D8D8D8',
     backgroudDarkPrimary: '#0e1428',
+    backgroundDarkSecondary: '#1d2950',
     backgroundLightPrimary: '#f5f6fa',
+    backgroundLightSecondary: '#fff',
 
     btnSecondary: '#EBEFFF',
     btnSecondaryHover: '#DFE5FF',
