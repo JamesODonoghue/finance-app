@@ -7,6 +7,7 @@ import {
     MiddlewareConsumer,
     RequestMethod,
     NestModule,
+    Logger,
 } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
@@ -16,7 +17,7 @@ import { AuthMiddleware } from './middlewares/auth.middleware';
 @Module({
     imports: [ConfigModule.forRoot(), UsersModule, PlaidModule],
     controllers: [AuthController],
-    providers: [AuthService, GoogleStrategy],
+    providers: [AuthService, GoogleStrategy, Logger],
 })
 export class AuthModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {

@@ -1,10 +1,12 @@
-import { Controller, Get, UseGuards, Req, Res } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { Controller, Get, UseGuards, Req, Res, Logger } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+    constructor(private configService: ConfigService, private logger: Logger) {
+        logger.setContext('AuthController');
+    }
 
     @Get('google')
     @UseGuards(AuthGuard('google'))
@@ -14,21 +16,13 @@ export class AuthController {
     @UseGuards(AuthGuard('google'))
     public async googleCallback(@Req() req, @Res() res) {
         const jwt: string = req.user.jwt;
-        if (jwt) res.redirect('http://localhost:3001/?token=' + jwt);
-        else res.redirect('http://localhost:3001/');
-    }
+        const clientUrl = this.configService.get<string>('CLIENT_URL');
+        const redirectUrl = `${clientUrl}${jwt && `/?token=${jwt}`}`;
 
-    // @Post('plaid/public_token')
-    // public async receivePublicToken(
-    //     @Body() { user_token, plaid_token }: UserToken,
-    // ) {
-    //     try {
-    //         return this.authService.receivePublicToken({
-    //             user_token,
-    //             plaid_token,
-    //         });
-    //     } catch (error) {
-    //         return new Error(error);
-    //     }
-    // }
+        this.logger.log('Inside google/callback. Redirecting to client...');
+        this.logger.warn(`Client Url: ${clientUrl}`);
+        this.logger.debug(`Redirect Url: ${redirectUrl}`);
+
+        res.redirect(redirectUrl);
+    }
 }
