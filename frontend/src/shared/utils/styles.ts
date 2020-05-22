@@ -13,7 +13,7 @@ export const color = {
 
     btnSecondary: '#EBEFFF',
     btnSecondaryHover: '#DFE5FF',
-    textSecondary: '#7A7A7A',
+    textSecondary: '#7f869e',
 };
 
 export const font = {

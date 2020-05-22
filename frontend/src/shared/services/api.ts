@@ -21,8 +21,11 @@ const api = {
 export const getItemsByUser = (userId: string) =>
     api.get(`/users/${userId}/items`);
 
-export const getAccountsByItem = (itemId: string) =>
-    api.get(`/items/${itemId}/accounts`);
+export const getTransactionsByUser = (userId: string) =>
+    api.get(`/users/${userId}/transactions`);
+
+export const getAccountsByItem = (plaidItemId: string) =>
+    api.get(`/items/${plaidItemId}/accounts`);
 
 export const clearAllAccounts = () => api.post('/accounts/clear');
 

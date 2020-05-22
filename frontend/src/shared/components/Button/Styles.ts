@@ -21,6 +21,7 @@ export const StyledButton = styled('button')<IButtonProps>`
     &:hover {
         background-color: ${(props) =>
             props.primary ? '' : color.btnSecondaryHover};
-        box-shadow: ${(props) => (props.primary ? '0px 0px 5px #000' : '')};
+        box-shadow: ${(props) =>
+            props.primary ? '0px 5px 10px rgb(0, 0, 0, 0.25)' : ''};
     }
 `;

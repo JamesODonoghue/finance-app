@@ -68,7 +68,7 @@ function reducer(state: any, [type, payload]: any[]) {
             if (!payload.length) {
                 return state;
             }
-            return { ...state, ...keyBy(payload, 'itemId') };
+            return { ...state, ...keyBy(payload, 'plaidItemId') };
         case TYPES.SUCCESSFUL_DELETE:
             return omit(state, [payload]);
         case TYPES.DELETE_BY_USER:
