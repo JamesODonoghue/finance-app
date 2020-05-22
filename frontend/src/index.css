@@ -52,3 +52,11 @@ body {
         margin: 0;
     }
 }
+
+.slider li {
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.slider {
+}

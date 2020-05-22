@@ -12,10 +12,29 @@ import {
     faChartBar,
     faUserCircle,
 } from '@fortawesome/free-regular-svg-icons';
+
+import {
+    faPlane,
+    faUtensils,
+    faBiking,
+    faExchangeAlt,
+    faHandHoldingUsd,
+} from '@fortawesome/free-solid-svg-icons';
+
 import { AuthProvider } from './context/auth';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-library.add(faCreditCard, faChartBar, faDollarSign, faUserCircle);
+library.add(
+    faCreditCard,
+    faChartBar,
+    faDollarSign,
+    faUserCircle,
+    faPlane,
+    faUtensils,
+    faBiking,
+    faExchangeAlt,
+    faHandHoldingUsd,
+);
 
 ReactDOM.render(
     <Router>

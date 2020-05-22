@@ -6,17 +6,16 @@ import {
     clearItems,
     clearAllAccounts,
 } from '../../shared/services/api';
-import { StyledItemList } from './Styles';
-import { PlaidItem } from './PlaidItem/PlaidItem';
 import useItems from '../../shared/services/items';
 import useAuth from '../../context/auth';
+import { AccountCarousel } from '../../shared/components/Carousel/Carousel';
 
 const config = {
     clientName: 'Your app name',
     env: 'sandbox',
     product: ['auth', 'transactions'],
     publicKey: process.env.REACT_APP_PLAID_PUBLIC_KEY as string,
-    webhook: 'https://4525357d.ngrok.io/plaid/webhook',
+    webhook: 'https://29c0de1a.ngrok.io/plaid/webhook',
 };
 
 export const PlaidItemList = () => {
@@ -53,15 +52,6 @@ export const PlaidItemList = () => {
 
     const { open } = usePlaidLink({ ...config, onSuccess });
 
-    // const handleSeedClick = async () => {
-    //     let response = await seedFakeItem();
-    //     let json = await response.json();
-    //     let { public_token: publicToken } = json;
-
-    //     await exchangeToken({ publicToken, institutionId: 'ins_1', userId });
-    //     getItemsByUser(userId);
-    // };
-
     const handleClearItems = async () => {
         await clearItems();
         getItemsByUser(userId);
@@ -74,20 +64,24 @@ export const PlaidItemList = () => {
     return (
         <Fragment>
             <h1>Your Accounts</h1>
-            <Button primary={true} onClick={() => open()}>
-                Add Account
-            </Button>
-            <Button primary={false} onClick={handleClearItems}>
-                Clear items
-            </Button>
-            <Button primary={false} onClick={handleClearAllAccounts}>
-                Clear all accounts
-            </Button>
-            <StyledItemList>
+            <AccountCarousel items={items}></AccountCarousel>
+            <div style={{ display: 'flex' }}>
+                <Button primary={true} onClick={() => open()}>
+                    Add Account
+                </Button>
+                <Button primary={false} onClick={handleClearItems}>
+                    Clear items
+                </Button>
+                <Button primary={false} onClick={handleClearAllAccounts}>
+                    Clear all accounts
+                </Button>
+            </div>
+
+            {/* <StyledItemList>
                 {items?.map((item: any) => (
                     <PlaidItem item={item}></PlaidItem>
                 ))}
-            </StyledItemList>
+            </StyledItemList> */}
         </Fragment>
     );
 };

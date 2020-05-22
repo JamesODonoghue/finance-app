@@ -45,3 +45,7 @@ h3 {
     background: var(--bg-color-secondary);
     padding: 1.5rem;
 }
+
+.slider li {
+    padding: 1rem;
+}
