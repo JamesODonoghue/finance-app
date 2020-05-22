@@ -16,8 +16,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         let token = getToken();
-        if (token) {
-            setUser(verifyToken(token));
+        let user = verifyToken(token as string);
+        if (token && user) {
+            setUser(user);
         } else {
             let { token: newToken } = parse(window.location.search);
             if (newToken) {
