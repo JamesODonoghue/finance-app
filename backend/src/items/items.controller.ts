@@ -18,15 +18,18 @@ export class ItemsController {
         const { publicToken, institutionId, userId } = item;
 
         const {
-            item_id: itemId,
-            access_token: accessToken,
+            item_id: plaidItemId,
+            access_token: plaidAccessToken,
         } = await this.plaidService.exchangePublicToken(publicToken);
+
+        console.log(`ItemId: ${plaidItemId}`);
+        console.log(`Item plaidAccessToken ${plaidAccessToken}`);
 
         const newItem = await this.itemsService.createItem({
             userId,
             institutionId,
-            itemId,
-            accessToken,
+            plaidItemId,
+            plaidAccessToken,
         });
 
         return newItem;
@@ -42,9 +45,9 @@ export class ItemsController {
         return await this.itemsService.clearItems();
     }
 
-    // @Get('/:itemId/accounts')
+    // @Get('/:plaidItemId/accounts')
     // public async getAccounts(@Param() params) {
-    //     const { itemId } = params;
+    //     const { plaidItemId } = params;
     //     return this.plaidService;
     // }
 }

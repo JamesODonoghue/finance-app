@@ -1,6 +1,6 @@
 export class CreateItemDto {
-    accessToken: string;
+    plaidAccessToken: string;
     institutionId: string;
-    itemId: string;
+    plaidItemId: string;
     userId: string;
 }

@@ -45,9 +45,11 @@ export class PlaidService {
             accounts,
         } = await this.fetchTransactions({ plaidItemId, startDate, endDate });
 
-        return this.accountsService.createAccounts(
+        let item = await this.itemService.retrieveItemByPlaidId(plaidItemId);
+        console.log(`Item: ${item}`);
+        item.accounts = await this.accountsService.createAccounts(
             accounts.map(acc => ({
-                itemId: plaidItemId,
+                plaidItemId: plaidItemId,
                 plaidAccountId: acc.account_id,
                 name: acc.name,
                 mask: acc.mask,
@@ -60,12 +62,14 @@ export class PlaidService {
                 subtype: acc.subtype,
             })),
         );
+        console.log(`New Item with Accounts: ${item}`);
+        return this.itemService.updateItem(item);
     }
 
     async fetchTransactions({ plaidItemId, startDate, endDate }) {
         try {
             const {
-                accessToken,
+                plaidAccessToken,
             } = await this.itemService.retrieveItemByPlaidId(plaidItemId);
 
             let offset = 0;
@@ -86,7 +90,7 @@ export class PlaidService {
                     transactions,
                     accounts,
                 } = await this.plaidClient.getTransactions(
-                    accessToken,
+                    plaidAccessToken,
                     startDate,
                     endDate,
                     options,

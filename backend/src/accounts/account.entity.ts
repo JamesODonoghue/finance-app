@@ -1,11 +1,17 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
+import { Item } from 'items/item.entity';
 
 @Entity()
 export class Account {
     @PrimaryColumn()
     plaidAccountId: string;
     @Column()
-    itemId: string;
+    plaidItemId: string;
+    @ManyToOne(
+        () => Item,
+        item => item.accounts,
+    )
+    item: Item;
     @Column({ nullable: true })
     name: string;
     @Column({ nullable: true })

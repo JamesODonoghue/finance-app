@@ -16,12 +16,21 @@ export class ItemsService {
         });
     }
 
+    updateItem(item: Item) {
+        return this.itemRepository.save(item);
+    }
+
     retrieveItemsByUser(userId: string) {
-        return this.itemRepository.find({ where: { userId: userId } });
+        return this.itemRepository.find({
+            where: { userId: userId },
+            relations: ['accounts'],
+        });
     }
 
     retrieveItemByPlaidId(plaidItemId: string) {
-        return this.itemRepository.findOne({ where: { itemId: plaidItemId } });
+        return this.itemRepository.findOne({
+            where: { plaidItemId: plaidItemId },
+        });
     }
 
     clearItems() {

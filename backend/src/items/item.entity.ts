@@ -1,13 +1,19 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Account } from 'accounts/account.entity';
 
 @Entity()
 export class Item {
     @PrimaryColumn()
-    accessToken: string;
+    plaidAccessToken: string;
+    @Column()
+    plaidItemId: string;
     @Column()
     userId: string;
     @Column({ nullable: true })
     institutionId?: string;
-    @Column({ nullable: true })
-    itemId?: string;
+    @OneToMany(
+        () => Account,
+        account => account.item,
+    )
+    accounts: Account[];
 }

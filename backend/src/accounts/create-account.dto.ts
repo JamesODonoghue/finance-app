@@ -1,6 +1,6 @@
 export class CreateAccountDto {
     plaidAccountId: string;
-    itemId: string;
+    plaidItemId: string;
     name: string;
     mask: string;
     official_name: string;
