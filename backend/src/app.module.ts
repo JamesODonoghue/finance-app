@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { ItemsModule } from './items/items.module';
 import { AccountsModule } from './accounts/accounts.module';
+import { TransactionsModule } from './transactions/transactions.module';
 @Module({
     imports: [
         TypeOrmModule.forRoot(),
@@ -11,6 +12,7 @@ import { AccountsModule } from './accounts/accounts.module';
         UsersModule,
         ItemsModule,
         AccountsModule,
+        TransactionsModule,
     ],
 })
 export class AppModule {}

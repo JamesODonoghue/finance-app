@@ -33,7 +33,6 @@ export class PlaidController {
                     .subtract(30, 'days')
                     .format('YYYY-MM-DD');
                 const endDate = moment().format('YYYY-MM-DD');
-
                 this.plaidService.handleTransactionsUpdate({
                     plaidItemId,
                     startDate,
