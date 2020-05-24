@@ -1,0 +1,46 @@
+version: '3'
+services:
+    postgres:
+        image: postgres
+        environment:
+            POSTGRES_USERNAME: postgres
+            POSTGRES_PASSWORD: postgres
+        ports:
+            - 5432:5432
+        volumes:
+            - database_data:/var/lib/postgresql/data
+    backend:
+        container_name: finance-backend
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        image: jodonogh/finance-backend
+        ports:
+            - 5000:5000
+        volumes:
+            - ./backend:/usr/src/app
+        depends_on:
+            - postgres
+    ngrok:
+        image: wernight/ngrok
+        command: ['ngrok', 'http', 'backend:5000']
+        ports:
+            - 4040:4040
+        depends_on:
+            - backend
+    frontend:
+        container_name: finance-frontend
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        image: jodonogh/finance-frontend
+        environment:
+            - NODE_ENV=development
+        ports:
+            - 3000:3000
+        volumes:
+            - ./frontend:/usr/src/app
+        depends_on:
+            - backend
+volumes:
+    database_data:
