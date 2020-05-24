@@ -5,14 +5,22 @@ import { UsersModule } from './users/users.module';
 import { ItemsModule } from './items/items.module';
 import { AccountsModule } from './accounts/accounts.module';
 import { TransactionsModule } from './transactions/transactions.module';
+import { DatabaseModule } from 'database/database.module';
+import { ConfigModule } from '@nestjs/config';
+import { NgrokModule } from 'ngrok/ngrok.module';
 @Module({
     imports: [
-        TypeOrmModule.forRoot(),
+        ConfigModule.forRoot({
+            envFilePath: '.env.production',
+            isGlobal: true,
+        }),
+        DatabaseModule,
         AuthModule,
         UsersModule,
         ItemsModule,
         AccountsModule,
         TransactionsModule,
+        NgrokModule,
     ],
 })
 export class AppModule {}
