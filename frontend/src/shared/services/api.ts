@@ -20,20 +20,29 @@ const api = {
 
 export const getItemsByUser = (userId: string) =>
     api.get(`/users/${userId}/items`);
-
 export const getTransactionsByUser = (userId: string) =>
     api.get(`/users/${userId}/transactions`);
-
 export const getAccountsByItem = (plaidItemId: string) =>
     api.get(`/items/${plaidItemId}/accounts`);
-
 export const clearAllAccounts = () => api.post('/accounts/clear');
-
 export const seedFakeItem = () => api.post('/items/seed');
 export const clearItems = () => api.post('/items/clear');
-
 export const getInstitutionById = (id: string) =>
     api.get(`/plaid/institutions/${id}`);
+export const getWebhooksUrl = async () => {
+    try {
+        const response = await api.get('/ngrok');
+        const json = await response.json();
+        const { url: urlBase } = json;
+
+        return {
+            data: urlBase ? `${urlBase}/plaid/webhook` : '',
+        };
+    } catch (err) {
+        console.error('Error fetching webhook url');
+        return { data: undefined };
+    }
+};
 
 export const exchangeToken = async ({
     publicToken,
