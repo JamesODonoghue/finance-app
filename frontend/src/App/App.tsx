@@ -14,24 +14,25 @@ import { useDarkMode } from '../shared/hooks/useDarkMode';
 export const App = () => {
     const { user } = useAuth();
     const [theme, themeToggler] = useDarkMode();
+
     const themeMode = theme === 'light' ? lightTheme : darkTheme;
     return (
         <Fragment>
             <ModeToggle handleChange={themeToggler}></ModeToggle>
-            {user ? (
-                <ThemeProvider theme={themeMode}>
+            <ThemeProvider theme={themeMode}>
+                <BaseStyles />
+                {user ? (
                     <TransactionsProvider>
                         <InstitutionsProvider>
                             <ItemsProvider>
-                                <BaseStyles />
                                 <Home />
                             </ItemsProvider>
                         </InstitutionsProvider>
                     </TransactionsProvider>
-                </ThemeProvider>
-            ) : (
-                <Authenticate />
-            )}
+                ) : (
+                    <Authenticate />
+                )}
+            </ThemeProvider>
         </Fragment>
     );
 };
