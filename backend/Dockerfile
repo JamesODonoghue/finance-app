@@ -1,18 +1,16 @@
 FROM node:lts-slim as development
 
-RUN mkdir -p /usr/src/app
-
-WORKDIR /usr/src/app
+WORKDIR /root/backend
 
 # Copies package.json and package-lock.json to Docker environment
 COPY package*.json ./
 
 # Installs all node packages
-RUN npm install --only=development
+RUN npm install
 
 COPY . .
 
-RUN npm run build
+EXPOSE 5000
 
 CMD ["npm", "run", "start:dev"]
 
