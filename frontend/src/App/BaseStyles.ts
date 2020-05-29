@@ -14,4 +14,8 @@ export default createGlobalStyle`
         ${font.regular}
     }
 
+    a {
+        text-decoration: none;
+    }
+
 `;

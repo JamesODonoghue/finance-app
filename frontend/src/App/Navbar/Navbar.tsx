@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconName, IconPrefix } from '@fortawesome/fontawesome-svg-core';
 import './Navbar.css';
+import { StyledNavbar } from './Styles';
 
 const renderLinkItem = (
     path: string,
@@ -18,9 +19,9 @@ const renderLinkItem = (
 
 export const Navbar = () => {
     return (
-        <nav>
+        <StyledNavbar>
             {renderLinkItem('/', 'chart-bar')}
             {renderLinkItem('items', 'credit-card')}
-        </nav>
+        </StyledNavbar>
     );
 };

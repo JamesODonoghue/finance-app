@@ -9,14 +9,7 @@ import {
 import useItems from '../../shared/services/items';
 import useAuth from '../../context/auth';
 import { AccountCarousel } from '../../shared/components/Carousel/Carousel';
-
-const config = {
-    clientName: 'Your app name',
-    env: 'sandbox',
-    product: ['auth', 'transactions'],
-    publicKey: process.env.REACT_APP_PLAID_PUBLIC_KEY as string,
-    webhook: 'https://29c0de1a.ngrok.io/plaid/webhook',
-};
+import { getPlaidConfig } from '../../shared/config/plaidConfig';
 
 export const PlaidItemList = () => {
     const {
@@ -50,7 +43,7 @@ export const PlaidItemList = () => {
         [userId, getItemsByUser],
     );
 
-    const { open } = usePlaidLink({ ...config, onSuccess });
+    // const { open } = usePlaidLink({ ...config, onSuccess });
 
     const handleClearItems = async () => {
         await clearItems();
@@ -66,9 +59,9 @@ export const PlaidItemList = () => {
             <h1>Your Accounts</h1>
             <AccountCarousel items={items}></AccountCarousel>
             <div style={{ display: 'flex' }}>
-                <Button primary={true} onClick={() => open()}>
+                {/* <Button primary={true} onClick={() => open()}>
                     Add Account
-                </Button>
+                </Button> */}
                 <Button primary={false} onClick={handleClearItems}>
                     Clear items
                 </Button>

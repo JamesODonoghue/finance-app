@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Activity } from './Activity/Activity';
-import { Navbar } from '../App/Navbar/Navbar';
 import { Switch, Route } from 'react-router';
 import { Dashboard } from './Dashboard/Dashboard';
 import { PlaidItemList } from './PlaidItemList/PlaidItemList';
@@ -23,7 +22,7 @@ export const Home = () => {
                     </Route>
                 </Switch>
             </HomeScreen>
-            <Navbar />
+            {/* <Navbar /> */}
         </Fragment>
     );
 };

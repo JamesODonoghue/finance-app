@@ -7,9 +7,9 @@ export const Authenticate = () => {
     let { handleLogin } = useAuth();
     return (
         <div className="auth-container">
-            <h2>welcome.</h2>
-            <Input placeholder="email" type="email"></Input>
-            <Input placeholder="password" type="password"></Input>
+            <h1>Welcome to Minted</h1>
+            {/* <Input placeholder="email" type="email"></Input>
+            <Input placeholder="password" type="password"></Input> */}
             <Button onClick={handleLogin}>Sign in with Google</Button>
         </div>
     );
