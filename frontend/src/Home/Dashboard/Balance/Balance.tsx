@@ -1,4 +1,4 @@
-import React, { ReactChild, ReactPropTypes, FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import { StyledBalance } from './Styles';
 
 export const Balance: FunctionComponent = ({ children }) => {
