@@ -79,7 +79,7 @@ export const BarChart = ({
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [parentNode]);
 
     return (
         <StyledSvg width={width} height={height} ref={d3Container}>

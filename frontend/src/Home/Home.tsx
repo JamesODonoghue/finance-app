@@ -16,9 +16,8 @@ import useAuth from '../context/auth';
 
 export const Home = () => {
     const { user } = useAuth();
-
     const { id: userId } = user;
-    const { itemsByUser, getItemsByUser } = useItems();
+    const { getItemsByUser } = useItems();
     const [webhookUrl, setWebhookUrl] = useState<string | null>();
 
     const plaidConfig = {
@@ -38,10 +37,7 @@ export const Home = () => {
     const onSuccess = useCallback(
         async (publicToken, metadata) => {
             const {
-                institution: {
-                    institution_id: institutionId,
-                    name: institutionName,
-                },
+                institution: { institution_id: institutionId },
             } = metadata;
 
             await exchangeToken({
