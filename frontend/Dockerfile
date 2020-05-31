@@ -1,6 +1,6 @@
 # Docker Image which is used as foundation to create
 # a custom Docker Image with this Dockerfile
-FROM node:lts-slim
+FROM node:10.20-alpine
 
 # set a directory for the app
 WORKDIR /root/frontend

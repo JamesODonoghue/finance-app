@@ -1,4 +1,4 @@
-FROM node:lts-slim as development
+FROM node:10.20-alpine as development
 
 WORKDIR /root/backend
 
