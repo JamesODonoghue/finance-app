@@ -3,4 +3,5 @@ export class CreateItemDto {
     institutionId: string;
     plaidItemId: string;
     userId: string;
+    institutionName: string;
 }

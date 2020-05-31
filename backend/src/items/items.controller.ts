@@ -1,11 +1,13 @@
 import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { PlaidService } from 'plaid/plaid.service';
 import { ItemsService } from './items.service';
+import { AccountsService } from 'accounts/accounts.service';
 
 interface ITokenExchange {
     publicToken: string;
-    institutionId: string;
     userId: string;
+    institutionId: string;
+    institutionName: string;
 }
 @Controller('items')
 export class ItemsController {
@@ -15,19 +17,19 @@ export class ItemsController {
     ) {}
     @Post('/')
     public async exchangeToken(@Body() item: ITokenExchange) {
-        const { publicToken, institutionId, userId } = item;
+        const { publicToken, institutionId, institutionName, userId } = item;
 
         const {
             item_id: plaidItemId,
             access_token: plaidAccessToken,
         } = await this.plaidService.exchangePublicToken(publicToken);
 
-        console.log(`ItemId: ${plaidItemId}`);
-        console.log(`Item plaidAccessToken ${plaidAccessToken}`);
+        /** Create and save the newly created Item with the accounts */
 
         const newItem = await this.itemsService.createItem({
             userId,
             institutionId,
+            institutionName,
             plaidItemId,
             plaidAccessToken,
         });

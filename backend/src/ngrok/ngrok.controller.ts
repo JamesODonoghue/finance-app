@@ -5,7 +5,6 @@ export class NgrokController {
     @Get('/')
     async getWebhookUrl() {
         const response = await fetch('http://ngrok:4040/api/tunnels');
-        console.log(response);
         const { tunnels } = await response.json();
         const httpTunnel = tunnels.find(t => t.proto === 'http');
         return {

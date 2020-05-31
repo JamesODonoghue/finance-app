@@ -62,7 +62,6 @@ export class PlaidService {
                 subtype: acc.subtype,
             })),
         );
-        console.log(`New Item with Accounts: ${item}`);
         return this.itemService.updateItem(item);
     }
 
