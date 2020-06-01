@@ -2,10 +2,10 @@
 
 ## Core patterns/tech implemented:
 
--   ### Modules to spearate logical entities
+-   ### Modules to separate logical entities
 -   ### Controllers/Services for communication with EntityRepositories
 -   ### TypeOrm to handle EntityRelations, Tables/Columns, DB Queries
--   ### PostgresQl for the DB
+-   ### PostgreSQL for the DB
 
 ## Bootstrapped by NestJS
 
