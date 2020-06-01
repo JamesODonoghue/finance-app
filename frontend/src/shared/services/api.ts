@@ -25,6 +25,8 @@ export const getTransactionsByUser = (userId: string) =>
 export const getAccountsByItem = (plaidItemId: string) =>
     api.get(`/items/${plaidItemId}/accounts`);
 export const clearAllAccounts = () => api.post('/accounts/clear');
+export const clearAllItems = () => api.post('/items/clear');
+
 export const seedFakeItem = () => api.post('/items/seed');
 export const clearItems = () => api.post('/items/clear');
 export const getInstitutionById = (id: string) =>
