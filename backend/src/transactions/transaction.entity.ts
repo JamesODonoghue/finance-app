@@ -8,12 +8,8 @@ export class Transaction {
     userId: string;
     @Column()
     accountId: string;
-    @Column({ unique: true })
-    plaidCategoryId: string;
     @Column()
     category: string;
-    @Column()
-    subcategory: string;
     @Column()
     transactionType: string;
     @Column()
@@ -22,12 +18,12 @@ export class Transaction {
     amount: number;
     @Column()
     isoCurrencyCode: string;
-    @Column()
+    @Column({ nullable: true })
     unofficialCurrencyCode: string;
     @Column()
     transactionDate: string;
     @Column()
-    pending: string;
-    @Column()
+    pending: boolean;
+    @Column({ nullable: true })
     accountOwner: string;
 }

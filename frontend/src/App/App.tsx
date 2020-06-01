@@ -10,6 +10,7 @@ import { Home } from '../Home/Home';
 import { TransactionsProvider } from '../shared/services/transactions';
 import { ModeToggle } from './ModeToggle/ModeToggle';
 import { useDarkMode } from '../shared/hooks/useDarkMode';
+import Sockets from '../shared/components/Sockets/Sockets';
 
 export const App = () => {
     const { user } = useAuth();
@@ -25,6 +26,7 @@ export const App = () => {
                     <TransactionsProvider>
                         <InstitutionsProvider>
                             <ItemsProvider>
+                                <Sockets />
                                 <Home />
                             </ItemsProvider>
                         </InstitutionsProvider>

@@ -7,6 +7,7 @@ import { AccountsModule } from './accounts/accounts.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { ConfigModule } from '@nestjs/config';
 import { NgrokModule } from 'ngrok/ngrok.module';
+import { AppGateway } from './app.gateway';
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -20,5 +21,6 @@ import { NgrokModule } from 'ngrok/ngrok.module';
         TransactionsModule,
         NgrokModule,
     ],
+    providers: [AppGateway],
 })
 export class AppModule {}

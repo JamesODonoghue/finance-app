@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Post, Body, Param } from '@nestjs/common';
 import { PlaidService } from 'plaid/plaid.service';
 import { ItemsService } from './items.service';
-import { AccountsService } from 'accounts/accounts.service';
 
 interface ITokenExchange {
     publicToken: string;
@@ -46,10 +45,4 @@ export class ItemsController {
     public async clearItems() {
         return await this.itemsService.clearItems();
     }
-
-    // @Get('/:plaidItemId/accounts')
-    // public async getAccounts(@Param() params) {
-    //     const { plaidItemId } = params;
-    //     return this.plaidService;
-    // }
 }

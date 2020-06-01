@@ -3,6 +3,8 @@ import { Injectable, Logger, forwardRef, Inject } from '@nestjs/common';
 import * as plaid from 'plaid';
 import { ItemsService } from 'items/items.service';
 import { AccountsService } from 'accounts/accounts.service';
+import { AppGateway } from 'app.gateway';
+import { TransactionsService } from 'transactions/transactions.service';
 
 @Injectable()
 export class PlaidService {
@@ -13,6 +15,7 @@ export class PlaidService {
         private logger: Logger,
         private itemService: ItemsService,
         private accountsService: AccountsService,
+        private transactionsService: TransactionsService,
     ) {
         this.plaidClient = new plaid.Client(
             this.configService.get<string>('PLAID_CLIENT_ID'),
@@ -39,13 +42,12 @@ export class PlaidService {
         }
     }
 
-    async handleTransactionsUpdate({ plaidItemId, startDate, endDate }) {
+    async handleTransactionsUpdate({ plaidItemId, startDate, endDate, item }) {
         const {
             transactions: incomingTransactions,
             accounts,
         } = await this.fetchTransactions({ plaidItemId, startDate, endDate });
 
-        let item = await this.itemService.retrieveItemByPlaidId(plaidItemId);
         console.log(`Item: ${item}`);
         item.accounts = await this.accountsService.createAccounts(
             accounts.map(acc => ({
@@ -62,6 +64,13 @@ export class PlaidService {
                 subtype: acc.subtype,
             })),
         );
+
+        await this.itemService.updateItem(item);
+        await this.transactionsService.saveTransactions(
+            incomingTransactions,
+            item.userId,
+        );
+
         return this.itemService.updateItem(item);
     }
 

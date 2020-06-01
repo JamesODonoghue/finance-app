@@ -34,6 +34,6 @@ export class ItemsService {
     }
 
     clearItems() {
-        return this.itemRepository.manager.clear(Item);
+        return this.itemRepository.query('TRUNCATE "item" CASCADE');
     }
 }

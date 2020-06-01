@@ -10,7 +10,7 @@ import { select, axisBottom, axisLeft, scaleTime, scaleLinear, max } from 'd3';
 
 export const getMonthlySpending = (data: any[]) => {
     let dataByMonth = _.groupBy(data, (item) =>
-        moment(item.date, 'YYYY-M-DD').startOf('month'),
+        moment(item.transactionDate, 'YYYY-M-DD').startOf('month'),
     );
     let totalSpentReducer = (acc: number, item: any) => acc + item.amount;
 
@@ -117,15 +117,19 @@ export const BarChart = ({
 
 export const BarChartContainer = () => {
     const { user } = useAuth();
-    const { userId } = user;
-    const { allTransactions, getTransactionsByUser } = useTransactions();
+    const { id: userId } = user;
+    const { transactionsByUser, getTransactionsByUser } = useTransactions();
     const parentNode = useRef(null);
     useEffect(() => {
         getTransactionsByUser(userId);
     }, [userId, getTransactionsByUser]);
+
     return (
         <div ref={parentNode}>
-            <BarChart data={allTransactions} parentNode={parentNode}></BarChart>
+            <BarChart
+                data={transactionsByUser && transactionsByUser[userId]}
+                parentNode={parentNode}
+            ></BarChart>
         </div>
     );
 };
