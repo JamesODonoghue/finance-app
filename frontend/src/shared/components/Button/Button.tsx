@@ -4,7 +4,8 @@ export const Button = ({
     icon = null,
     children = '',
     disabled = false,
-    primary = true,
+    primary = false,
+    style = {},
     onClick = () => {},
 }) => {
     const handleClick = () => {
@@ -18,6 +19,7 @@ export const Button = ({
             onClick={handleClick}
             disabled={disabled}
             primary={primary}
+            style={style}
         >
             {icon}
             {children}

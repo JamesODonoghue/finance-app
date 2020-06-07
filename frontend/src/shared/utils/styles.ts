@@ -5,7 +5,10 @@ export const color = {
     yellow: '#ffb30f',
     red: '#fd151b',
 
-    textWhite: '#fff',
+    white: '#fff',
+    greyLight: '#F4F5F7',
+    greyLightest: '#FAFBFC',
+
     textDarkest: '#333e62',
     textLight: '#D8D8D8',
     backgroudDarkPrimary: '#0e1428',
@@ -13,9 +16,15 @@ export const color = {
     backgroundLightPrimary: '#f5f6fa',
     backgroundLightSecondary: '#fff',
 
-    btnSecondary: '#EBEFFF',
     btnSecondaryHover: '#DFE5FF',
     textSecondary: '#7f869e',
+
+    blueQueen: '#4c6085ff',
+    blueCarolina: '#39a0edff',
+    greenCrayola: '#36f1cdff',
+    greenCarribean: '#13c4a3ff',
+    jet: '#32322cff',
+    jetLight: '#4a4a4a',
 };
 
 export const font = {

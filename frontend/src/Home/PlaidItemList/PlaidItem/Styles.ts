@@ -11,9 +11,9 @@ export const StyledItemTile = styled.div<ItemTileProps>`
     padding: 2rem;
     height: 175px;
     background: ${(props: ItemTileProps) =>
-        props.active ? color.blueDark : color.textWhite};
+        props.active ? color.blueDark : color.white};
     color: ${(props: ItemTileProps) =>
-        props.active ? color.textWhite : color.blueDark};
+        props.active ? color.white : color.blueDark};
     display: flex;
     justify-content: space-between;
     flex-direction: column;

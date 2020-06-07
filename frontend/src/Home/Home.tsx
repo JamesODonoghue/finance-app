@@ -25,10 +25,17 @@ export const Home = () => {
             <HomeScreen>
                 {/* <UserInfo photo={user.photo} displayName={user.displayName} /> */}
                 <HomeHeader>
-                    <Button primary={true} onClick={() => open()}>
+                    <Button
+                        style={{ marginRight: '2rem' }}
+                        onClick={() => open()}
+                    >
                         Add Account
                     </Button>
-                    <Button primary={false} onClick={clearAllAccounts}>
+                    <Button
+                        style={{ marginRight: '2rem' }}
+                        primary={false}
+                        onClick={clearAllAccounts}
+                    >
                         Clear Accounts
                     </Button>
                     <Button primary={false} onClick={clearAllItems}>
