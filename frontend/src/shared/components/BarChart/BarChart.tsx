@@ -4,7 +4,6 @@ import useAuth from '../../../context/auth';
 import _ from 'lodash';
 import moment from 'moment';
 import { font } from '../../utils/styles';
-import { useTheme } from 'styled-components';
 import { StyledSvg } from './Styles';
 import {
     select,
@@ -36,12 +35,10 @@ export const BarChart = ({
     data: any[];
     parentNode: any;
 }) => {
-    // const { color, green, greenLight } = useTheme();
     const [width, setChartWidth] = useState(800);
+    const [hoveredBar, setHoveredBar] = useState<any>(null);
     const height = 400;
     const margin = { top: 50, bottom: 100, left: 50, right: 50 };
-    // const barWidth = 50;
-
     const d3Container = useRef(null);
 
     console.log('bar chart render');
@@ -104,6 +101,11 @@ export const BarChart = ({
         return () => window.removeEventListener('resize', handleResize);
     }, [parentNode]);
 
+    const handleMouseOver = (e: any, item: any) => {
+        console.log(e.target);
+        setHoveredBar({ target: e.target, data: item });
+    };
+
     return (
         <StyledSvg width={width} height={height} ref={d3Container}>
             <g>
@@ -128,9 +130,25 @@ export const BarChart = ({
                             y={y(item.amount) - margin.top}
                             height={height - margin.top - y(item.amount)}
                             width={20}
+                            onMouseOver={(e) => handleMouseOver(e, item)}
                         ></rect>
                     ))}
                 </g>
+            </g>
+            <g
+                transform={`translate(${
+                    hoveredBar?.target?.x?.baseVal.value - 50
+                }, 20)`}
+            >
+                <rect
+                    height={50}
+                    width={100}
+                    fill={colors.N30}
+                    rx={'5px'}
+                ></rect>
+                <text y={25} x={10}>
+                    {hoveredBar?.data?.amount}
+                </text>
             </g>
         </StyledSvg>
     );
@@ -142,9 +160,7 @@ export const BarChartContainer = () => {
     const { transactionsByUser, getTransactionsByUser } = useTransactions();
     const parentNode = useRef(null);
 
-    console.log('bar chart container render');
     useEffect(() => {
-        console.log('use effect bar chart');
         getTransactionsByUser(userId);
     }, [userId, getTransactionsByUser]);
 
