@@ -16,6 +16,7 @@ import {
     format,
     timeFormat,
 } from 'd3';
+import { colors } from '@atlaskit/theme';
 
 export const getMonthlySpending = (data: any[]) => {
     let dataByMonth = _.groupBy(data, (item) =>
@@ -35,7 +36,7 @@ export const BarChart = ({
     data: any[];
     parentNode: any;
 }) => {
-    const { color, green, greenLight } = useTheme();
+    // const { color, green, greenLight } = useTheme();
     const [width, setChartWidth] = useState(800);
     const height = 400;
     const margin = { top: 50, bottom: 100, left: 50, right: 50 };
@@ -43,7 +44,7 @@ export const BarChart = ({
 
     const d3Container = useRef(null);
 
-    console.log(data.length);
+    console.log('bar chart render');
 
     if (data && data.length > 0 && d3Container.current) {
         data = getMonthlySpending(data).splice(0, 11);
@@ -121,7 +122,7 @@ export const BarChart = ({
                 <g>
                     {data.map((item) => (
                         <rect
-                            fill={greenLight}
+                            fill={colors.G300}
                             rx="5"
                             x={x(new Date(item.date) as Date) - 10}
                             y={y(item.amount) - margin.top}
@@ -140,16 +141,23 @@ export const BarChartContainer = () => {
     const { id: userId } = user;
     const { transactionsByUser, getTransactionsByUser } = useTransactions();
     const parentNode = useRef(null);
+
+    console.log('bar chart container render');
     useEffect(() => {
+        console.log('use effect bar chart');
         getTransactionsByUser(userId);
     }, [userId, getTransactionsByUser]);
 
     return (
         <div ref={parentNode}>
-            <BarChart
-                data={transactionsByUser && transactionsByUser[userId]}
-                parentNode={parentNode}
-            ></BarChart>
+            {transactionsByUser ? (
+                <BarChart
+                    data={transactionsByUser[userId]}
+                    parentNode={parentNode}
+                ></BarChart>
+            ) : (
+                <div></div>
+            )}
         </div>
     );
 };

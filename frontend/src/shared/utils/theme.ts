@@ -1,26 +1,44 @@
-import { color } from './styles';
+// import { color } from './styles';
 // export const darkTheme = {
 //     background: color.backgroudDarkPrimary,
 //     backgroundSecondary: color.backgroundDarkSecondary,
 //     color: color.textWhite,
 // };
 
-export const darkTheme = {
-    background: color.jet,
-    backgroundSecondary: color.jetLight,
-    color: color.white,
+import { colors } from '@atlaskit/theme';
 
-    green: color.greenCrayola,
-    greenLight: color.greenCarribean,
-
-    buttonHover: color.jetLight,
-};
 export const lightTheme = {
-    background: color.white,
-    backgroundSecondary: color.greyLightest,
-    color: color.jet,
+    background: colors.N0,
+    backgroundSecondary: colors.N10,
 
-    green: color.greenCrayola,
-    greenLight: color.greenCarribean,
-    buttonHover: color.greyLight,
+    color: colors.N900,
+    buttonHover: colors.N30,
 };
+
+export const darkTheme = {
+    background: colors.B200,
+    backgroundSecondary: colors.N10,
+
+    color: colors.N900,
+    buttonHover: colors.N20,
+};
+
+// export const darkTheme = {
+//     background: color.blueDark,
+//     backgroundSecondary: color.blueCarolina,
+//     color: color.white,
+
+//     green: color.greenCrayola,
+//     greenLight: color.greenCarribean,
+
+//     buttonHover: color.jetLight,
+// };
+// export const lightTheme = {
+//     background: color.white,
+//     backgroundSecondary: color.greyLightest,
+//     color: color.jet,
+
+//     green: color.greenCrayola,
+//     greenLight: color.greenCarribean,
+//     buttonHover: color.greyLight,
+// };

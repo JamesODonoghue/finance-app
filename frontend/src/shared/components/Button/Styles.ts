@@ -21,3 +21,20 @@ export const StyledButton = styled('button')<IButtonProps>`
         background-color: ${({ theme }) => theme.buttonHover};
     }
 `;
+
+export const StyledLoginButton = styled('button')<IButtonProps>`
+    padding: 1rem;
+    border: 0;
+    background-color: ${color.greenCrayola};
+    color: ${color.jet};
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 0.3rem;
+    transition: all 150ms;
+
+    &:hover {
+        background-color: ${color.white};
+    }
+`;

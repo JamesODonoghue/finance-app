@@ -24,7 +24,7 @@ export const Dashboard = () => {
             .filter((acc: any) => acc.type === 'depository')
             .map((account: any) => (
                 <Balance>
-                    <div>{account.name}</div>
+                    <div style={{ fontWeight: 'bold' }}>{account.name}</div>
                     <h1 style={{ fontSize: '2.5rem' }}>
                         {new Intl.NumberFormat('en-us', {
                             style: 'currency',

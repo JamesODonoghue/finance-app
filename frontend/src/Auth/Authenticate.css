@@ -1,7 +1,35 @@
-.auth-container {
+/* .auth-container {
     display: flex;
     flex-direction: column;
     max-width: 300px;
     margin: auto;
     margin-top: 200px;
+} */
+
+.auth-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+}
+
+.svg-container {
+    width: 100%;
+    position: relative;
+}
+
+.svg-content {
+    width: 100%;
+}
+
+.auth-container .left {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    color: #fff;
+    font-size: 2rem;
 }
