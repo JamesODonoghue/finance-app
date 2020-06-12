@@ -4,7 +4,7 @@ import useAuth from '../../../context/auth';
 import _ from 'lodash';
 import moment from 'moment';
 import { font } from '../../utils/styles';
-import { StyledSvg } from './Styles';
+import { StyledSvg, StyledBarRect } from './Styles';
 import {
     select,
     axisBottom,
@@ -123,33 +123,40 @@ export const BarChart = ({
                 ></g>
                 <g>
                     {data.map((item) => (
-                        <rect
-                            fill={colors.G300}
+                        <StyledBarRect
                             rx="5"
                             x={x(new Date(item.date) as Date) - 10}
                             y={y(item.amount) - margin.top}
                             height={height - margin.top - y(item.amount)}
-                            width={20}
                             onMouseOver={(e) => handleMouseOver(e, item)}
-                        ></rect>
+                        ></StyledBarRect>
                     ))}
                 </g>
             </g>
-            <g
-                transform={`translate(${
-                    hoveredBar?.target?.x?.baseVal.value - 50
-                }, 20)`}
-            >
-                <rect
-                    height={50}
-                    width={100}
-                    fill={colors.N30}
-                    rx={'5px'}
-                ></rect>
-                <text y={25} x={10}>
-                    {hoveredBar?.data?.amount}
-                </text>
-            </g>
+
+            {hoveredBar ? (
+                <g
+                    style={{ transition: '100ms all' }}
+                    transform={`translate(${
+                        hoveredBar?.target?.x?.baseVal.value - 50
+                    }, ${hoveredBar?.target?.y?.baseVal.value - 50})`}
+                >
+                    <rect
+                        height={40}
+                        width={120}
+                        fill={colors.N30}
+                        rx={'5px'}
+                    ></rect>
+                    <text y={25} x={10} style={{ fontSize: '1.2rem' }}>
+                        {Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'USD',
+                        }).format(hoveredBar?.data?.amount)}
+                    </text>
+                </g>
+            ) : (
+                ''
+            )}
         </StyledSvg>
     );
 };
