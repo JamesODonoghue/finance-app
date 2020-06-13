@@ -1,4 +1,6 @@
 import React, { Fragment } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from '../shared/utils/theme';
 import BaseStyles from './BaseStyles';
 import { ItemsProvider } from '../shared/services/items';
 import { InstitutionsProvider } from '../shared/services/institutions';
@@ -10,21 +12,24 @@ import Sockets from '../shared/components/Sockets/Sockets';
 
 export const App = () => {
     const { user } = useAuth();
+    const themeMode = lightTheme;
     return (
         <Fragment>
-            <BaseStyles />
-            {user ? (
-                <TransactionsProvider>
-                    <InstitutionsProvider>
-                        <ItemsProvider>
-                            <Sockets />
-                            <Home />
-                        </ItemsProvider>
-                    </InstitutionsProvider>
-                </TransactionsProvider>
-            ) : (
-                <Authenticate />
-            )}
+            <ThemeProvider theme={themeMode}>
+                <BaseStyles />
+                {user ? (
+                    <TransactionsProvider>
+                        <InstitutionsProvider>
+                            <ItemsProvider>
+                                <Sockets />
+                                <Home />
+                            </ItemsProvider>
+                        </InstitutionsProvider>
+                    </TransactionsProvider>
+                ) : (
+                    <Authenticate />
+                )}
+            </ThemeProvider>
         </Fragment>
     );
 };
