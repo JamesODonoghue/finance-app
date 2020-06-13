@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { lightTheme, darkTheme } from '../shared/utils/theme';
+import { lightTheme } from '../shared/utils/theme';
 import BaseStyles from './BaseStyles';
 import { ItemsProvider } from '../shared/services/items';
 import { InstitutionsProvider } from '../shared/services/institutions';
