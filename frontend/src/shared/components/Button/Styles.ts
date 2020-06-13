@@ -1,5 +1,6 @@
 import { color } from './../../utils/styles';
 import styled from 'styled-components';
+import { colors } from '@atlaskit/theme';
 
 interface IButtonProps {
     primary?: boolean;
@@ -12,7 +13,7 @@ export const StyledButton = styled('button')<IButtonProps>`
     color: ${({ theme }) => theme.color};
     cursor: pointer;
     font-family: inherit;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 1rem;
     border-radius: 0.3rem;
     transition: all 150ms;
@@ -25,16 +26,15 @@ export const StyledButton = styled('button')<IButtonProps>`
 export const StyledLoginButton = styled('button')<IButtonProps>`
     padding: 1rem;
     border: 0;
-    background-color: ${color.greenCrayola};
-    color: ${color.jet};
+    background-color: ${colors.B300};
+    color: #fff;
     cursor: pointer;
     font-family: inherit;
-    font-weight: 500;
     font-size: 1rem;
     border-radius: 0.3rem;
     transition: all 150ms;
 
     &:hover {
-        background-color: ${color.white};
+        background-color: ${colors.B200};
     }
 `;

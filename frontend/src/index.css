@@ -1,6 +1,5 @@
 html {
     box-sizing: border-box;
-    font-family: Maven;
 }
 
 body {
@@ -10,27 +9,51 @@ body {
 }
 
 @font-face {
-    font-family: "Dosis";
-    src: local("Dosis"), url(./fonts/Dosis/Dosis-VariableFont_wght.ttf) format("truetype");
+    font-family: 'Dosis';
+    src: local('Dosis'), url(./fonts/Dosis/Dosis-VariableFont_wght.ttf) format('truetype');
     font-weight: 1 999;
 }
 
 @font-face {
-    font-family: "Quicksand";
-    src: local("Quicksand"), url(./fonts/Quicksand/Quicksand-VariableFont_wght.ttf) format("truetype");
+    font-family: 'Quicksand';
+    src: local('Quicksand'), url(./fonts/Quicksand/Quicksand-VariableFont_wght.ttf) format('truetype');
     font-weight: 1 999;
 }
 
 @font-face {
-    font-family: "Vollkhorn";
-    src: local("Vollkhorn"), url(./fonts/Vollkorn/Vollkorn-Regular.ttf) format("truetype");
+    font-family: 'Vollkhorn';
+    src: local('Vollkhorn'), url(./fonts/Vollkorn/Vollkorn-Regular.ttf) format('truetype');
     font-weight: 1 999;
 }
 
 @font-face {
-    font-family: "Maven";
-    src: local("Maven"), url(./fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf) format("truetype");
+    font-family: 'Maven';
+    src: local('Maven'), url(./fonts/Maven_Pro/MavenPro-VariableFont_wght.ttf) format('truetype');
     font-weight: 1 999;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: local('Montserrat'), url(./fonts/Montserrat/Montserrat-Regular.ttf) format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: local('Montserrat'), url(./fonts/Montserrat/Montserrat-Italic.ttf) format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: local('Montserrat'), url(./fonts/Montserrat/Montserrat-Bold.ttf) format('truetype');
+    font-weight: 700;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: local('Montserrat'), url(./fonts/Montserrat/Montserrat-Black.ttf) format('truetype');
+    font-weight: 900;
 }
 
 @media (max-device-width: 812px) {

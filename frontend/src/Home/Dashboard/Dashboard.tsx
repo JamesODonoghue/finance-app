@@ -24,8 +24,8 @@ export const Dashboard = () => {
             .filter((acc: any) => acc.type === 'depository')
             .map((account: any) => (
                 <Balance>
-                    <div style={{ fontWeight: 'bold' }}>{account.name}</div>
-                    <h1 style={{ fontSize: '2.5rem' }}>
+                    <div>{account.name}</div>
+                    <h1 style={{ fontSize: '2.5rem', fontWeight: 400 }}>
                         {new Intl.NumberFormat('en-us', {
                             style: 'currency',
                             currency: 'USD',
@@ -37,12 +37,14 @@ export const Dashboard = () => {
 
     return (
         <Fragment>
-            <div></div>
-            <h1 className="title">Welcome {user?.displayName}</h1>
-            <h2>Balances</h2>
-            <StyledDashboard>{accounts}</StyledDashboard>
-            <h2>Spending</h2>
-            <BarChartContainer></BarChartContainer>
+            <div style={{ marginTop: '3rem' }}>
+                <h1>Balances</h1>
+                <StyledDashboard>{accounts}</StyledDashboard>
+            </div>
+            <div style={{ marginTop: '3rem' }}>
+                <h1>Spending</h1>
+                <BarChartContainer></BarChartContainer>
+            </div>
         </Fragment>
     );
 };

@@ -28,8 +28,8 @@ export const color = {
 };
 
 export const font = {
-    regular: 'font-family: "Maven"; font-weight: normal',
-    medium: 'font-weight: 500',
+    regular: 'font-family: "Montserrat"; font-weight: 700',
+    medium: 'font-weight: 700',
 };
 
 export const mixin = {

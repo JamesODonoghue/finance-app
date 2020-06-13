@@ -10,36 +10,23 @@ export const Authenticate = () => {
     let { handleLogin } = useAuth();
     return (
         <div className="auth-container">
-            <div
-                className="left"
-                style={{
-                    backgroundColor: color.blueDark,
-                    flexBasis: '50%',
-                    padding: '5rem',
-                    boxSizing: 'border-box',
-                }}
-            >
-                <div>
-                    <h1>Track your expenses with Budger</h1>
+            <div style={{ maxWidth: '600px' }}>
+                <div style={{ fontSize: '2.5rem' }}>
+                    <h1>Track your expenses with Sixpence</h1>
                     <StyledLoginButton onClick={handleLogin}>
                         Sign in with Google
                     </StyledLoginButton>
                 </div>
             </div>
             <div
+                className="svg-container"
                 style={{
-                    minWidth: '400px',
-                    width: '50%',
-                    boxSizing: 'border-box',
-                    padding: '4rem',
+                    color: color.blueDark,
+                    width: '800px',
+                    right: '3rem',
                 }}
             >
-                <div
-                    className="svg-container"
-                    style={{ color: color.blueDark }}
-                >
-                    <ReactLogo />
-                </div>
+                <ReactLogo />
             </div>
         </div>
     );

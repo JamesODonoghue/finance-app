@@ -10,5 +10,6 @@ export const HomeScreen = styled.div`
 
 export const HomeHeader = styled.div`
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
 `;

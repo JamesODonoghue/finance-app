@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import useTransactions from '../../services/transactions';
 import useItems from '../../services/items';
-import { getAccountsByItem } from '../../services/api';
 import useAuth from '../../../context/auth';
 
 const { REACT_APP_SERVER_PORT } = process.env;
@@ -72,7 +71,7 @@ export default function Sockets() {
             socket.current.removeAllListeners();
             socket.current.close();
         };
-    }, [getTransactionsByUser, getItemsByUser, userId]);
+    }, [getTransactionsByUser, getItemsByUser, userId, socket]);
 
     return <div />;
 }

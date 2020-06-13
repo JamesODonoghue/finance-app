@@ -3,7 +3,6 @@ import useTransactions from '../../services/transactions';
 import useAuth from '../../../context/auth';
 import _ from 'lodash';
 import moment from 'moment';
-import { font } from '../../utils/styles';
 import { StyledSvg, StyledBarRect } from './Styles';
 import {
     select,
@@ -61,12 +60,6 @@ export const BarChart = ({
         .domain([0, max(data, (item) => item.amount)])
         .range([height - margin.top, margin.bottom]);
 
-    const getTickFormat = (val: number) =>
-        Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-        }).format(val);
-
     const numberFormat = format('.2s');
 
     const getXaxis = (node: any) =>
@@ -112,14 +105,14 @@ export const BarChart = ({
                 <g
                     className="x-axis"
                     ref={(node) => getXaxis(node)}
-                    style={{ fontSize: '14px', fontFamily: font.regular }}
+                    style={{ fontSize: '14px', fontFamily: 'Montserrat' }}
                     transform={`translate(0, ${height - margin.bottom})`}
                 ></g>
                 <g
                     className="y-axis"
                     ref={(node) => getYAxis(node)}
                     transform={`translate(${margin.left},-50)`}
-                    style={{ fontSize: '14px', fontFamily: font.regular }}
+                    style={{ fontSize: '14px', fontFamily: 'Montserrat' }}
                 ></g>
                 <g>
                     {data.map((item) => (
@@ -144,10 +137,14 @@ export const BarChart = ({
                     <rect
                         height={40}
                         width={120}
-                        fill={colors.N30}
+                        fill={colors.N600}
                         rx={'5px'}
                     ></rect>
-                    <text y={25} x={10} style={{ fontSize: '1.2rem' }}>
+                    <text
+                        y={25}
+                        x={10}
+                        style={{ fontSize: '1.2rem', fill: colors.N0 }}
+                    >
                         {Intl.NumberFormat('en-US', {
                             style: 'currency',
                             currency: 'USD',

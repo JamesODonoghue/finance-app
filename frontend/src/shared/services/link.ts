@@ -35,7 +35,7 @@ export const useLink = () => {
             });
             getItemsByUser(userId);
         },
-        [userId, getItemsByUser],
+        [userId],
     );
     const { open } = usePlaidLink({
         ...plaidConfig,
