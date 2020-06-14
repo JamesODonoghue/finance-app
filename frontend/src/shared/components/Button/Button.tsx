@@ -1,27 +1,25 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { StyledButton } from './Styles';
+
+export interface ButtonProps {
+    icon?: string;
+    disabled?: boolean;
+    children: string;
+    onClick?: () => void;
+}
 export const Button = ({
-    icon = null,
-    children = '',
+    children,
     disabled = false,
-    primary = false,
-    style = {},
-    onClick = () => {},
-}) => {
-    const handleClick = () => {
+    onClick,
+}: ButtonProps): ReactElement => {
+    const handleClick = (): void => {
         if (!disabled) {
-            onClick();
+            onClick && onClick();
         }
     };
 
     return (
-        <StyledButton
-            onClick={handleClick}
-            disabled={disabled}
-            primary={primary}
-            style={style}
-        >
-            {icon}
+        <StyledButton onClick={handleClick} disabled={disabled}>
             {children}
         </StyledButton>
     );

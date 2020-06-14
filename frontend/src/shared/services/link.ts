@@ -6,7 +6,7 @@ import useAuth from '../../context/auth';
 export const useLink = () => {
     // const [webhookUrl, setWebhookUrl] = useState<string | null>();
     const { user } = useAuth();
-    const { id: userId } = user;
+    const userId = user ? user.id : '';
 
     const plaidConfig = {
         clientName: 'My Finance App',

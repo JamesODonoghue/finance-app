@@ -1,34 +1,29 @@
-/* .auth-container {
-    display: flex;
-    flex-direction: column;
-    max-width: 300px;
-    margin: auto;
-    margin-top: 200px;
-} */
-
 .auth-container {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     height: 100vh;
     justify-content: center;
+    padding: 2rem;
 }
 
 .svg-container {
     width: 100%;
     position: relative;
+    width: 800px;
 }
 
 .svg-content {
     width: 100%;
 }
 
-.auth-container .left {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-    color: #fff;
-    font-size: 2rem;
+.auth-left {
+    font-size: 1.5rem;
+}
+
+@media (min-width: 600px) {
+    .auth-left {
+        font-size: 2.5rem;
+        max-width: 600px;
+    }
 }

@@ -1,10 +1,11 @@
 import { color, mixin } from '../../../shared/utils/styles';
 import styled from 'styled-components';
+import { Item } from '../../../types/item';
 
-export type ItemTileProps = {
-    item?: any;
+export interface ItemTileProps {
+    item?: Item;
     active?: boolean;
-};
+}
 
 export const StyledItemTile = styled.div<ItemTileProps>`
     ${mixin.borderRadius};

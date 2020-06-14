@@ -18,7 +18,7 @@ const api = {
         }),
 };
 
-export const getItemsByUser = (userId: string) =>
+export const getItemsByUser = (userId: string): Promise<Response> =>
     api.get(`/users/${userId}/items`);
 export const getTransactionsByUser = (userId: string) =>
     api.get(`/users/${userId}/transactions`);

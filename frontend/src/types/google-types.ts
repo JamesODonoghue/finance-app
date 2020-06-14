@@ -5,14 +5,14 @@
 //   "Set quicktype target language"
 
 export interface LoginResponse {
-    Ca:          string;
-    uc:          TokenObj;
-    Qt:          Qt;
-    googleId:    string;
-    tokenObj:    TokenObj;
-    tokenId:     string;
+    Ca: string;
+    uc: TokenObj;
+    Qt: Qt;
+    googleId: string;
+    tokenObj: TokenObj;
+    tokenId: string;
     accessToken: string;
-    profileObj:  ProfileObj;
+    profileObj: ProfileObj;
 }
 
 export interface Qt {
@@ -25,25 +25,25 @@ export interface Qt {
 }
 
 export interface ProfileObj {
-    googleId:   string;
-    imageUrl:   string;
-    email:      string;
-    name:       string;
-    givenName:  string;
+    googleId: string;
+    imageUrl: string;
+    email: string;
+    name: string;
+    givenName: string;
     familyName: string;
 }
 
 export interface TokenObj {
-    token_type:      string;
-    access_token:    string;
-    scope:           string;
-    login_hint:      string;
-    expires_in:      number;
-    id_token:        string;
-    session_state:   SessionState;
+    token_type: string;
+    access_token: string;
+    scope: string;
+    login_hint: string;
+    expires_in: number;
+    id_token: string;
+    session_state: SessionState;
     first_issued_at: number;
-    expires_at:      number;
-    idpId:           string;
+    expires_at: number;
+    idpId: string;
 }
 
 export interface SessionState {

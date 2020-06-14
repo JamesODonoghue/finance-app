@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+    useEffect,
+    useRef,
+    useState,
+    MouseEvent,
+    RefObject,
+} from 'react';
 import useTransactions from '../../services/transactions';
 import useAuth from '../../../context/auth';
 import _ from 'lodash';
@@ -15,36 +21,43 @@ import {
     timeFormat,
 } from 'd3';
 import { colors } from '@atlaskit/theme';
+import { Transaction } from '../../../types/transaction';
 
-export const getMonthlySpending = (data: any[]) => {
+interface DateAmount {
+    date: string;
+    amount: number;
+}
+
+export const getMonthlySpending = (data: Transaction[]): DateAmount[] => {
     let dataByMonth = _.groupBy(data, (item) =>
         moment(item.transactionDate, 'YYYY-M-DD').startOf('month'),
     );
-    let totalSpentReducer = (acc: number, item: any) => acc + item.amount;
+    let totalSpentReducer = (acc: number, item: Transaction) =>
+        acc + item.amount;
 
     return Object.keys(dataByMonth).map((key) => ({
         date: key,
         amount: dataByMonth[key].reduce(totalSpentReducer, 0),
     }));
 };
+
 export const BarChart = ({
-    data = [],
+    data,
     parentNode,
 }: {
-    data: any[];
-    parentNode: any;
+    data: DateAmount[];
+    parentNode: RefObject<HTMLDivElement>;
 }) => {
     const [width, setChartWidth] = useState(800);
-    const [hoveredBar, setHoveredBar] = useState<any>(null);
+    const [hoveredBar, setHoveredBar] = useState<{
+        target: SVGRectElement;
+        data: DateAmount;
+    }>();
     const height = 400;
     const margin = { top: 50, bottom: 100, left: 50, right: 50 };
     const d3Container = useRef(null);
-
-    console.log('bar chart render');
-
-    if (data && data.length > 0 && d3Container.current) {
-        data = getMonthlySpending(data).splice(0, 11);
-    }
+    const xAxisRef = useRef<SVGSVGElement>(null);
+    const yAxisRef = useRef<SVGSVGElement>(null);
 
     let dateObj = new Date();
     let endDate = new Date();
@@ -57,34 +70,36 @@ export const BarChart = ({
         .range([margin.left, width - margin.right]);
 
     let y = scaleLinear()
-        .domain([0, max(data, (item) => item.amount)])
+        .domain([0, max(data, (item) => item.amount) as number])
         .range([height - margin.top, margin.bottom]);
 
     const numberFormat = format('.2s');
 
-    const getXaxis = (node: any) =>
-        select(node)
+    if (xAxisRef.current) {
+        select(xAxisRef.current)
             .call(
                 axisBottom(x)
                     .tickSize(0)
-                    .tickFormat((d) => timeFormat('%b')(d as any))
-                    .tickPadding(30) as any,
+                    .tickFormat((d) => timeFormat('%b')(d as Date))
+                    .tickPadding(30),
             )
-            .call((g) => g.select('.domain').remove() as any);
+            .call((g) => g.select('.domain').remove());
+    }
 
-    const getYAxis = (node: any) =>
-        select(node)
+    if (yAxisRef.current) {
+        select(yAxisRef.current)
             .call(
                 axisRight(y)
                     .ticks(6)
                     .tickSize(0)
-                    .tickFormat((d) => numberFormat(d)) as any,
+                    .tickFormat((d) => numberFormat(d)),
             )
-            .call((g) => g.select('.domain').remove() as any);
+            .call((g) => g.select('.domain').remove());
+    }
 
     useEffect(() => {
         const handleResize = () => {
-            if (parentNode.current) {
+            if (parentNode && parentNode.current) {
                 setChartWidth(parentNode.current.getBoundingClientRect().width);
             }
         };
@@ -94,9 +109,11 @@ export const BarChart = ({
         return () => window.removeEventListener('resize', handleResize);
     }, [parentNode]);
 
-    const handleMouseOver = (e: any, item: any) => {
-        console.log(e.target);
-        setHoveredBar({ target: e.target, data: item });
+    const handleMouseOver = (
+        e: MouseEvent<SVGRectElement>,
+        item: DateAmount,
+    ) => {
+        setHoveredBar({ target: e.target as SVGRectElement, data: item });
     };
 
     return (
@@ -104,19 +121,20 @@ export const BarChart = ({
             <g>
                 <g
                     className="x-axis"
-                    ref={(node) => getXaxis(node)}
+                    ref={xAxisRef}
                     style={{ fontSize: '14px', fontFamily: 'Montserrat' }}
                     transform={`translate(0, ${height - margin.bottom})`}
                 ></g>
                 <g
                     className="y-axis"
-                    ref={(node) => getYAxis(node)}
+                    ref={yAxisRef}
                     transform={`translate(${margin.left},-50)`}
                     style={{ fontSize: '14px', fontFamily: 'Montserrat' }}
                 ></g>
                 <g>
-                    {data.map((item) => (
+                    {data.map((item, key) => (
                         <StyledBarRect
+                            key={key}
                             rx="5"
                             x={x(new Date(item.date) as Date) - 10}
                             y={y(item.amount) - margin.top}
@@ -160,19 +178,22 @@ export const BarChart = ({
 
 export const BarChartContainer = () => {
     const { user } = useAuth();
-    const { id: userId } = user;
+    const userId = user ? user.id : '';
     const { transactionsByUser, getTransactionsByUser } = useTransactions();
-    const parentNode = useRef(null);
+    const parentNode = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        getTransactionsByUser(userId);
+        user && getTransactionsByUser(userId);
     }, [userId, getTransactionsByUser]);
 
     return (
         <div ref={parentNode}>
             {transactionsByUser ? (
                 <BarChart
-                    data={transactionsByUser[userId]}
+                    data={getMonthlySpending(transactionsByUser[userId]).splice(
+                        0,
+                        11,
+                    )}
                     parentNode={parentNode}
                 ></BarChart>
             ) : (

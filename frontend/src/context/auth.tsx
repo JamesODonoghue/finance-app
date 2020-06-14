@@ -1,20 +1,34 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, {
+    createContext,
+    useState,
+    useContext,
+    useEffect,
+    ReactElement,
+    SetStateAction,
+    Dispatch,
+} from 'react';
 import { getToken, verifyToken, setToken } from '../shared/utils/auth';
 import { parse } from 'query-string';
-interface IContextProps {
-    user: any;
-    setUser: any;
+import { User } from '../types/user';
+interface ContextProps {
+    user: User | undefined;
+    setUser: Dispatch<SetStateAction<User | undefined>>;
     handleLogin: () => void;
 }
-export const AuthContext = createContext<Partial<IContextProps>>({});
+export const AuthContext = createContext<ContextProps | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useState<any>();
+export const AuthProvider = ({
+    children,
+}: {
+    children: React.ReactNode;
+}): ReactElement => {
+    const [user, setUser] = useState<User | undefined>(undefined);
 
-    const handleLogin = () =>
-        (window.location.href = 'http://localhost:5000/auth/google');
+    const handleLogin = (): void => {
+        window.location.href = 'http://localhost:5000/auth/google';
+    };
 
-    useEffect(() => {
+    useEffect((): void => {
         let token = getToken();
         let user = verifyToken(token as string);
         if (token && user) {
@@ -41,5 +55,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 export default function useAuth() {
     const context = useContext(AuthContext);
+
+    if (context === undefined) {
+        throw new Error('useAuth must be used within AuthProvider');
+    }
+
     return context;
 }

@@ -5,15 +5,11 @@ import React, {
     useReducer,
     useRef,
     useMemo,
+    ReactElement,
 } from 'react';
 import { getItemsByUser as apiGetItemsByUser } from './api';
-import { keyBy, omit, omitBy, groupBy } from 'lodash';
-
-interface IContextProps {
-    itemsById: any;
-    itemsByUser: any;
-    getItemsByUser: any;
-}
+import { keyBy, groupBy, Dictionary } from 'lodash';
+import { Item } from '../../types/item';
 
 /**
  * @desc Enumerated action types
@@ -24,9 +20,44 @@ enum TYPES {
     DELETE_BY_USER,
     SUCCESSFUL_DELETE,
 }
-export const ItemsContext = createContext<Partial<IContextProps>>({});
 
-export const ItemsProvider = ({ children }: { children: React.ReactNode }) => {
+type State = Dictionary<Item>;
+
+interface ContextProps {
+    itemsById: Dictionary<Item>;
+    itemsByUser: Dictionary<Item[]>;
+    getItemsByUser: (userId: string) => Promise<void>;
+}
+
+/**
+ * @desc Handles updates to the Items state as dictated by dispatched actions.
+ */
+const reducer = (state: State, [type, payload]: [TYPES, Item[]]): State => {
+    switch (type) {
+        case TYPES.SUCCESSFUL_REQUEST:
+            if (!payload.length) {
+                return state;
+            }
+
+            let newDict = keyBy(payload, 'plaidItemId');
+
+            return {
+                ...state,
+                ...newDict,
+            };
+        default:
+            console.warn('unknown action: ', { type, payload });
+            return state;
+    }
+};
+
+export const ItemsContext = createContext<Partial<ContextProps>>({});
+
+export const ItemsProvider = ({
+    children,
+}: {
+    children: React.ReactNode;
+}): ReactElement => {
     const [itemsById, dispatch] = useReducer(reducer, {});
 
     const hasRequested = useRef<{
@@ -41,7 +72,7 @@ export const ItemsProvider = ({ children }: { children: React.ReactNode }) => {
         hasRequested.current.byUser[userId] = true;
         const result = await apiGetItemsByUser(userId);
         const payload = await result.json();
-        dispatch([TYPES.SUCCESSFUL_REQUEST, payload]);
+        dispatch([TYPES.SUCCESSFUL_REQUEST, payload as Item[]]);
     }, []);
 
     const value = useMemo(() => {
@@ -59,28 +90,8 @@ export const ItemsProvider = ({ children }: { children: React.ReactNode }) => {
     );
 };
 
-/**
- * @desc Handles updates to the Items state as dictated by dispatched actions.
- */
-function reducer(state: any, [type, payload]: any[]) {
-    switch (type) {
-        case TYPES.SUCCESSFUL_REQUEST:
-            if (!payload.length) {
-                return state;
-            }
-            return { ...state, ...keyBy(payload, 'plaidItemId') };
-        case TYPES.SUCCESSFUL_DELETE:
-            return omit(state, [payload]);
-        case TYPES.DELETE_BY_USER:
-            return omitBy(state, (items) => items.user_id === payload);
-        default:
-            console.warn('unknown action: ', { type, payload });
-            return state;
-    }
-}
-
 export default function useItems() {
-    const context = useContext(ItemsContext);
+    const context = useContext(ItemsContext) as ContextProps;
 
     return context;
 }

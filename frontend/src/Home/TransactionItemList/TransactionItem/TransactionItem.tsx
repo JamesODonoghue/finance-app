@@ -9,6 +9,7 @@ import {
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconPrefix, IconName } from '@fortawesome/fontawesome-svg-core';
+import { Transaction } from '../../../types/transaction';
 
 const iconMap: { [key: string]: [IconPrefix, IconName] } = {
     Travel: ['fas', 'plane'],
@@ -18,16 +19,18 @@ const iconMap: { [key: string]: [IconPrefix, IconName] } = {
     Payment: ['fas', 'hand-holding-usd'],
 };
 
-export const TransactionItem = ({ transaction }: any) => {
-    const parsedDate = moment(transaction.date).format('MMM DD');
+export const TransactionItem = ({
+    transaction,
+}: {
+    transaction: Transaction;
+}) => {
+    const parsedDate = moment(transaction.transactionDate).format('MMM DD');
 
-    const icon = iconMap[transaction.category[0]] ? (
-        <FontAwesomeIcon
-            icon={iconMap[transaction.category[0]]}
-        ></FontAwesomeIcon>
+    const icon = iconMap[transaction.category] ? (
+        <FontAwesomeIcon icon={iconMap[transaction.category]}></FontAwesomeIcon>
     ) : (
         <div style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>
-            {transaction.name.charAt(0)}
+            {transaction.transactionName.charAt(0)}
         </div>
     );
     return (
@@ -54,9 +57,11 @@ export const TransactionItem = ({ transaction }: any) => {
             >
                 <div>
                     <TransactionCategory>
-                        {transaction.category[0]}
+                        {transaction.category}
                     </TransactionCategory>
-                    <TransactionName>{transaction.name}</TransactionName>
+                    <TransactionName>
+                        {transaction.transactionName}
+                    </TransactionName>
                 </div>
                 <div>
                     <TransactionAmount>

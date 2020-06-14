@@ -1,10 +1,6 @@
 import { color } from '../../../shared/utils/styles';
 import styled from 'styled-components';
 
-export type TransactionProps = {
-    item?: any;
-};
-
 export const StyledTransactionItem = styled.div`
     display: flex;
     background: ${({ theme }) => theme.backgroundSecondary};

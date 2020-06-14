@@ -7,13 +7,17 @@ import React, {
     useMemo,
 } from 'react';
 import { getTransactionsByUser as apiGetTransactionsByUser } from './api';
-import { keyBy, omit, groupBy } from 'lodash';
+import { keyBy, groupBy, Dictionary } from 'lodash';
+import { Transaction } from '../../types/transaction';
 
-interface IContextProps {
-    allTransactions: any;
-    transactionsByUser: any;
-    transactionsById: any;
-    getTransactionsByUser: any;
+/** Transactions Provider*/
+type State = Dictionary<Transaction>;
+
+interface ContextProps {
+    allTransactions: Transaction[];
+    transactionsByUser: Dictionary<Transaction[]>;
+    transactionsById: State;
+    getTransactionsByUser: (userId: string) => Promise<void>;
 }
 
 /**
@@ -25,7 +29,23 @@ enum TYPES {
     DELETE_BY_USER,
     SUCCESSFUL_DELETE,
 }
-export const TransactionsContext = createContext<Partial<IContextProps>>({});
+
+const reducer = (
+    state: State,
+    [type, payload]: [TYPES, Transaction[]],
+): State => {
+    switch (type) {
+        case TYPES.SUCCESSFUL_GET:
+            if (!payload.length) {
+                return state;
+            }
+            return { ...state, ...keyBy(payload, 'plaidTransactionId') };
+        default:
+            console.warn('unknown action: ', { type, payload });
+            return state;
+    }
+};
+export const TransactionsContext = createContext<Partial<ContextProps>>({});
 
 export const TransactionsProvider = ({
     children,
@@ -47,7 +67,7 @@ export const TransactionsProvider = ({
      * The api request will be bypassed if the data has already been fetched.
      * A 'refresh' parameter can force a request for new data even if local state exists.
      */
-    const getTransactionsByUser = useCallback(async (userId, refresh) => {
+    const getTransactionsByUser = useCallback(async (userId) => {
         // if (!hasRequested.current.byUser[userId] || refresh) {
         hasRequested.current.byUser[userId] = true;
         const result = await apiGetTransactionsByUser(userId);
@@ -73,26 +93,7 @@ export const TransactionsProvider = ({
     );
 };
 
-/**
- * @desc Handles updates to the Items state as dictated by dispatched actions.
- */
-function reducer(state: any, [type, payload]: any[]) {
-    switch (type) {
-        case TYPES.SUCCESSFUL_GET:
-            if (!payload.length) {
-                return state;
-            }
-            return { ...state, ...keyBy(payload, 'plaidTransactionId') };
-        case TYPES.SUCCESSFUL_DELETE:
-            return omit(state, [payload]);
-        default:
-            console.warn('unknown action: ', { type, payload });
-            return state;
-    }
-}
-
 export default function useTransactions() {
     const context = useContext(TransactionsContext);
-
-    return context;
+    return context as ContextProps;
 }

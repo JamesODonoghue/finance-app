@@ -9,14 +9,17 @@ export const TransactionItemList = () => {
     const { user } = useAuth();
 
     useEffect(() => {
-        getTransactionsByUser(user.id);
+        user && getTransactionsByUser(user.id);
     }, [user, getTransactionsByUser]);
     return (
         <Fragment>
             <h2>Recent Transactions</h2>
             <StyledTransactionList>
-                {allTransactions?.map((item: any) => (
-                    <TransactionItem transaction={item}></TransactionItem>
+                {allTransactions?.map((txn) => (
+                    <TransactionItem
+                        key={txn.plaidTransactionId}
+                        transaction={txn}
+                    ></TransactionItem>
                 ))}
             </StyledTransactionList>
         </Fragment>

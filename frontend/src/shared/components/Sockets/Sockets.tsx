@@ -7,11 +7,11 @@ import useAuth from '../../../context/auth';
 const { REACT_APP_SERVER_PORT } = process.env;
 
 export default function Sockets() {
-    const socket = useRef() as any;
+    const socket = useRef<SocketIOClient.Socket>(io());
     const { getTransactionsByUser } = useTransactions();
     const { getItemsByUser } = useItems();
     const { user } = useAuth();
-    const { userId } = user;
+    const userId = user ? user.id : '';
 
     useEffect(() => {
         socket.current = io(`localhost:${REACT_APP_SERVER_PORT}`);
