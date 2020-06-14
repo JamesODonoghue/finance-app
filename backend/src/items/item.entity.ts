@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
 import { Account } from 'accounts/account.entity';
 
 @Entity()
@@ -13,9 +13,6 @@ export class Item {
     institutionId?: string;
     @Column({ nullable: true })
     institutionName?: string;
-    @OneToMany(
-        () => Account,
-        account => account.item,
-    )
+    @OneToMany(() => Account, (account) => account.item)
     accounts: Account[];
 }
