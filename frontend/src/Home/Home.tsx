@@ -14,6 +14,7 @@ import { Button } from '../shared/components/Button/Button';
 // import useItems from '../shared/services/items';
 import useAuth from '../context/auth';
 import { useLink } from '../shared/services/link';
+import { SidePanel } from '../App/SidePanel/SidePanel';
 
 const MORNING = 'Good Morning';
 const AFTERNOON = 'Good Afternoon';
@@ -42,10 +43,20 @@ export const Home = () => {
     return (
         <Fragment>
             <HomeScreen>
-                <HomeHeader>
-                    {getFullGreeting()}
-                    <Button onClick={() => open()}>Add Account</Button>
-                    {/* <Button
+                <div>
+                    <SidePanel />
+                </div>
+                <div
+                    style={{
+                        margin: 'auto',
+                        maxWidth: '1200px',
+                        padding: '2rem',
+                    }}
+                >
+                    <HomeHeader>
+                        {getFullGreeting()}
+                        <Button onClick={() => open()}>Add Account</Button>
+                        {/* <Button
                         style={{ marginRight: '2rem' }}
                         primary={false}
                         onClick={clearAllAccounts}
@@ -55,15 +66,16 @@ export const Home = () => {
                     <Button primary={false} onClick={clearAllItems}>
                         Clear Items
                     </Button> */}
-                </HomeHeader>
-                <Switch>
-                    <Route exact path="/">
-                        <Dashboard />
-                    </Route>
-                    <Route path="/activity">
-                        <Activity />
-                    </Route>
-                </Switch>
+                    </HomeHeader>
+                    <Switch>
+                        <Route exact path="/">
+                            <Dashboard />
+                        </Route>
+                        <Route path="/activity">
+                            <Activity />
+                        </Route>
+                    </Switch>
+                </div>
             </HomeScreen>
             {/* <Navbar /> */}
         </Fragment>

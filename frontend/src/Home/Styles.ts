@@ -1,11 +1,8 @@
 import styled from 'styled-components';
 
 export const HomeScreen = styled.div`
-    max-width: 1400px;
     margin: auto;
-    padding: 1rem;
-    margin-bottom: 5rem;
-    margin-top: 5rem;
+    display: flex;
 `;
 
 export const HomeHeader = styled.div`
