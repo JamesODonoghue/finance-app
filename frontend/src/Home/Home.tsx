@@ -49,7 +49,7 @@ export const Home = () => {
                 <div
                     style={{
                         margin: 'auto',
-                        maxWidth: '1200px',
+                        width: '1200px',
                         padding: '2rem',
                     }}
                 >
