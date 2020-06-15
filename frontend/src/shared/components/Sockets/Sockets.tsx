@@ -7,7 +7,7 @@ import useAuth from '../../../context/auth';
 const { REACT_APP_SERVER_PORT } = process.env;
 
 export default function Sockets() {
-    const socket = useRef<SocketIOClient.Socket>(io());
+    const socket = useRef<SocketIOClient.Socket>();
     const { getTransactionsByUser } = useTransactions();
     const { getItemsByUser } = useItems();
     const { user } = useAuth();
@@ -68,8 +68,10 @@ export default function Sockets() {
         // });
 
         return () => {
-            socket.current.removeAllListeners();
-            socket.current.close();
+            if (socket && socket.current) {
+                socket.current.removeAllListeners();
+                socket.current.close();
+            }
         };
     }, [getTransactionsByUser, getItemsByUser, userId, socket]);
 

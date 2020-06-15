@@ -4,7 +4,7 @@
 //
 //   "Set quicktype target language"
 
-export interface IPlaidTransaction {
+export interface PlaidTransaction {
     account_id: string;
     account_owner: null;
     amount: number;
