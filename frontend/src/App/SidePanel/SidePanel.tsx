@@ -27,6 +27,7 @@ export const SidePanel = () => (
     <StyledSidePanel>
         {renderLinkItem('profile', 'user-circle', 'Profile')}
         {renderLinkItem('/', 'chart-bar', 'Dashboard')}
-        {renderLinkItem('items', 'credit-card', 'Accounts')}
+        {renderLinkItem('accounts', 'credit-card', 'Accounts')}
+        {renderLinkItem('transactions', 'list', 'Transactions', 'fas')}
     </StyledSidePanel>
 );

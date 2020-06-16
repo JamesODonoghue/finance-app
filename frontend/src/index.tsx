@@ -19,6 +19,7 @@ import {
     faBiking,
     faExchangeAlt,
     faHandHoldingUsd,
+    faList,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { AuthProvider } from './context/auth';
@@ -34,6 +35,7 @@ library.add(
     faBiking,
     faExchangeAlt,
     faHandHoldingUsd,
+    faList,
 );
 
 ReactDOM.render(
