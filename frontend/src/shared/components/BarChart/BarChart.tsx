@@ -188,6 +188,7 @@ export const BarChartContainer = () => {
 
     return (
         <div ref={parentNode}>
+            <h1>Spending</h1>
             {transactionsByUser ? (
                 <BarChart
                     data={getMonthlySpending(transactionsByUser[userId]).splice(

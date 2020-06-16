@@ -64,7 +64,7 @@ export const TransactionItem = ({
                     </TransactionName>
                 </div>
                 <div>
-                    <TransactionAmount>
+                    <TransactionAmount amount={transaction.amount}>
                         {transaction.amount.toFixed(2)}
                     </TransactionAmount>
                     <TransactionDate>{parsedDate}</TransactionDate>

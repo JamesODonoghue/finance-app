@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Activity } from './Activity/Activity';
 import { Switch, Route } from 'react-router';
 import { Dashboard } from './Dashboard/Dashboard';
 import { HomeScreen, HomeHeader } from './Styles';
@@ -15,6 +14,8 @@ import { Button } from '../shared/components/Button/Button';
 import useAuth from '../context/auth';
 import { useLink } from '../shared/services/link';
 import { SidePanel } from '../App/SidePanel/SidePanel';
+import { TransactionItemList } from './TransactionItemList/TransactionItemList';
+import { AccountList } from './AccountList/AccountList';
 
 const MORNING = 'Good Morning';
 const AFTERNOON = 'Good Afternoon';
@@ -48,7 +49,7 @@ export const Home = () => {
                 </div>
                 <div
                     style={{
-                        margin: 'auto',
+                        margin: '4rem auto',
                         width: '1200px',
                         padding: '2rem',
                     }}
@@ -71,8 +72,11 @@ export const Home = () => {
                         <Route exact path="/">
                             <Dashboard />
                         </Route>
-                        <Route path="/activity">
-                            <Activity />
+                        <Route path="/accounts">
+                            <AccountList />
+                        </Route>
+                        <Route path="/transactions">
+                            <TransactionItemList />
                         </Route>
                     </Switch>
                 </div>

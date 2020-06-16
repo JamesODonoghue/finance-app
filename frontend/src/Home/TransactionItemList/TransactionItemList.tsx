@@ -13,15 +13,17 @@ export const TransactionItemList = () => {
     }, [user, getTransactionsByUser]);
     return (
         <Fragment>
-            <h2>Recent Transactions</h2>
-            <StyledTransactionList>
-                {allTransactions?.map((txn) => (
-                    <TransactionItem
-                        key={txn.plaidTransactionId}
-                        transaction={txn}
-                    ></TransactionItem>
-                ))}
-            </StyledTransactionList>
+            <div>
+                <h1>Recent Transactions</h1>
+                <StyledTransactionList>
+                    {allTransactions?.map((txn) => (
+                        <TransactionItem
+                            key={txn.plaidTransactionId}
+                            transaction={txn}
+                        ></TransactionItem>
+                    ))}
+                </StyledTransactionList>
+            </div>
         </Fragment>
     );
 };
