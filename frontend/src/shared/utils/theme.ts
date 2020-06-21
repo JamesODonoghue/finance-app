@@ -8,8 +8,8 @@
 import { colors } from '@atlaskit/theme';
 
 export const lightTheme = {
-    background: colors.N0,
-    backgroundSecondary: colors.N10,
+    background: colors.N20,
+    backgroundSecondary: colors.N0,
 
     color: colors.N900,
     buttonHover: colors.N30,

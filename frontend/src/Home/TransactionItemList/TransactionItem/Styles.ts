@@ -1,4 +1,3 @@
-import { color } from '../../../shared/utils/styles';
 import styled from 'styled-components';
 import { colors } from '@atlaskit/theme';
 
@@ -7,7 +6,6 @@ interface Props {
 }
 export const StyledTransactionItem = styled.div`
     display: flex;
-    background: ${({ theme }) => theme.backgroundSecondary};
     color: ${({ theme }) => theme.color};
     padding: 1rem;
     border-radius: 1rem;

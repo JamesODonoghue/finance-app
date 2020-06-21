@@ -4,6 +4,7 @@ import React, {
     useState,
     MouseEvent,
     RefObject,
+    Fragment,
 } from 'react';
 import useTransactions from '../../services/transactions';
 import useAuth from '../../../context/auth';
@@ -48,13 +49,14 @@ export const BarChart = ({
     data: DateAmount[];
     parentNode: RefObject<HTMLDivElement>;
 }) => {
-    const [width, setChartWidth] = useState(800);
+    const [width, setChartWidth] = useState(900);
+    const [height, setChartHeight] = useState(500);
+
     const [hoveredBar, setHoveredBar] = useState<{
         target: SVGRectElement;
         data: DateAmount;
     }>();
-    const height = 400;
-    const margin = { top: 50, bottom: 100, left: 50, right: 50 };
+    const margin = { top: 50, bottom: 100, left: 30, right: 30 };
     const d3Container = useRef(null);
     const xAxisRef = useRef<SVGSVGElement>(null);
     const yAxisRef = useRef<SVGSVGElement>(null);
@@ -64,7 +66,7 @@ export const BarChart = ({
 
     let x = scaleTime()
         .domain([
-            dateObj.setMonth(dateObj.getMonth() - 12),
+            dateObj.setMonth(dateObj.getMonth() - 7),
             endDate.setMonth(endDate.getMonth() - 1),
         ])
         .range([margin.left, width - margin.right]);
@@ -101,6 +103,9 @@ export const BarChart = ({
         const handleResize = () => {
             if (parentNode && parentNode.current) {
                 setChartWidth(parentNode.current.getBoundingClientRect().width);
+                setChartHeight(
+                    parentNode.current.getBoundingClientRect().height,
+                );
             }
         };
         handleResize();
@@ -117,62 +122,72 @@ export const BarChart = ({
     };
 
     return (
-        <StyledSvg width={width} height={height} ref={d3Container}>
-            <g>
-                <g
-                    className="x-axis"
-                    ref={xAxisRef}
-                    style={{ fontSize: '14px', fontFamily: 'Montserrat' }}
-                    transform={`translate(0, ${height - margin.bottom})`}
-                ></g>
-                <g
-                    className="y-axis"
-                    ref={yAxisRef}
-                    transform={`translate(${margin.left},-50)`}
-                    style={{ fontSize: '14px', fontFamily: 'Montserrat' }}
-                ></g>
+        <Fragment>
+            <StyledSvg
+                width={width}
+                height={height}
+                ref={d3Container}
+                // preserveAspectRatio="xMidYMid meet"
+                // viewBox={`0 0 ${width} ${height}`}
+            >
                 <g>
-                    {data.map((item, key) => (
-                        <StyledBarRect
-                            key={key}
-                            rx="5"
-                            x={x(new Date(item.date) as Date) - 10}
-                            y={y(item.amount) - margin.top}
-                            height={height - margin.top - y(item.amount)}
-                            onMouseOver={(e) => handleMouseOver(e, item)}
-                        ></StyledBarRect>
-                    ))}
+                    <g
+                        className="x-axis"
+                        ref={xAxisRef}
+                        style={{ fontSize: '14px', fontFamily: 'Montserrat' }}
+                        transform={`translate(${margin.left}, ${
+                            height - margin.bottom
+                        })`}
+                    ></g>
+                    <g
+                        className="y-axis"
+                        ref={yAxisRef}
+                        transform={`translate(0,-50)`}
+                        style={{ fontSize: '1em', fontFamily: 'Montserrat' }}
+                    ></g>
+                    <g transform={`translate(${margin.left},0)`}>
+                        {data.map((item, key) => (
+                            <StyledBarRect
+                                key={key}
+                                rx="5"
+                                x={x(new Date(item.date) as Date) - 10}
+                                y={y(item.amount) - margin.top}
+                                height={height - margin.top - y(item.amount)}
+                                onMouseOver={(e) => handleMouseOver(e, item)}
+                            ></StyledBarRect>
+                        ))}
+                    </g>
                 </g>
-            </g>
 
-            {hoveredBar ? (
-                <g
-                    style={{ transition: '100ms all' }}
-                    transform={`translate(${
-                        hoveredBar?.target?.x?.baseVal.value - 50
-                    }, ${hoveredBar?.target?.y?.baseVal.value - 50})`}
-                >
-                    <rect
-                        height={40}
-                        width={120}
-                        fill={colors.N600}
-                        rx={'5px'}
-                    ></rect>
-                    <text
-                        y={25}
-                        x={10}
-                        style={{ fontSize: '1.2rem', fill: colors.N0 }}
+                {hoveredBar ? (
+                    <g
+                        style={{ transition: '100ms all' }}
+                        transform={`translate(${
+                            hoveredBar?.target?.x?.baseVal.value
+                        }, ${hoveredBar?.target?.y?.baseVal.value - 50})`}
                     >
-                        {Intl.NumberFormat('en-US', {
-                            style: 'currency',
-                            currency: 'USD',
-                        }).format(hoveredBar?.data?.amount)}
-                    </text>
-                </g>
-            ) : (
-                ''
-            )}
-        </StyledSvg>
+                        <rect
+                            height={40}
+                            width={120}
+                            fill={colors.N600}
+                            rx={'5px'}
+                        ></rect>
+                        <text
+                            y={25}
+                            x={10}
+                            style={{ fontSize: '1.2rem', fill: colors.N0 }}
+                        >
+                            {Intl.NumberFormat('en-US', {
+                                style: 'currency',
+                                currency: 'USD',
+                            }).format(hoveredBar?.data?.amount)}
+                        </text>
+                    </g>
+                ) : (
+                    ''
+                )}
+            </StyledSvg>
+        </Fragment>
     );
 };
 
@@ -184,16 +199,19 @@ export const BarChartContainer = () => {
 
     useEffect(() => {
         user && getTransactionsByUser(userId);
-    }, [userId, getTransactionsByUser]);
+    }, [user, userId, getTransactionsByUser]);
 
     return (
-        <div ref={parentNode}>
-            <h1>Spending</h1>
+        <div
+            ref={parentNode}
+            style={{ height: '100%', width: '100%', display: 'block' }}
+        >
+            <div style={{ fontSize: '1.5rem' }}>Spending</div>
             {transactionsByUser ? (
                 <BarChart
                     data={getMonthlySpending(transactionsByUser[userId]).splice(
                         0,
-                        11,
+                        6,
                     )}
                     parentNode={parentNode}
                 ></BarChart>

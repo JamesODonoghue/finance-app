@@ -2,9 +2,11 @@ import styled from 'styled-components';
 import { colors } from '@atlaskit/theme';
 
 export const StyledSvg = styled.svg`
-    background-color: ${({ theme }) => theme.backgroundSecondary};
-    border-radius: 1rem;
     width: 100%;
+`;
+
+export const StyledSpending = styled.div`
+    background-color: ${({ theme }) => theme.backgroundSecondary};
 `;
 
 export const StyledBarRect = styled.rect`

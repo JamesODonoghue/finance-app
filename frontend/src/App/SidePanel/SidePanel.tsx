@@ -13,11 +13,11 @@ const renderLinkItem = (
     return (
         <StyledNavLink>
             <NavLink to={path}>
-                {title}
                 <FontAwesomeIcon
-                    style={{ marginLeft: '1rem' }}
+                    style={{ marginRight: '1rem' }}
                     icon={[iconType, icon]}
                 ></FontAwesomeIcon>
+                {title}
             </NavLink>
         </StyledNavLink>
     );

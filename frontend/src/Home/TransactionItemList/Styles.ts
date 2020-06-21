@@ -5,6 +5,5 @@ export const StyledTransactionList = styled.div`
     grid-template-columns: 1fr;
     column-gap: 1rem;
     row-gap: 1rem;
-    height: calc(100vh - 400px);
-    overflow: auto;
+    background: ${({ theme }) => theme.backgroundSecondary};
 `;

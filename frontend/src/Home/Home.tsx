@@ -13,7 +13,6 @@ import { Button } from '../shared/components/Button/Button';
 // import useItems from '../shared/services/items';
 import useAuth from '../context/auth';
 import { useLink } from '../shared/services/link';
-import { SidePanel } from '../App/SidePanel/SidePanel';
 import { TransactionItemList } from './TransactionItemList/TransactionItemList';
 import { AccountList } from './AccountList/AccountList';
 
@@ -44,14 +43,14 @@ export const Home = () => {
     return (
         <Fragment>
             <HomeScreen>
-                <div>
+                {/* <div>
                     <SidePanel />
-                </div>
+                </div> */}
                 <div
                     style={{
-                        margin: '4rem auto',
-                        width: '1200px',
+                        margin: 'auto',
                         padding: '2rem',
+                        width: '100%',
                     }}
                 >
                     <HomeHeader>

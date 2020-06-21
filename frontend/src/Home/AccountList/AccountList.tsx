@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactElement, Fragment } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import useAuth from '../../context/auth';
 import useItems from '../../shared/services/items';
 import { Item } from '../../types/item';
