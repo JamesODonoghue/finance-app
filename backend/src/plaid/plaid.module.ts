@@ -8,11 +8,7 @@ import { AppGateway } from 'app.gateway';
 import { TransactionsModule } from 'transactions/transactions.module';
 
 @Module({
-    imports: [
-        forwardRef(() => ItemsModule),
-        AccountsModule,
-        TransactionsModule,
-    ],
+    imports: [forwardRef(() => ItemsModule), AccountsModule, TransactionsModule],
     providers: [PlaidService, ConfigService, Logger, AppGateway],
     exports: [PlaidService],
     controllers: [PlaidController],

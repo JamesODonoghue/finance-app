@@ -6,9 +6,7 @@ import { CreateItemDto } from 'items/create-item.dto';
 
 @Injectable()
 export class ItemsService {
-    constructor(
-        @InjectRepository(Item) private itemRepository: Repository<Item>,
-    ) {}
+    constructor(@InjectRepository(Item) private itemRepository: Repository<Item>) {}
 
     createItem(item: CreateItemDto): Promise<Item> {
         return this.itemRepository.save({

@@ -1,6 +1,4 @@
 import { Controller, Post, Body, Get, Param } from '@nestjs/common';
-import { PlaidModule } from './plaid.module';
-import * as plaid from 'plaid';
 import { PlaidService } from './plaid.service';
 import moment = require('moment');
 import { AppGateway } from 'app.gateway';
@@ -14,7 +12,7 @@ interface PlaidWebhookResponse {
     webhook_type: string;
     webhook_code: string;
     item_id: string;
-    error: any;
+    error;
     new_transactions: number;
 }
 
@@ -28,15 +26,10 @@ export class PlaidController {
 
     @Post('/webhook')
     public async webhook(@Body() webhook: PlaidWebhookResponse) {
-        const {
-            webhook_code: webhookCode,
-            item_id: plaidItemId,
-            new_transactions: newTransactions,
-        } = webhook;
+        const { webhook_code: webhookCode, item_id: plaidItemId } = webhook;
 
-        let startDate = moment()
-            .subtract(30, 'days')
-            .format('YYYY-MM-DD');
+        let startDate = moment().subtract(30, 'days').format('YYYY-MM-DD');
+
         let endDate = moment().format('YYYY-MM-DD');
         let item;
 
@@ -44,9 +37,7 @@ export class PlaidController {
             case WebhookCode.INITIAL_UPDATE:
                 console.log('Webhook received...');
 
-                item = await this.itemService.retrieveItemByPlaidId(
-                    plaidItemId,
-                );
+                item = await this.itemService.retrieveItemByPlaidId(plaidItemId);
 
                 this.plaidService.handleTransactionsUpdate({
                     plaidItemId,
@@ -61,14 +52,10 @@ export class PlaidController {
                 });
             case WebhookCode.HISTORICAL_UPDATE:
                 console.log('Webhook received...');
-                startDate = moment()
-                    .subtract(2, 'years')
-                    .format('YYYY-MM-DD');
+                startDate = moment().subtract(2, 'years').format('YYYY-MM-DD');
                 endDate = moment().format('YYYY-MM-DD');
 
-                item = await this.itemService.retrieveItemByPlaidId(
-                    plaidItemId,
-                );
+                item = await this.itemService.retrieveItemByPlaidId(plaidItemId);
                 this.plaidService.handleTransactionsUpdate({
                     plaidItemId,
                     startDate,

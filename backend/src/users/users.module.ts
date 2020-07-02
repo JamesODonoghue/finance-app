@@ -9,13 +9,7 @@ import { TransactionsModule } from 'transactions/transactions.module';
 import { AccountsModule } from 'accounts/accounts.module';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([User]),
-        ItemsModule,
-        PlaidModule,
-        TransactionsModule,
-        AccountsModule,
-    ],
+    imports: [TypeOrmModule.forFeature([User]), ItemsModule, PlaidModule, TransactionsModule, AccountsModule],
     providers: [UsersService],
     exports: [TypeOrmModule, UsersService],
     controllers: [UsersController],

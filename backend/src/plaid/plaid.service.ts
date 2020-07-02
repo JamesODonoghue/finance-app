@@ -1,9 +1,8 @@
 import { ConfigService } from '@nestjs/config';
-import { Injectable, Logger, forwardRef, Inject } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import * as plaid from 'plaid';
 import { ItemsService } from 'items/items.service';
 import { AccountsService } from 'accounts/accounts.service';
-import { AppGateway } from 'app.gateway';
 import { TransactionsService } from 'transactions/transactions.service';
 
 @Injectable()
@@ -26,36 +25,34 @@ export class PlaidService {
         this.logger.setContext('PlaidService');
     }
 
-    exchangePublicToken(public_token: string) {
-        return this.plaidClient.exchangePublicToken(public_token);
+    exchangePublicToken(publicToken: string) {
+        return this.plaidClient.exchangePublicToken(publicToken);
     }
 
     async sandboxPublicTokenCreate() {
         this.logger.log('Creating fake item in plaid sandbox');
         try {
-            return await this.plaidClient.sandboxPublicTokenCreate('ins_1', [
-                'auth',
-                'transactions',
-            ]);
+            return await this.plaidClient.sandboxPublicTokenCreate('ins_1', ['auth', 'transactions']);
         } catch (e) {
             return e;
         }
     }
 
     async handleTransactionsUpdate({ plaidItemId, startDate, endDate, item }) {
-        const {
-            transactions: incomingTransactions,
-            accounts,
-        } = await this.fetchTransactions({ plaidItemId, startDate, endDate });
+        const { transactions: incomingTransactions, accounts } = await this.fetchTransactions({
+            plaidItemId,
+            startDate,
+            endDate,
+        });
 
         console.log(`Item: ${item}`);
         item.accounts = await this.accountsService.createAccounts(
-            accounts.map(acc => ({
+            accounts.map((acc) => ({
                 plaidItemId: plaidItemId,
                 plaidAccountId: acc.account_id,
                 name: acc.name,
                 mask: acc.mask,
-                official_name: acc.official_name,
+                officialName: acc.official_name,
                 currentBalance: acc.balances.current,
                 availableBalance: acc.balances.available,
                 isoCurrencyCode: acc.balances.iso_currency_code,
@@ -66,19 +63,14 @@ export class PlaidService {
         );
 
         await this.itemService.updateItem(item);
-        await this.transactionsService.saveTransactions(
-            incomingTransactions,
-            item.userId,
-        );
+        await this.transactionsService.saveTransactions(incomingTransactions, item.userId);
 
         return this.itemService.updateItem(item);
     }
 
     async fetchTransactions({ plaidItemId, startDate, endDate }) {
         try {
-            const {
-                plaidAccessToken,
-            } = await this.itemService.retrieveItemByPlaidId(plaidItemId);
+            const { plaidAccessToken } = await this.itemService.retrieveItemByPlaidId(plaidItemId);
 
             let offset = 0;
             let transactionsToFetch = true;
@@ -94,10 +86,7 @@ export class PlaidService {
                     count: batchSize,
                     offset,
                 };
-                const {
-                    transactions,
-                    accounts,
-                } = await this.plaidClient.getTransactions(
+                const { transactions, accounts } = await this.plaidClient.getTransactions(
                     plaidAccessToken,
                     startDate,
                     endDate,
@@ -122,19 +111,11 @@ export class PlaidService {
         }
     }
 
-    getAccounts(access_token: string) {
-        return this.plaidClient.getAccounts(access_token);
+    getAccounts(accessToken: string) {
+        return this.plaidClient.getAccounts(accessToken);
     }
 
     getInstitutionById(id: string) {
         return this.plaidClient.getInstitutionById(id);
     }
-
-    // getItems() {
-    //     return this.itemRepository.find();
-    // }
-
-    // findByOneByToken(token: string): Promise<Item> {
-    //     return this.itemRepository.findOne(token);
-    // }
 }

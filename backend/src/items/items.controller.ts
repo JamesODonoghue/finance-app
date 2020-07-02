@@ -1,8 +1,8 @@
-import { Controller, Post, Body, Param } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { PlaidService } from 'plaid/plaid.service';
 import { ItemsService } from './items.service';
 
-interface ITokenExchange {
+interface TokenExchange {
     publicToken: string;
     userId: string;
     institutionId: string;
@@ -10,30 +10,25 @@ interface ITokenExchange {
 }
 @Controller('items')
 export class ItemsController {
-    constructor(
-        private readonly itemsService: ItemsService,
-        private readonly plaidService: PlaidService,
-    ) {}
+    constructor(private readonly itemsService: ItemsService, private readonly plaidService: PlaidService) {}
     @Post('/')
-    public async exchangeToken(@Body() item: ITokenExchange) {
+    public async exchangeToken(@Body() item: TokenExchange) {
         const { publicToken, institutionId, institutionName, userId } = item;
 
-        const {
-            item_id: plaidItemId,
-            access_token: plaidAccessToken,
-        } = await this.plaidService.exchangePublicToken(publicToken);
+        /**
+         * Retrieve the accessToken for the created item
+         * */
+        const { item_id: plaidItemId, access_token: plaidAccessToken } = await this.plaidService.exchangePublicToken(
+            publicToken,
+        );
 
-        /** Create and save the newly created Item with the accounts */
-
-        const newItem = await this.itemsService.createItem({
+        return await this.itemsService.createItem({
             userId,
             institutionId,
             institutionName,
             plaidItemId,
             plaidAccessToken,
         });
-
-        return newItem;
     }
 
     @Post('/seed')

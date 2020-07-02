@@ -7,17 +7,14 @@ export class Account {
     plaidAccountId: string;
     @Column()
     plaidItemId: string;
-    @ManyToOne(
-        () => Item,
-        item => item.accounts,
-    )
+    @ManyToOne(() => Item, (item) => item.accounts)
     item: Item;
     @Column({ nullable: true })
     name: string;
     @Column({ nullable: true })
     mask: string;
     @Column({ nullable: true })
-    official_name: string;
+    officialName: string;
     @Column({ type: 'float', nullable: true })
     currentBalance: number;
     @Column({ type: 'float', nullable: true })

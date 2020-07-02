@@ -3,7 +3,7 @@ export class CreateAccountDto {
     plaidItemId: string;
     name: string;
     mask: string;
-    official_name: string;
+    officialName: string;
     currentBalance: number;
     availableBalance: number;
     isoCurrencyCode: string;
