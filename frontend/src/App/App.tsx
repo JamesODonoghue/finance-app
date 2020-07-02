@@ -24,7 +24,6 @@ export const App = () => {
                         </ItemsProvider>
                     </TransactionsProvider>
                 ) : (
-                    // <Authenticate />
                     <Landing />
                 )}
             </ThemeProvider>

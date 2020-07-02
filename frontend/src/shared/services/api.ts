@@ -18,19 +18,15 @@ const api = {
         }),
 };
 
-export const getItemsByUser = (userId: string): Promise<Response> =>
-    api.get(`/users/${userId}/items`);
-export const getTransactionsByUser = (userId: string) =>
-    api.get(`/users/${userId}/transactions`);
-export const getAccountsByItem = (plaidItemId: string) =>
-    api.get(`/items/${plaidItemId}/accounts`);
+export const getItemsByUser = (userId: string): Promise<Response> => api.get(`/users/${userId}/items`);
+export const getTransactionsByUser = (userId: string) => api.get(`/users/${userId}/transactions`);
+export const getAccountsByItem = (plaidItemId: string) => api.get(`/items/${plaidItemId}/accounts`);
 export const clearAllAccounts = () => api.post('/accounts/clear');
 export const clearAllItems = () => api.post('/items/clear');
 
 export const seedFakeItem = () => api.post('/items/seed');
 export const clearItems = () => api.post('/items/clear');
-export const getInstitutionById = (id: string) =>
-    api.get(`/plaid/institutions/${id}`);
+export const getInstitutionById = (id: string) => api.get(`/plaid/institutions/${id}`);
 export const getWebhooksUrl = async () => {
     try {
         const response = await api.get('/ngrok');
