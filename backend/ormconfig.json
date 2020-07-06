@@ -1,0 +1,43 @@
+[
+    {
+        "name": "default",
+        "type": "postgres",
+        "host": "postgres",
+        "port": 5432,
+        "username": "postgres",
+        "password": "postgres",
+        "database": "finances_db",
+        "synchronize": true,
+        "logging": true,
+        "entities": [
+            "build/**/*.entity.js"
+        ],
+        "migrations": [
+            "build/migrations/*.js"
+        ],
+        "cli": {
+            "migrationsDir": "migration"
+        }
+    },
+    {
+        "name": "test",
+        "type": "postgres",
+        "host": "localhost",
+        "port": 5432,
+        "username": "test",
+        "password": "test",
+        "database": "test_db",
+        "synchronize": true,
+        "logging": false,
+        "dropSchema": true,
+        "entities": [
+            "build/**/*.entity.js"
+        ],
+        "migrations": [
+            "build/migrations/*.js"
+        ],
+        "cli": {
+            "migrationsDir": "migration"
+        }
+    }
+]

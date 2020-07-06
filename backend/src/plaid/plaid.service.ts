@@ -1,9 +1,9 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable, Logger } from '@nestjs/common';
 import * as plaid from 'plaid';
-import { ItemsService } from 'items/items.service';
 import { AccountsService } from 'accounts/accounts.service';
 import { TransactionsService } from 'transactions/transactions.service';
+import { ItemsService } from 'items/items.service';
 
 @Injectable()
 export class PlaidService {

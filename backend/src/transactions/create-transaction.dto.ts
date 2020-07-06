@@ -2,7 +2,6 @@ export class CreateTransactionDto {
     userId: string;
     accountId: string;
     plaidTransactionId: string;
-    plaidCategoryId: string;
     category: string;
     subcategory: string;
     transactionType: string;
