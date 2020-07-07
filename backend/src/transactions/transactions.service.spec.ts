@@ -48,11 +48,11 @@ const expected = [
     },
 ];
 
-describe('TransactionsService', () => {
+describe('Transactions Service', () => {
     let service: TransactionsService;
     let repository: Repository<Transaction>;
     let module: TestingModule;
-    beforeAll(async () => {
+    beforeEach(async () => {
         module = await Test.createTestingModule({
             imports: [
                 TypeOrmModule.forRoot({ ...testConnection, entities: [Transaction] }),
@@ -66,12 +66,13 @@ describe('TransactionsService', () => {
         service = module.get<TransactionsService>(TransactionsService);
     });
 
-    afterAll(async () => {
-        await module.close();
-    });
-
     afterEach(async () => {
         await repository.clear();
+        await repository.manager.connection.close();
+    });
+
+    it('should be defined', () => {
+        expect(service).toBeDefined();
     });
 
     it('should correctly map and save transactions', async () => {

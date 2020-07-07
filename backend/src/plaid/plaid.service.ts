@@ -46,23 +46,14 @@ export class PlaidService {
         });
 
         console.log(`Item: ${item}`);
-        item.accounts = await this.accountsService.createAccounts(
-            accounts.map((acc) => ({
-                plaidItemId: plaidItemId,
-                plaidAccountId: acc.account_id,
-                name: acc.name,
-                mask: acc.mask,
-                officialName: acc.official_name,
-                currentBalance: acc.balances.current,
-                availableBalance: acc.balances.available,
-                isoCurrencyCode: acc.balances.iso_currency_code,
-                unofficialCurrencyCode: acc.balances.unofficial_currency_code,
-                type: acc.type,
-                subtype: acc.subtype,
-            })),
-        );
 
-        await this.itemService.updateItem(item);
+        item.accounts = await this.accountsService.createAccounts(accounts);
+        // item.accounts = await this.accountsService.createAccounts(
+        //     accounts.map((acc) => ({
+
+        //     })),
+        // );
+
         await this.transactionsService.saveTransactions(incomingTransactions, item.userId);
 
         return this.itemService.updateItem(item);

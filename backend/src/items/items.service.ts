@@ -9,9 +9,7 @@ export class ItemsService {
     constructor(@InjectRepository(Item) private itemRepository: Repository<Item>) {}
 
     createItem(item: CreateItemDto): Promise<Item> {
-        return this.itemRepository.save({
-            ...item,
-        });
+        return this.itemRepository.save(item);
     }
 
     updateItem(item: Item) {
