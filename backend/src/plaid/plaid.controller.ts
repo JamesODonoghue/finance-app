@@ -31,13 +31,11 @@ export class PlaidController {
         let startDate = moment().subtract(30, 'days').format('YYYY-MM-DD');
 
         let endDate = moment().format('YYYY-MM-DD');
-        let item;
+        let item = await this.itemService.findByPlaidId(plaidItemId);
 
         switch (webhookCode) {
             case WebhookCode.INITIAL_UPDATE:
                 console.log('Webhook received...');
-
-                item = await this.itemService.retrieveItemByPlaidId(plaidItemId);
 
                 this.plaidService.handleTransactionsUpdate({
                     plaidItemId,
@@ -54,8 +52,6 @@ export class PlaidController {
                 console.log('Webhook received...');
                 startDate = moment().subtract(2, 'years').format('YYYY-MM-DD');
                 endDate = moment().format('YYYY-MM-DD');
-
-                item = await this.itemService.retrieveItemByPlaidId(plaidItemId);
                 this.plaidService.handleTransactionsUpdate({
                     plaidItemId,
                     startDate,

@@ -11,3 +11,6 @@
 # production
 **/build
 **/npm-debug.log*
+
+# test coverage
+**/coverage

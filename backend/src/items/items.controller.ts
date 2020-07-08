@@ -22,7 +22,7 @@ export class ItemsController {
             publicToken,
         );
 
-        return await this.itemsService.createItem({
+        return await this.itemsService.create({
             userId,
             institutionId,
             institutionName,
@@ -37,7 +37,7 @@ export class ItemsController {
     }
 
     @Post('/clear')
-    public async clearItems() {
-        return await this.itemsService.clearItems();
+    public async clear() {
+        return await this.itemsService.clear();
     }
 }

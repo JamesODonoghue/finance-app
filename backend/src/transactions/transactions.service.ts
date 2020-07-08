@@ -10,11 +10,11 @@ export class TransactionsService {
         private transactionRepo: Repository<Transaction>,
     ) {}
 
-    retrieveTransactionsByUser(userId: string) {
+    findByUser(userId: string) {
         return this.transactionRepo.find({ where: { userId: userId } });
     }
 
-    saveTransactions(transactions: plaid.Transaction[], userId: string) {
+    create(transactions: plaid.Transaction[], userId: string) {
         return this.transactionRepo.save(
             transactions.map((trn) => ({
                 plaidTransactionId: trn.transaction_id,

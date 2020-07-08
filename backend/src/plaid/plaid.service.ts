@@ -45,23 +45,14 @@ export class PlaidService {
             endDate,
         });
 
-        console.log(`Item: ${item}`);
-
-        item.accounts = await this.accountsService.createAccounts(accounts);
-        // item.accounts = await this.accountsService.createAccounts(
-        //     accounts.map((acc) => ({
-
-        //     })),
-        // );
-
-        await this.transactionsService.saveTransactions(incomingTransactions, item.userId);
-
-        return this.itemService.updateItem(item);
+        item.accounts = await this.accountsService.create(accounts);
+        await this.transactionsService.create(incomingTransactions, item.userId);
+        return this.itemService.update(item);
     }
 
     async fetchTransactions({ plaidItemId, startDate, endDate }) {
         try {
-            const { plaidAccessToken } = await this.itemService.retrieveItemByPlaidId(plaidItemId);
+            const { plaidAccessToken } = await this.itemService.findByPlaidId(plaidItemId);
 
             let offset = 0;
             let transactionsToFetch = true;

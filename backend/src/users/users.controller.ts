@@ -12,16 +12,16 @@ export class UsersController {
 
     @Get('/:userId')
     public async getUserById(@Param() userId: string) {
-        return this.userService.findOneByThirdPartyId(userId);
+        return this.userService.findById(userId);
     }
     @Get('/:userId/items')
     public async getItemsByUser(@Param() params) {
         const { userId } = params;
-        return this.itemsService.retrieveItemsByUser(userId);
+        return this.itemsService.findByUser(userId);
     }
     @Get('/:userId/transactions')
     public async getTransactionsByUser(@Param() params) {
         const { userId } = params;
-        return this.transactionsService.retrieveTransactionsByUser(userId);
+        return this.transactionsService.findByUser(userId);
     }
 }

@@ -76,13 +76,13 @@ describe('Transactions Service', () => {
     });
 
     it('should correctly map and save transactions', async () => {
-        const actual = await service.saveTransactions(mock.slice(0, 2), '12345');
+        const actual = await service.create(mock.slice(0, 2), '12345');
         expect(expected).toEqual(actual);
     });
 
     it('should return the right transactions for the user', async () => {
-        await service.saveTransactions(mock.slice(0, 2), '12345');
-        const actual = await service.retrieveTransactionsByUser('12345');
+        await service.create(mock.slice(0, 2), '12345');
+        const actual = await service.findByUser('12345');
         expect(expected).toEqual(actual);
     });
 });

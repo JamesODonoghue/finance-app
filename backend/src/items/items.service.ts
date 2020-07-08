@@ -8,28 +8,28 @@ import { CreateItemDto } from 'items/create-item.dto';
 export class ItemsService {
     constructor(@InjectRepository(Item) private itemRepository: Repository<Item>) {}
 
-    createItem(item: CreateItemDto): Promise<Item> {
+    create(item: CreateItemDto): Promise<Item> {
         return this.itemRepository.save(item);
     }
 
-    updateItem(item: Item) {
+    update(item: Item): Promise<Item> {
         return this.itemRepository.save(item);
     }
 
-    retrieveItemsByUser(userId: string) {
+    findByUser(userId: string): Promise<Item[]> {
         return this.itemRepository.find({
             where: { userId: userId },
             relations: ['accounts'],
         });
     }
 
-    retrieveItemByPlaidId(plaidItemId: string) {
+    findByPlaidId(plaidItemId: string): Promise<Item> {
         return this.itemRepository.findOne({
             where: { plaidItemId: plaidItemId },
         });
     }
 
-    clearItems() {
+    clear() {
         return this.itemRepository.query('TRUNCATE "item" CASCADE');
     }
 }

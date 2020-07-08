@@ -53,14 +53,21 @@ describe('Items Service', () => {
     });
 
     it('should correctly save an item', async () => {
-        const actual = await service.createItem(expectedItem);
+        const actual = await service.create(expectedItem);
         expect(expectedItem).toEqual(actual);
     });
 
     it('should return an item by its plaidItemId', async () => {
         const { plaidItemId } = expectedItem;
-        await service.createItem(expectedItem);
-        const actual = await service.retrieveItemByPlaidId(plaidItemId);
+        await service.create(expectedItem);
+        const actual = await service.findByPlaidId(plaidItemId);
         expect(expectedItem).toEqual(actual);
     });
+
+    // it('should properly save an account ', async () => {
+    //     const { plaidItemId } = expectedItem;
+    //     await service.create(expectedItem);
+    //     const actual = await service.retrieveItemByPlaidId(plaidItemId);
+    //     expect(expectedItem).toEqual(actual);
+    // });
 });

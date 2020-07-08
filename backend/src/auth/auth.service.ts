@@ -13,7 +13,7 @@ export class AuthService {
 
     async validateOAuthLogin({ id, displayName, photo }): Promise<string> {
         try {
-            let user = await this.userService.findOneByThirdPartyId(id);
+            let user = await this.userService.findById(id);
             if (!user) {
                 user = await this.userService.registerOauthUser({
                     id,

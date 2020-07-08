@@ -5,11 +5,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UsersService {
-    constructor(
-        @InjectRepository(User) private usersRepository: Repository<User>,
-    ) {}
+    constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
-    findOneByThirdPartyId(id: string): Promise<User> {
+    findById(id: string): Promise<User> {
         return this.usersRepository.findOne(id);
     }
 

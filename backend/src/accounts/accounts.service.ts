@@ -11,7 +11,7 @@ export class AccountsService {
         private accountRepository: Repository<Account>,
     ) {}
 
-    createAccounts(accounts: plaid.Account[]): Promise<Account[]> {
+    create(accounts: plaid.Account[]): Promise<Account[]> {
         return this.accountRepository.save(
             accounts.map((acc) => ({
                 plaidAccountId: acc.account_id,
@@ -28,7 +28,7 @@ export class AccountsService {
         );
     }
 
-    clearAccounts() {
+    clear() {
         return this.accountRepository.manager.clear(Account);
     }
 }

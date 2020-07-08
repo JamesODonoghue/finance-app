@@ -6,7 +6,7 @@ export class AccountsController {
     constructor(private readonly accountsService: AccountsService) {}
 
     @Post('/clear')
-    public async clearAccounts() {
-        return await this.accountsService.clearAccounts();
+    public async clear() {
+        return await this.accountsService.clear();
     }
 }
