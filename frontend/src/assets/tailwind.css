@@ -1,0 +1,21 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+.toast-enter {
+    @apply transform translate-x-10 opacity-0;
+}
+
+.toast-enter-active {
+    @apply transition duration-500 transform translate-x-0 opacity-100;
+}
+
+.toast-exit {
+    @apply transform translate-x-0 opacity-100;
+}
+
+.toast-exit-active {
+    @apply transition duration-500 transform translate-x-10 opacity-0;
+}
