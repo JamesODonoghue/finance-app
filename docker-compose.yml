@@ -29,6 +29,7 @@ services:
         depends_on:
             - backend
     frontend:
+        stdin_open: true
         container_name: finance-frontend
         build: ./frontend
         image: jodonogh/finance-frontend

@@ -2,46 +2,33 @@
     "name": "finance-app",
     "version": "1.0.0",
     "description": "This is a budgeting app the uses Plaid",
-    "main": "index.js",
-    "dependencies": {},
-    "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^1.6.0",
-        "@typescript-eslint/parser": "^1.6.0",
-        "eslint": "^7.2.0",
-        "eslint-config-airbnb": "^18.1.0",
-        "eslint-config-prettier": "^6.11.0",
-        "eslint-plugin-import": "^2.21.2",
-        "eslint-plugin-prettier": "^3.1.3",
-        "eslint-plugin-react": "^7.20.0",
-        "eslint-plugin-react-hooks": "^4.0.4",
-        "husky": "^4.2.5",
-        "lint-staged": "^10.2.10",
-        "prettier": "^2.0.5",
-        "typescript": "^3.9.5"
-    },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "lint": "eslint --fix \"frontend/**/*{.tsx,ts}\""
-    },
-    "lint-staged": {
-        "*.{ts,tsx}": [
-            "eslint --fix",
-            "prettier --write"
-        ]
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
+        "pre-commit": "cd frontend && npm run pre-commit && cd ../backend && npm run pre-commit",
+        "install-dependencies": "npm install && cd frontend && npm install && cd ../backend && npm install",
+        "build": "cd frontend && npm run build && cd ../backend && npm run build",
+        "start:production": "cd frontend && npm run start:production && cd ../backend && npm run start:production"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/JamesODonoghue/finance-app.git"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run pre-commit"
+        }
     },
     "author": "",
     "license": "ISC",
     "bugs": {
         "url": "https://github.com/JamesODonoghue/finance-app/issues"
     },
-    "homepage": "https://github.com/JamesODonoghue/finance-app#readme"
+    "homepage": "https://github.com/JamesODonoghue/finance-app#readme",
+    "devDependencies": {
+        "husky": "^4.2.5"
+    },
+    "dependencies": {
+        "postcss-cli": "^8.0.0",
+        "recharts": "^1.8.5",
+        "tailwindcss": "^1.8.10"
+    }
 }
