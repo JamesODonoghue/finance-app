@@ -22,13 +22,5 @@
     "bugs": {
         "url": "https://github.com/JamesODonoghue/finance-app/issues"
     },
-    "homepage": "https://github.com/JamesODonoghue/finance-app#readme",
-    "devDependencies": {
-        "husky": "^4.2.5"
-    },
-    "dependencies": {
-        "postcss-cli": "^8.0.0",
-        "recharts": "^1.8.5",
-        "tailwindcss": "^1.8.10"
-    }
+    "homepage": "https://github.com/JamesODonoghue/finance-app#readme"
 }
