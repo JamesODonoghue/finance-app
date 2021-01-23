@@ -11,24 +11,15 @@ export class ItemsService {
     create(item: CreateItemDto): Promise<Item> {
         return this.itemRepository.save(item);
     }
-
     update(item: Item): Promise<Item> {
         return this.itemRepository.save(item);
     }
-
-    findByUser(userId: string): Promise<Item[]> {
-        return this.itemRepository.find({
-            where: { userId: userId },
-            relations: ['accounts'],
-        });
+    getAll(userId: string): Promise<Item> {
+        return this.itemRepository.findOne({ where: { userId }, relations: ['accounts', 'user'] });
     }
-
-    findByPlaidId(plaidItemId: string): Promise<Item> {
-        return this.itemRepository.findOne({
-            where: { plaidItemId: plaidItemId },
-        });
+    get(itemId: string): Promise<Item> {
+        return this.itemRepository.findOne(itemId, { relations: ['user'] });
     }
-
     clear() {
         return this.itemRepository.query('TRUNCATE "item" CASCADE');
     }

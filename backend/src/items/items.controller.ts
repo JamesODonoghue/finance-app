@@ -1,6 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { PlaidService } from 'plaid/plaid.service';
 import { ItemsService } from './items.service';
+import { UsersService } from 'users/users.service';
 
 interface TokenExchange {
     publicToken: string;
@@ -10,23 +11,27 @@ interface TokenExchange {
 }
 @Controller('items')
 export class ItemsController {
-    constructor(private readonly itemsService: ItemsService, private readonly plaidService: PlaidService) {}
+    constructor(
+        private readonly itemsService: ItemsService,
+        private readonly plaidService: PlaidService,
+        private readonly usersService: UsersService,
+    ) {}
     @Post('/')
-    public async exchangeToken(@Body() item: TokenExchange) {
-        const { publicToken, institutionId, institutionName, userId } = item;
-
+    public async exchangeToken(@Body() body: TokenExchange) {
+        const { publicToken, institutionId, institutionName, userId } = body;
         /**
          * Retrieve the accessToken for the created item
          * */
-        const { item_id: plaidItemId, access_token: plaidAccessToken } = await this.plaidService.exchangePublicToken(
+        const { item_id: id, access_token: plaidAccessToken } = await this.plaidService.exchangePublicToken(
             publicToken,
         );
 
+        let user = await this.usersService.findById(userId);
         return await this.itemsService.create({
-            userId,
+            id,
+            user,
             institutionId,
             institutionName,
-            plaidItemId,
             plaidAccessToken,
         });
     }

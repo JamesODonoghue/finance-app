@@ -21,7 +21,7 @@ const expectedItem = {
     userId: '12345',
     institutionId: 'ins_2',
     institutionName: 'my_bank',
-    plaidItemId: '12345',
+    id: '12345',
     plaidAccessToken: 'my_access_token',
 };
 
@@ -58,9 +58,9 @@ describe('Items Service', () => {
     });
 
     it('should return an item by its plaidItemId', async () => {
-        const { plaidItemId } = expectedItem;
+        const { id } = expectedItem;
         await service.create(expectedItem);
-        const actual = await service.findByPlaidId(plaidItemId);
+        const actual = await service.findByPlaidId(id);
         expect(expectedItem).toEqual(actual);
     });
 
