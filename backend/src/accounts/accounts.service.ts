@@ -11,10 +11,14 @@ export class AccountsService {
         private accountRepository: Repository<Account>,
     ) {}
 
+    async getAll() {
+        return await this.accountRepository.find({ relations: ['item', 'transactions'] });
+    }
+
     create(accounts: plaid.Account[]): Promise<Account[]> {
         return this.accountRepository.save(
-            accounts.map((acc) => ({
-                plaidAccountId: acc.account_id,
+            accounts.map(acc => ({
+                id: acc.account_id,
                 name: acc.name,
                 mask: acc.mask,
                 officialName: acc.official_name,
@@ -26,6 +30,10 @@ export class AccountsService {
                 subtype: acc.subtype,
             })),
         );
+    }
+
+    findById(accountId) {
+        return this.accountRepository.findOne(accountId, { relations: ['transactions'] });
     }
 
     clear() {
