@@ -26,7 +26,11 @@ export const ToastList = () => {
                             </svg>
                         </div>
                         <div className="mr-8">{content}</div>
-                        <button className="h-6 w-6 mr-4 cursor-pointer absolute right-0" onClick={() => removeOne(id)}>
+                        <button
+                            className="h-6 w-6 mr-4 cursor-pointer absolute right-0"
+                            type="button"
+                            onClick={() => removeOne(id)}
+                        >
                             <svg viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M6 18L18 6M6 6L18 18"

@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import useTransactions from '../../services/transactions';
 import useItems from '../../services/items';
 import useAuth from '../../../context/auth';
+import useNotifications from '../../services/notifications';
 
 const { REACT_APP_SERVER_PORT } = process.env;
 
@@ -10,6 +11,7 @@ export default function Sockets() {
     const socket = useRef<SocketIOClient.Socket>();
     const { getTransactionsByUser } = useTransactions();
     const { getItemsByUser } = useItems();
+    const { add } = useNotifications();
     const { user } = useAuth();
     const userId = user ? user.id : '';
 
@@ -20,11 +22,6 @@ export default function Sockets() {
             const msg = `New Webhook Event: Item: New Transactions Received`;
             console.log(msg);
         });
-
-        // socket.current.on('TRANSACTIONS_REMOVED', ({ itemId } = {}) => {
-        //     const msg = `New Webhook Event: Item ${itemId}: Transactions Removed`;
-        //     console.log(msg);
-        // });
 
         socket.current.on(
             'INITIAL_UPDATE',
@@ -40,32 +37,19 @@ export default function Sockets() {
                 const msg = `New Webhook Event: Item: ${plaidItemId} Initial Transactions Received`;
                 console.log(msg);
                 console.log(incomingTransactions);
+                add(`Last 30 days of transactions received`);
                 getItemsByUser(userId);
                 getTransactionsByUser(userId);
             },
         );
 
-        socket.current.on(
-            'HISTORICAL_UPDATE',
-            ({
-                plaidItemId,
-                userId,
-            }: {
-                plaidItemId: string;
-                userId: string;
-            }) => {
-                const msg = `New Webhook Event: Item: ${plaidItemId} Historical Transactions Received`;
-                console.log(msg);
-                getItemsByUser(userId);
-                getTransactionsByUser(userId);
-            },
-        );
-
-        // socket.current.on('ERROR', ({ itemId, errorCode } = {}) => {
-        //     const msg = `New Webhook Event: Item ${itemId}: Item Error ${errorCode}`;
-        //     console.error(msg);
-        //     getItemById(itemId, true);
-        // });
+        socket.current.on('HISTORICAL_UPDATE', ({ plaidItemId, userId }: { plaidItemId: string; userId: string }) => {
+            const msg = `New Webhook Event: Item: ${plaidItemId} Historical Transactions Received`;
+            console.log(msg);
+            add(`Last 2 years of transactions received`);
+            getItemsByUser(userId);
+            getTransactionsByUser(userId);
+        });
 
         return () => {
             if (socket && socket.current) {
@@ -73,7 +57,7 @@ export default function Sockets() {
                 socket.current.close();
             }
         };
-    }, [getTransactionsByUser, getItemsByUser, userId, socket]);
+    }, [getTransactionsByUser, getItemsByUser, userId, socket, add]);
 
     return <div />;
 }

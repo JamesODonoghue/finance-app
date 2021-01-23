@@ -15,7 +15,6 @@ export interface DropdownOption {
 
 export interface DropdownItemProps {
     option: DropdownOption;
-    children: ReactNode;
     onClick?: (event: DropdownOption) => void;
 }
 export const DropdownItem: FC<DropdownItemProps> = ({ option, onClick }: DropdownItemProps) => (

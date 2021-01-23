@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import { StyledButton } from './Styles';
 
 export interface ButtonProps {
     icon?: string;
@@ -7,11 +6,7 @@ export interface ButtonProps {
     children: string;
     onClick?: () => void;
 }
-export const Button = ({
-    children,
-    disabled = false,
-    onClick,
-}: ButtonProps): ReactElement => {
+export const Button = ({ children, disabled = false, onClick }: ButtonProps): ReactElement => {
     const handleClick = (): void => {
         if (!disabled) {
             onClick && onClick();
@@ -19,8 +14,8 @@ export const Button = ({
     };
 
     return (
-        <StyledButton onClick={handleClick} disabled={disabled}>
+        <button onClick={handleClick} disabled={disabled}>
             {children}
-        </StyledButton>
+        </button>
     );
 };
