@@ -15,7 +15,7 @@ export class AuthService {
         try {
             let user = await this.userService.findById(id);
             if (!user) {
-                user = await this.userService.registerOauthUser({
+                user = await this.userService.create({
                     id,
                     displayName,
                 });
