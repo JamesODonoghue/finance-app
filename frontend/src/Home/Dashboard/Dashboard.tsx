@@ -2,7 +2,7 @@ import React, { FC, Fragment, useEffect } from 'react';
 import useTransactions, { DATE_RANGES } from '../../shared/services/transactions';
 import useAuth from '../../context/auth';
 
-export const getCurrency = (value = 0) =>
+export const getCurrency = (value = 0): string =>
     new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
 export const Dashboard: FC = () => {
     const { amountSpentMonthly, getTransactionsByUser, currentDateRange } = useTransactions();
