@@ -1,32 +1,28 @@
-import React, { Fragment } from 'react';
-import { ThemeProvider } from 'styled-components';
-import { lightTheme } from '../shared/utils/theme';
-import BaseStyles from './BaseStyles';
+import React, { FC, Fragment } from 'react';
 import { ItemsProvider } from '../shared/services/items';
 import useAuth from '../context/auth';
 import { Home } from '../Home/Home';
 import { TransactionsProvider } from '../shared/services/transactions';
 import Sockets from '../shared/components/Sockets/Sockets';
 import { Landing } from '../Landing/Landing';
+import { NotificationsProvider } from '../shared/services/notifications';
 
-export const App = () => {
+export const App: FC = () => {
     const { user } = useAuth();
-    const themeMode = lightTheme;
     return (
         <Fragment>
-            <ThemeProvider theme={themeMode}>
-                <BaseStyles />
-                {user ? (
-                    <TransactionsProvider>
-                        <ItemsProvider>
+            {user ? (
+                <TransactionsProvider>
+                    <ItemsProvider>
+                        <NotificationsProvider>
                             <Sockets />
                             <Home />
-                        </ItemsProvider>
-                    </TransactionsProvider>
-                ) : (
-                    <Landing />
-                )}
-            </ThemeProvider>
+                        </NotificationsProvider>
+                    </ItemsProvider>
+                </TransactionsProvider>
+            ) : (
+                <Landing />
+            )}
         </Fragment>
     );
 };
