@@ -1,7 +1,9 @@
+import { User } from 'users/user.entity';
+import { Account } from 'accounts/account.entity';
+
 export class CreateTransactionDto {
-    userId: string;
-    accountId: string;
-    plaidTransactionId: string;
+    id: string;
+    account: Account;
     category: string;
     subcategory: string;
     transactionType: string;
