@@ -1,12 +1,4 @@
-import React, {
-    createContext,
-    useState,
-    useContext,
-    useEffect,
-    ReactElement,
-    SetStateAction,
-    Dispatch,
-} from 'react';
+import React, { createContext, useState, useContext, useEffect, ReactElement, SetStateAction, Dispatch } from 'react';
 import { getToken, verifyToken, setToken } from '../shared/utils/auth';
 import { parse } from 'query-string';
 import { User } from '../types/user';
@@ -17,11 +9,7 @@ interface ContextProps {
 }
 export const AuthContext = createContext<ContextProps | undefined>(undefined);
 
-export const AuthProvider = ({
-    children,
-}: {
-    children: React.ReactNode;
-}): ReactElement => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }): ReactElement => {
     const [user, setUser] = useState<User | undefined>(undefined);
 
     const handleLogin = (): void => {
@@ -29,12 +17,12 @@ export const AuthProvider = ({
     };
 
     useEffect((): void => {
-        let token = getToken();
-        let user = verifyToken(token as string);
+        const token = getToken();
+        const user = verifyToken(token as string);
         if (token && user) {
             setUser(user);
         } else {
-            let { token: newToken } = parse(window.location.search);
+            const { token: newToken } = parse(window.location.search);
             if (newToken) {
                 setToken(newToken as string);
                 setUser(verifyToken(newToken as string));
@@ -48,12 +36,10 @@ export const AuthProvider = ({
         handleLogin,
     };
 
-    return (
-        <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-    );
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-export default function useAuth() {
+export default function useAuth(): ContextProps {
     const context = useContext(AuthContext);
 
     if (context === undefined) {

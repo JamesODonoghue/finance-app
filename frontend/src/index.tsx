@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import './fonts/Dosis/Dosis-VariableFont_wght.ttf';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faDollarSign,

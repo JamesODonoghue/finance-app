@@ -19,3 +19,5 @@ export const useBbox = () => {
 
     return { bbox, ref };
 };
+
+export default { useBbox };
