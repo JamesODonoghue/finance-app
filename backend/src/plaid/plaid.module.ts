@@ -6,9 +6,10 @@ import { ItemsModule } from 'items/items.module';
 import { AccountsModule } from 'accounts/accounts.module';
 import { AppGateway } from 'app.gateway';
 import { TransactionsModule } from 'transactions/transactions.module';
+import { UsersModule } from 'users/users.module';
 
 @Module({
-    imports: [forwardRef(() => ItemsModule), AccountsModule, TransactionsModule],
+    imports: [ItemsModule, AccountsModule, TransactionsModule, UsersModule],
     providers: [PlaidService, ConfigService, Logger, AppGateway],
     exports: [PlaidService],
     controllers: [PlaidController],

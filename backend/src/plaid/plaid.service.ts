@@ -1,10 +1,27 @@
 import { ConfigService } from '@nestjs/config';
 import { Injectable, Logger } from '@nestjs/common';
 import * as plaid from 'plaid';
+import { UsersService } from 'users/users.service';
+import { ItemsService } from 'items/items.service';
+import * as moment from 'moment';
 import { AccountsService } from 'accounts/accounts.service';
 import { TransactionsService } from 'transactions/transactions.service';
-import { ItemsService } from 'items/items.service';
+import * as json from '../transactions/transactions.mock.json';
+const last30 = () =>
+    moment()
+        .subtract(30, 'days')
+        .format('YYYY-MM-DD');
+const last2y = () =>
+    moment()
+        .subtract(2, 'years')
+        .format('YYYY-MM-DD');
 
+const endDate = moment().format('YYYY-MM-DD');
+
+enum WebhookCode {
+    INITIAL_UPDATE = 'INITIAL_UPDATE',
+    HISTORICAL_UPDATE = 'HISTORICAL_UPDATE',
+}
 @Injectable()
 export class PlaidService {
     private plaidClient: plaid.Client;
@@ -12,9 +29,10 @@ export class PlaidService {
     constructor(
         private configService: ConfigService,
         private logger: Logger,
-        private itemService: ItemsService,
-        private accountsService: AccountsService,
-        private transactionsService: TransactionsService,
+        private readonly itemsService: ItemsService,
+        private readonly accountsService: AccountsService,
+        private readonly transactionsService: TransactionsService,
+        private readonly usersService: UsersService,
     ) {
         this.plaidClient = new plaid.Client(
             this.configService.get<string>('PLAID_CLIENT_ID'),
@@ -38,22 +56,30 @@ export class PlaidService {
         }
     }
 
-    async handleTransactionsUpdate({ plaidItemId, startDate, endDate, item }) {
-        const { transactions: incomingTransactions, accounts } = await this.fetchTransactions({
-            plaidItemId,
+    async handleTransactionsUpdate({ plaidItemId, webhookCode }) {
+        const item = await this.itemsService.get(plaidItemId);
+        const { plaidAccessToken, user } = item;
+        let startDate = last30();
+        switch (webhookCode) {
+            case WebhookCode.HISTORICAL_UPDATE:
+                startDate = last2y();
+        }
+        const { accounts, transactions } = await this.fetchTransactions({
+            plaidAccessToken,
             startDate,
             endDate,
         });
-
+        /** Create accounts and attach to item */
         item.accounts = await this.accountsService.create(accounts);
-        await this.transactionsService.create(incomingTransactions, item.userId);
-        return this.itemService.update(item);
+        await this.itemsService.update(item);
+        /** Create transactions and attach to user */
+        user.transactions = await this.transactionsService.create(transactions);
+        await this.usersService.update(user);
+        return user;
     }
 
-    async fetchTransactions({ plaidItemId, startDate, endDate }) {
+    async fetchTransactions({ startDate, endDate, plaidAccessToken }) {
         try {
-            const { plaidAccessToken } = await this.itemService.findByPlaidId(plaidItemId);
-
             let offset = 0;
             let transactionsToFetch = true;
             let resultData: {
@@ -68,6 +94,8 @@ export class PlaidService {
                     count: batchSize,
                     offset,
                 };
+
+                this.logger.log(`Fetching transactions... ${plaidAccessToken}, ${startDate}, ${endDate}`);
                 const { transactions, accounts } = await this.plaidClient.getTransactions(
                     plaidAccessToken,
                     startDate,
@@ -96,7 +124,9 @@ export class PlaidService {
     getAccounts(accessToken: string) {
         return this.plaidClient.getAccounts(accessToken);
     }
-
+    getCategories() {
+        return this.plaidClient.getCategories();
+    }
     getInstitutionById(id: string) {
         return this.plaidClient.getInstitutionById(id);
     }

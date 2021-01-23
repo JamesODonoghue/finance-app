@@ -1,18 +1,16 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Logger } from '@nestjs/common';
 import { PlaidService } from './plaid.service';
-import moment = require('moment');
+import * as moment from 'moment';
 import { AppGateway } from 'app.gateway';
 import { ItemsService } from 'items/items.service';
+import { AccountsService } from 'accounts/accounts.service';
+import { TransactionsService } from 'transactions/transactions.service';
 
-enum WebhookCode {
-    INITIAL_UPDATE = 'INITIAL_UPDATE',
-    HISTORICAL_UPDATE = 'HISTORICAL_UPDATE',
-}
 interface PlaidWebhookResponse {
     webhook_type: string;
     webhook_code: string;
     item_id: string;
-    error;
+    error: string;
     new_transactions: number;
 }
 
@@ -22,52 +20,70 @@ export class PlaidController {
         private plaidService: PlaidService,
         private readonly messageGateway: AppGateway,
         private itemService: ItemsService,
+        private accountService: AccountsService,
+        private transactionService: TransactionsService,
+        private logger: Logger,
     ) {}
 
+    // @Post('/webhook')
+    // public async webhook(@Body() webhook: PlaidWebhookResponse) {
+    //     const { webhook_code: webhookCode, item_id: plaidItemId } = webhook;
+
+    //     let startDate = last30();
+    //     let item = await this.itemService.findByPlaidId(plaidItemId);
+    //     const { plaidAccessToken, user } = item;
+
+    //     switch (webhookCode) {
+    //         case WebhookCode.INITIAL_UPDATE:
+    //             console.log('Webhook received...');
+
+    //             const { transactions, accounts } = await this.plaidService.fetchTransactions({
+    //                 plaidItemId,
+    //                 startDate,
+    //                 endDate,
+    //                 plaidAccessToken,
+    //             });
+
+    //             item.accounts = await this.accountService.create(accounts);
+    //             await this.transactionService.create({ transactions, user });
+
+    //             this.messageGateway.server.emit(WebhookCode.INITIAL_UPDATE, {
+    //                 plaidItemId,
+    //                 userId: user.id,
+    //             });
+    //         case WebhookCode.HISTORICAL_UPDATE:
+    //             console.log('Webhook received...');
+    //             startDate = last2y();
+    //             this.plaidService.fetchTransactions({
+    //                 plaidItemId,
+    //                 startDate,
+    //                 endDate,
+    //                 plaidAccessToken,
+    //             });
+
+    //             this.messageGateway.server.emit(WebhookCode.HISTORICAL_UPDATE, {
+    //                 plaidItemId,
+    //                 userId: item.user.id,
+    //             });
+    //     }
+    // }
     @Post('/webhook')
     public async webhook(@Body() webhook: PlaidWebhookResponse) {
         const { webhook_code: webhookCode, item_id: plaidItemId } = webhook;
+        const { id } = await this.plaidService.handleTransactionsUpdate({ plaidItemId, webhookCode });
 
-        let startDate = moment().subtract(30, 'days').format('YYYY-MM-DD');
-
-        let endDate = moment().format('YYYY-MM-DD');
-        let item = await this.itemService.findByPlaidId(plaidItemId);
-
-        switch (webhookCode) {
-            case WebhookCode.INITIAL_UPDATE:
-                console.log('Webhook received...');
-
-                this.plaidService.handleTransactionsUpdate({
-                    plaidItemId,
-                    startDate,
-                    endDate,
-                    item,
-                });
-
-                this.messageGateway.server.emit('INITIAL_UPDATE', {
-                    plaidItemId,
-                    userId: item.userId,
-                });
-            case WebhookCode.HISTORICAL_UPDATE:
-                console.log('Webhook received...');
-                startDate = moment().subtract(2, 'years').format('YYYY-MM-DD');
-                endDate = moment().format('YYYY-MM-DD');
-                this.plaidService.handleTransactionsUpdate({
-                    plaidItemId,
-                    startDate,
-                    endDate,
-                    item,
-                });
-
-                this.messageGateway.server.emit('HISTORICAL_UPDATE', {
-                    plaidItemId,
-                    userId: item.userId,
-                });
-        }
+        this.messageGateway.server.emit(webhookCode, {
+            plaidItemId,
+            userId: id,
+        });
     }
 
     @Get('/institutions/:instId')
     public async getInstitutionById(@Param() { instId }) {
         return await this.plaidService.getInstitutionById(instId);
+    }
+    @Get('/categories')
+    public async getCategories() {
+        return await this.plaidService.getCategories();
     }
 }
