@@ -1,11 +1,12 @@
-import React, { createContext, useContext, useReducer, useMemo, Dispatch } from 'react';
+/* eslint-disable react/prop-types */
+import React, { createContext, useContext, useReducer, useMemo, Dispatch, FC } from 'react';
 
 /** Notifications Provider*/
 const initialState: Notification[] = [];
 
 export interface Notification {
-    id?: any;
-    content: any;
+    id?: number;
+    content: string | undefined;
 }
 type State = Notification[];
 
@@ -13,7 +14,7 @@ interface ContextProps {
     toasts: State;
     toastDispatch: Dispatch<[TOAST_ACTIONS, Notification]>;
     removeAll: () => void;
-    removeOne: (id: string) => void;
+    removeOne: (id: number) => void;
     add: (content: string) => void;
 }
 
@@ -32,7 +33,7 @@ const reducer = (state: State, [type, payload]: [TOAST_ACTIONS, Partial<Notifica
             return [
                 ...state,
                 {
-                    id: +new Date(),
+                    id: Date.now(),
                     content: payload.content,
                 },
             ];
@@ -47,14 +48,14 @@ const reducer = (state: State, [type, payload]: [TOAST_ACTIONS, Partial<Notifica
 };
 export const NotificationsContext = createContext<Partial<ContextProps>>({});
 
-export const NotificationsProvider = ({ children }: { children: React.ReactNode }) => {
+export const NotificationsProvider: FC = ({ children }) => {
     const [toasts, toastDispatch] = useReducer(reducer, initialState);
 
     const removeAll = () => {
         toastDispatch([TOAST_ACTIONS.REMOVE_ALL, {}]);
     };
 
-    const removeOne = (id: string) => {
+    const removeOne = (id: number) => {
         toastDispatch([TOAST_ACTIONS.REMOVE, { id }]);
     };
 
@@ -72,7 +73,7 @@ export const NotificationsProvider = ({ children }: { children: React.ReactNode 
     return <NotificationsContext.Provider value={value}>{children}</NotificationsContext.Provider>;
 };
 
-export default function useNotifications() {
+export default function useNotifications(): ContextProps {
     const context = useContext(NotificationsContext);
     return context as ContextProps;
 }

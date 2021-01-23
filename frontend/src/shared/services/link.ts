@@ -3,7 +3,7 @@ import { exchangeToken, getItemsByUser, getWebhooksUrl } from './api';
 import { usePlaidLink } from 'react-plaid-link';
 import useAuth from '../../context/auth';
 
-export const useLink = () => {
+export const useLink = (): { open: () => void } => {
     const { user } = useAuth();
     const [webhookUrl, setWebhookUrl] = useState<string>('');
     const userId = user ? user.id : '';
@@ -44,5 +44,5 @@ export const useLink = () => {
         onSuccess,
     });
 
-    return { open };
+    return { open } as { open: () => void };
 };

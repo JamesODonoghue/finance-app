@@ -1,15 +1,9 @@
-import React, {
-    createContext,
-    useCallback,
-    useContext,
-    useReducer,
-    useRef,
-    useMemo,
-    ReactElement,
-} from 'react';
+/* eslint-disable react/prop-types */
+import React, { createContext, useCallback, useContext, useReducer, useRef, useMemo, ReactElement, FC } from 'react';
 import { getItemsByUser as apiGetItemsByUser } from './api';
 import { keyBy, groupBy, Dictionary } from 'lodash';
 import { Item } from '../../types/item';
+import { Context } from 'vm';
 
 /**
  * @desc Enumerated action types
@@ -33,13 +27,12 @@ interface ContextProps {
  * @desc Handles updates to the Items state as dictated by dispatched actions.
  */
 const reducer = (state: State, [type, payload]: [TYPES, Item[]]): State => {
+    const newDict = keyBy(payload, 'plaidItemId');
     switch (type) {
         case TYPES.SUCCESSFUL_REQUEST:
             if (!payload.length) {
                 return state;
             }
-
-            let newDict = keyBy(payload, 'plaidItemId');
 
             return {
                 ...state,
@@ -53,11 +46,7 @@ const reducer = (state: State, [type, payload]: [TYPES, Item[]]): State => {
 
 export const ItemsContext = createContext<Partial<ContextProps>>({});
 
-export const ItemsProvider = ({
-    children,
-}: {
-    children: React.ReactNode;
-}): ReactElement => {
+export const ItemsProvider: FC = ({ children }) => {
     const [itemsById, dispatch] = useReducer(reducer, {});
 
     const hasRequested = useRef<{
@@ -85,13 +74,10 @@ export const ItemsProvider = ({
         };
     }, [itemsById, getItemsByUser]);
 
-    return (
-        <ItemsContext.Provider value={value}>{children}</ItemsContext.Provider>
-    );
+    return <ItemsContext.Provider value={value}>{children}</ItemsContext.Provider>;
 };
 
-export default function useItems() {
-    const context = useContext(ItemsContext) as ContextProps;
-
+export default function useItems(): Context {
+    const context = useContext(ItemsContext);
     return context;
 }
