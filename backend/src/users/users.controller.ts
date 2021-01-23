@@ -1,27 +1,29 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ItemsService } from 'items/items.service';
 import { UsersService } from './users.service';
-import { TransactionsService } from 'transactions/transactions.service';
+import { ItemsService } from 'items/items.service';
 @Controller('users')
 export class UsersController {
-    constructor(
-        private readonly itemsService: ItemsService,
-        private readonly userService: UsersService,
-        private readonly transactionsService: TransactionsService,
-    ) {}
+    constructor(private readonly usersService: UsersService, private readonly itemsService: ItemsService) {}
 
-    @Get('/:userId')
-    public async getUserById(@Param() userId: string) {
-        return this.userService.findById(userId);
+    @Get('/:id')
+    public async getUserById(@Param() params) {
+        const { id } = params;
+        return this.usersService.findById(id);
     }
-    @Get('/:userId/items')
+    @Get('/:id/items')
     public async getItemsByUser(@Param() params) {
-        const { userId } = params;
-        return this.itemsService.findByUser(userId);
+        const { id } = params;
+        return this.usersService.getItems(id);
     }
-    @Get('/:userId/transactions')
-    public async getTransactionsByUser(@Param() params) {
-        const { userId } = params;
-        return this.transactionsService.findByUser(userId);
+    @Get('/:id/accounts')
+    public async getAccountsByUser(@Param() params) {
+        const { id } = params;
+        const { accounts } = await this.itemsService.getAll(id);
+        return accounts;
+    }
+    @Get('/:id/transactions')
+    public getTransactionsByUser(@Param() params) {
+        const { id } = params;
+        return this.usersService.getTransactions(id);
     }
 }
