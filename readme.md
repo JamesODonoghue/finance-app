@@ -1,4 +1,4 @@
-# My Budget
+# Finances Tracker
 
 ## What
 
